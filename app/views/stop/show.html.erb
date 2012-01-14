@@ -1,0 +1,13 @@
+<% content_for :title do "WhichBus :: #{@stop.name}" end %>
+
+<h2><%= @stop.name %> (<%= @stop.direction %>)</h2> <br/>
+ID: <%= @stop.id %> <br/>
+(<%= @stop.lat %>, <%= @stop.lon %>)
+
+<hr/>
+
+<ul>
+<% @stop.routes.each do |r| %>
+	<li><%= r["shortName"] %> <%= r["direction"] %></li>
+<% end %>
+</ul>
