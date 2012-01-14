@@ -3,6 +3,7 @@ require 'json'
 require 'net/http'
 require 'ostruct'
 require 'onebus_record'
+require 'route'
 
 class Stop < OneBusRecord
 
@@ -19,6 +20,10 @@ class Stop < OneBusRecord
 		results << Stop.new(s[:id], s)
 	 end
 	 results
+  end
+  
+  def routes
+	data.routes.map{|r| Route.new(r[:id], r)}
   end
 
 end

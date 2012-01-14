@@ -8,7 +8,6 @@ class OneBusRecord
   attr_reader :data
 
   def initialize(url_or_hash)
-   puts url_or_hash.class
    if url_or_hash.is_a? Hash
        @data = OpenStruct.new(url_or_hash)
 	else
@@ -20,8 +19,8 @@ class OneBusRecord
   def self.get_json(url)
 	data = Net::HTTP.get_response(URI.parse(url)).body
 	result = JSON.parse(data)
-	if result.has_key? 'error'
-		raise result.error + ": " + result.text
+	unless result["code"] == 200 
+		raise result["code"].to_s + ": " + result["text"]
 	end
 	result
   end
