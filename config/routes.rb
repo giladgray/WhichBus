@@ -3,6 +3,8 @@ Whichbus::Application.routes.draw do
   # first created -> highest priority.
 
   resources :stop
+  resources :route
+  resources :trip
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

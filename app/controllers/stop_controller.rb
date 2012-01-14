@@ -4,6 +4,5 @@ class StopController < ApplicationController
 	
 	def show
 		@stop = Stop.new(params[:id])
-		title = "Stop " + @stop.name
 	end
 end
