@@ -1,5 +1,24 @@
 <!-- Route Show -->
 <% content_for :title do "WhichBus :: Route #{@route.shortName}" end %>
 
-<h2><%= @route.shortName %> : <%= @route.description %></h2>
-ID: <%= @route.id %><br/>
+<div class="row">
+	<div class="one columns">
+	<h1 style="font-size:4em;"><%= @route.shortName %></h1>
+	</div>
+
+	<div class="six columns">
+	<h3 style="text-align:left; vertical-align:text-bottom; padding-top:18px;"><%= @route.description %></h3>
+	</div>
+</div>
+<div class="row">
+	<div style="height:400px;" class="four columns well">
+	Comments go here
+	</div>
+	<div class="six columns">
+	<img src="http://placehold.it/300x200">
+	<div class="well" style="height:200px; width:300px; padding:0px;">
+
+	Formatted bus times here
+
+	</div>
+</div>
