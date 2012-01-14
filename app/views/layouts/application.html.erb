@@ -10,11 +10,11 @@
 <meta charset="utf-8" />
 
   <!-- Set the viewport width to device width for mobile -->
-  <meta name="viewport" content="width=device-width" />
+ 
 
     <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
     <%= stylesheet_link_tag :all %>
-    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag :all %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %><!--[if lt IE 9]>
     <link rel="stylesheet" href="stylesheets/ie.css">
@@ -32,7 +32,7 @@
 #title {font-size:6rem} 
 
 body {
-background-image:url(<% image_path("square_bg.png") %>); 
+background-image:url(<% image_path('square_bg.png') %>);
 background-repeat:repeat-xy; 
 }
 
@@ -40,13 +40,21 @@ background-repeat:repeat-xy;
 
 </head>
  <body>
+  <div class="show-on-phones">
+      <h1>WhichBus</h1>
+      <h2>You are on a phone</h2>
+      <%= image_tag "header.png" %>
+    
+
+  </div>
 
   <!-- container -->
-  <div class="container">
+  <div class="hide-on-phones container">
 
     <div class="row">
       <div class="twelve columns">
         <h1 id="title">WhichBus</h1>
+        <h2>You are on the desktop</h2>
       </div>
     </div>
     <div class="row">
