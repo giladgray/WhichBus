@@ -8,6 +8,6 @@ ID: <%= @stop.id %> <br/>
 
 <ul>
 <% @stop.routes.each do |r| %>
-	<li><%= r["shortName"] %> <%= r["direction"] %></li>
+	<li><%= link_to "#{r['shortName']} #{r['direction']}", route_path(r["id"]) %></li>
 <% end %>
 </ul>
