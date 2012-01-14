@@ -10,7 +10,7 @@
 <meta charset="utf-8" />
 
   <!-- Set the viewport width to device width for mobile -->
-  <meta name="viewport" content="width=device-width" />
+ 
 
     <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
     <%= stylesheet_link_tag :all %>
@@ -32,7 +32,7 @@
 #title {font-size:6rem} 
 
 body {
-background-image:url(<% image_path("square_bg.png") %>); 
+background-image:url(<% image_path('square_bg.png') %>);
 background-repeat:repeat-xy; 
 }
 
@@ -40,9 +40,15 @@ background-repeat:repeat-xy;
 
 </head>
  <body>
+  <div class="show-on-phones">
+      <img src="placehold.it/320x320" />
+      <%= image_tag "header.png" %>
+    
+
+  </div>
 
   <!-- container -->
-  <div class="container">
+  <div class="hide-on-phones container">
 
     <div class="row">
       <div class="twelve columns">
