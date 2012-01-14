@@ -2,9 +2,11 @@ Whichbus::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  resources :stop
   resources :route
+  resources :stop
   resources :trip
+  
+  root :to => "stop#index"
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

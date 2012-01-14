@@ -29,6 +29,8 @@
 
 <style type="text/css">
 
+.container {margin:25px;}
+
 #title {font-size:6rem} 
 
 body {
@@ -43,23 +45,15 @@ background-repeat:repeat-xy;
   <div class="show-on-phones">
       <h1>WhichBus</h1>
       <h2>You are on a phone</h2>
-      <%= image_tag "header.png" %>
+      <%= image_tag "whichbuslogo.png" , :size => "140x0"%>
   </div>
-
-  <div class="show-on-tablets">
-    <h1>WhichBus</h1>
-      <h2>You are on a tablet</h2>
-      <%= image_tag "whichbuslogo.png" %>
-
-  </div>
-  
 
   <!-- container -->
   <div class="show-on-desktops container">
 
     <div class="row">
       <div class="twelve columns">
-      <%= image_tag "whichbuslogo.png", :size => "220x0"%>
+      <%= image_tag "whichbus_text.png", :size => "220x0"%>
       </div>
     </div>
     <div class="row">

@@ -8,6 +8,7 @@ gem 'rails', '3.0.5'
 gem 'sqlite3'
 gem 'json_pure'
 gem 'nifty-generators', :group => :development
+gem 'geokit-rails3'
 
 # Use unicorn as the web server
 # gem 'unicorn'
