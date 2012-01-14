@@ -6,9 +6,9 @@ require 'onebus_record'
 
 class Route < OneBusRecord
 
-  def initialize(route)
+  def initialize(route, hash=nil)
    url = "http://api.onebusaway.org/api/where/route/#{route}.json?key=TEST"
-   super(url)
+   hash ? super(hash) : super(url)
   end
 
 end
