@@ -40,16 +40,22 @@ background-repeat:repeat-xy;
 
 </head>
  <body>
-  <div class="show-on-phones">
+  <div class="show-on-phones hide-on-desktops">
       <h1>WhichBus</h1>
       <h2>You are on a phone</h2>
-      <%= image_tag "header.png" %>
+      <%= image_tag "whichbuslogo.png" , :size => "140x0"%>
   </div>
 
+  <div class="hide-on-phones">
+    <h1>WhichBus</h1>
+      <h2>You are on a tablet</h2>
+      <%= image_tag "whichbuslogo.png" , :size => "160x0"%>
+
   </div>
+  
 
   <!-- container -->
-  <div class="hide-on-phones container">
+  <div class="show-on-desktops hide-on-phones container">
 
     <div class="row">
       <div class="twelve columns">

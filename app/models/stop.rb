@@ -8,9 +8,19 @@ class Stop < OneBusRecord
   acts_as_mappable :lat_column_name => :lat,
 				   :lng_column_name => :lon
 
-  def initialize(stop)
+  def initialize(stop, hash=nil)
    url = "http://api.onebusaway.org/api/where/stop/#{stop}.json?key=TEST"
-   super(url)
+   hash ? super(hash) : super(url) 
+  end
+  
+  def self.by_location(lat="47.653435", lon="-122.305641")
+     url = "http://api.onebusaway.org/api/where/stops-for-location.json?key=TEST&lat=#{lat}&lon=#{lon}"
+	 stops = get_json(url)["data"]["stops"]
+	 results = []
+	 stops.each do |s|
+		results << Stop.new(s[:id], s)
+	 end
+	 results
   end
 
 end
