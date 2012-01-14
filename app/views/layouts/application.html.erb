@@ -20,11 +20,11 @@
     <link rel="stylesheet" href="stylesheets/ie.css">
   <![endif]-->
 
-
   <!-- IE Fix for HTML5 Tags -->
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+
 
 
 <style type="text/css">
@@ -32,7 +32,7 @@
 #title {font-size:6rem} 
 
 body {
-background-image:url(<% image_path('square_bg.png') %>);
+background:#e7e6e6;
 background-repeat:repeat-xy; 
 }
 
@@ -44,7 +44,7 @@ background-repeat:repeat-xy;
       <h1>WhichBus</h1>
       <h2>You are on a phone</h2>
       <%= image_tag "header.png" %>
-    
+  </div>
 
   </div>
 
@@ -53,8 +53,7 @@ background-repeat:repeat-xy;
 
     <div class="row">
       <div class="twelve columns">
-        <h1 id="title">WhichBus</h1>
-        <h2>You are on the desktop</h2>
+      <%= image_tag "whichbuslogo.png", :size => "220x0"%>
       </div>
     </div>
     <div class="row">
