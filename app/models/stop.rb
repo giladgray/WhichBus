@@ -5,6 +5,8 @@ require 'ostruct'
 require 'onebus_record'
 
 class Stop < OneBusRecord
+  acts_as_mappable :lat_column_name => :lat,
+				   :lng_column_name => :lon
 
   def initialize(stop)
    url = "http://api.onebusaway.org/api/where/stop/#{stop}.json?key=TEST"
