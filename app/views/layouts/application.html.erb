@@ -54,21 +54,7 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 
  <body <%= content_for?(:onload) ? "onload=#{yield(:onload)}" : "" %> >
   <div class="show-on-phones phone" style="margin:0px 0px 0px 0px;">
-      <div class="row display" style="margin-bottom:32px;">
-          <%= image_tag "header.jpg" , :size => "320x0"%>
-      </div>
-      <div class="row display">
-          <%= image_tag "whichbuslogo.png" , :size => "256x0"%>
-      </div>
-      <div class="row display" style="margin:4px 0px 0px 0px;">
-          <input class="phone-home-input" type="text" name="from" placeholder="Where from, yo?">
-      </div>
-      <div class="row display" style="margin:0px 0px 16px 0px;">
-          <input class="phone-home-input" type="text" name="to" placeholder="And where to?">
-      </div>
-      <div class="row display">
-          <%= image_tag "mapbutton.png" , :size => "200x0" %> 
-      </div>
+	<%= yield(:mobile) %>
   </div>
   
   <!-- container -->

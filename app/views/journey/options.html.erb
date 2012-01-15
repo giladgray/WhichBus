@@ -22,8 +22,16 @@
 <% end %>
 </ul>
 br/>
- <br/>
+<br/>
 
+<h2>How to Get There</h2>
+<ul>
+<% @routes.each do |route| %>
+	<li>
+		Route <%= route[1].shortName %> from <%= route[0].name %> to <%= route[2].name %>!!
+	</li>
+<% end %>
+</ul>
 
 <% content_for :head do %>
 
