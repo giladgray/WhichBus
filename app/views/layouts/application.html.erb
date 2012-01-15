@@ -57,21 +57,25 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 		<%= yield(:mobile) %>
 	</div>
   
-	<!-- container -->
-	<div class="show-on-desktops container">
-		<div class="row">
-			<%= image_tag "whichbus_text.png", :size => "220x0"%>
-		</div>
-    
-		<div class="row">
-			<% flash.each do |name, msg| %>
-				<%= content_tag :div, msg, :id => "flash_#{name}" %>
-			<% end %>
-			<%= content_tag :h1, yield(:title) if show_title? %>
-		</div>
-	
-		<%= yield(:desktop) %>
-		<%= yield %>
-	</div>
+  <!-- container -->
+  <div class="show-on-desktops container" style="padding:0px 0px 0px 0px; width=100%; margin:auto; text-align:center;">
+    <div class="row" style="text-align:center;">
+      <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <% end %>
+        <%= content_tag :h1, yield(:title) if show_title? %>
+    </div>
+    <%= yield(:desktop) %>
+  </div>
+  
+  <div class="show-on-tablets container" style="width=100%; margin:auto; text-align:center;">
+    <div class="row" style="text-align:center;">
+      <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <% end %>
+        <%= content_tag :h1, yield(:title) if show_title? %>
+    </div>
+    <%= yield(:desktop) %>
+  </div>
   </body>
 </html>

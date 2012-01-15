@@ -100,6 +100,24 @@
   margin: 0;
 }
 
+.topbarimage {
+  background-image: url('/images/headerslice.jpg');
+  background-repeat:repeat-x;
+}
+  
+.topbar {
+  width: 100%;
+  height: 50px;
+  padding:0px 0px 0px 0px;
+  margin:auto;
+  text-align:center;
+}
+
+.bottombar a:link {color:#333333;}      /* unvisited link */
+.bottombar a:visited {color:#333333;}  /* visited link */
+.bottombar a:hover {color:#333333;}  /* mouse over link */
+.bottombar a:active {color:#333333;}  /* selected link */
+
 input, textarea {
   -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;

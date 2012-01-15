@@ -1,6 +1,6 @@
 <% content_for :mobile do %>
 	<%= form_tag "journey", :method => :get do %>     
-	<div class="row display" style="margin-bottom:32px;">
+	  <div class="row display" style="margin-bottom:32px;">
           <%= image_tag "header.jpg" , :size => "320x0"%>
       </div>
       <div class="row display">
@@ -19,26 +19,30 @@
 <% end %>
 
 <% content_for :desktop do %>
-	<%= form_tag "journey", :method => :get do %>     
-	<div class="row display">
-        <div class="phone-three columns" >
-          <%= image_tag "whichbuslogo.png" , :size => "320x0"%>
-        </div>
-	</div>
-    <div class="row display">
-        <div class="phone-two columns">
-			<%= text_field_tag "from", nil, :placeholder => "Where from, yo?" %>
-        </div>
-    </div>
-    <div class="row display">
-        <div class="phone-two columns">
-			<%= text_field_tag "to", nil, :placeholder => "And where to?" %>
-        </div>
-    </div>
-    <div class="row display">
-        <div class="phone-three columns">
-			<%= image_submit_tag "mapbutton.png", :width => "320" %> 
-        </div>
-    </div>
+	<%= form_tag "journey", :style =>"", :method => :get do %>
+      <div class="topbarimage" style="margin:0px 0px 0px 0px; width:100%">
+          <div class="row display topbar">
+            <%= image_tag "aboutbutton.jpg" %>
+            <%= image_tag "teambutton.jpg" %>
+            <%= image_tag "contactbutton.jpg" %>
+            <%= image_tag "headerslice.jpg", :style => "width:300px; height:50px;" %>
+            <%= image_tag "loginbutton.jpg" %>            
+            <%= image_tag "headerslice.jpg", :style => "width:30px; height:50px;" %>
+            <a href="http://www.facebook.com/whichbus"><%= image_tag "facebook-logo-square.png", :size => "40x40", :style => "margin-bottom:5px" %></a>
+            <a href="http://www.twitter.com/whichbus"><%= image_tag "twitter.png", :size => "40x40", :style => "margin-bottom:5px" %></a>
+          </div>
+          <div class="row display topbar" style="text-align:right;">
+          </div>
+          <div class="row display" style="margin:auto; text-align:center;">
+              <%= image_tag "whichbuslogo.png" %>
+          </div>
+          <div class="row display" style="margin:auto; margin-top:20px; text-align:center;">
+              <%= text_field_tag "from", nil, :class => "phone-home-input", :placeholder => "Where from, yo?" %>
+              <%= text_field_tag "to", nil, :class => "phone-home-input", :placeholder => "And where to?" %>
+          </div>
+          <div class="row display" style="margin:auto; text-align:center;">
+              <%= image_submit_tag "mapbutton.png", :class => "phone-home-submit" %> 
+          </div>         
+      </div>
 	<% end %>
 <% end %>
