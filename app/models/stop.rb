@@ -31,7 +31,7 @@ class Stop < OneBusRecord
   
   def arrivals_and_departures
 	url = "http://api.onebusaway.org/api/where/arrivals-and-departures-for-stop/#{data.id}.json?key=TEST"
-	arrivals_departures = self.class.get_json(url, true)["data"]["arrivalsAndDepartures"]
+	arrivals_departures = self.class.get_json(url)["data"]["arrivalsAndDepartures"]
 	arrivals_departures.map{|ad| ArrivalDeparture.new(ad)}
   end
   
