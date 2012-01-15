@@ -41,7 +41,7 @@ background-repeat:repeat-xy;
 </style>
 
 </head>
- <body>
+ <body <%= content_for?(:onload) ? "onload=#{yield(:onload)}" : "" %> >
   <div class="show-on-phones">
       <h1>WhichBus</h1>
       <h2>You are on a phone</h2>

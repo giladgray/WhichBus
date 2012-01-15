@@ -1,3 +1,5 @@
+include GeoKit
+
 require 'rubygems'
 require 'json'
 require 'net/http'
@@ -6,9 +8,6 @@ require 'onebus_record'
 require 'route'
 
 class Stop < OneBusRecord
-  acts_as_mappable :lat_column_name => :lat,
-				   :lng_column_name => :lon
-
   def initialize(stop, hash=nil)
    url = "http://api.onebusaway.org/api/where/stop/#{stop}.json?key=TEST"
    hash ? super(hash) : super(url) 
@@ -26,6 +25,21 @@ class Stop < OneBusRecord
   
   def routes
 	data.routes.map{|r| Route.new(r[:id], r)}
+  end
+  
+  def methods
+	data.methods
+  end
+  
+  def as_json(options={})
+	{ :id => data.id,
+	  :code => data.code,
+	  :name => data.name,
+	  :direction => data.direction,
+	  :locationType => data.locationType,
+	  :latitude => data.lat,
+	  :longitude => data.lon,
+	  :routes => routes }
   end
 
 end
