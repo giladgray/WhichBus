@@ -6,7 +6,7 @@ gem 'rails', '3.0.5'
 
 group :production do
   gem 'pg' 
-  gem 'unicorn'
+  gem 'thin'
 end
 group :development, :test do
   gem 'sqlite3'

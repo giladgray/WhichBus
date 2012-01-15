@@ -74,10 +74,6 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.31)
-    unicorn (4.1.1)
-      kgio (~> 2.4)
-      rack
-      raindrops (~> 0.6)
 
 PLATFORMS
   ruby
@@ -89,4 +85,3 @@ DEPENDENCIES
   pg
   rails (= 3.0.5)
   sqlite3
-  unicorn
