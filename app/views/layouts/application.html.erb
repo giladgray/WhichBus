@@ -66,37 +66,11 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 
  <body <%= content_for?(:onload) ? "onload=#{yield(:onload)}" : "" %> >
   <div class="container show-on-phones phone">
-      <div class="row display">
-        <div class="phone-three columns" >
-          <%= image_tag "whichbuslogo.png" , :size => "320x0"%>
-        </div>
-      </div>
-      <div class="row display">
-        <div class="phone-two columns">
-          <input  type="text" name="from" placeholder="Where from, yo?">
-        </div>
-      </div>
-      <div class="row display">
-        <div class="phone-two columns">
-        <input type="text" name="to" placeholder="And where to?">
-        </div>
-      </div>
-      <div class="row display">
-          <div class="phone-three columns">
-          <%= image_tag "mapbutton.png" , :size => "320x0" %> 
-          </div>
-      </div>
+	<%= yield(:mobile) %>
   </div>
 
   <!-- container -->
   <div class="show-on-desktops container">
-  
-
-    <div class="row">
-      <div class="twelve columns">
-      <%= image_tag "whichbus_text.png", :size => "220x0"%>
-      </div>
-    </div>
     
     <div class="row">
       <% flash.each do |name, msg| %>
@@ -105,5 +79,13 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
       <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
     </div>
+
+    <div class="row">
+      <div class="twelve columns">
+      <%= image_tag "whichbus_text.png", :size => "220x0"%>
+      </div>
+    </div>
+	
+	<%= yield(:desktop) %>
   </body>
 </html>

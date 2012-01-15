@@ -78,6 +78,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  geokit
   geokit-rails3
   json_pure
   nifty-generators

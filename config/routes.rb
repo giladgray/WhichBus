@@ -6,7 +6,9 @@ Whichbus::Application.routes.draw do
   resources :stop
   resources :trip
   
-  root :to => "stop#index"
+  root :to => "journey#new"
+  
+  match "journey" => "journey#options"
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
