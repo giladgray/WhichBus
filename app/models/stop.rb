@@ -32,6 +32,12 @@ class Stop < OneBusRecord
 	 results
   end
   
+  def arrivals_and_departures
+	url = "http://api.onebusaway.org/api/where/arrivals-and-departures-for-stop/#{data.id}.json?key=TEST"
+	arrivals_departures = self.class.get_json(url, true)["data"]["arrivalsAndDepartures"]
+	arrivals_departures.map{|ad| ArrivalDeparture.new(ad)}
+  end
+  
   def routes
 	data.routes.map{|r| Route.new(r[:id], r)}
   end
@@ -52,7 +58,3 @@ class Stop < OneBusRecord
   end
 
 end
-
-# stop = Stop.new("1_75403")
-# puts stop.name
-# stop.routes.each {|r| puts r["name"] }
