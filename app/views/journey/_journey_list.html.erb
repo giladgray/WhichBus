@@ -1,0 +1,24 @@
+<div class="row display">
+	<div class="twelve phone-four columns">
+		<!-- journey information/map -->
+		<div id="canvas_map">
+		</div>
+		From: <%=@from.full_address %><br/>
+		To: <%= @to.full_address %>
+	</div>
+</div>
+<% @journeys.each do |journey| %>
+<!-- [start, route, arrival, end] -->
+<div class="row display well">
+	<div class="two phone-one columns route_num">
+		<%= journey[1].shortName %>
+	</div>
+	<div class="eight phone-two columns route_desc">
+		Departs: <%= journey[0].name %><br/>
+		Arrives: <%= journey[3].name %>
+	</div>
+	<div class="two phone-one columns route_time">
+		<%= journey[2].time_to_arrival_in_words(@time) %>
+	</div>
+</div>
+<% end %>

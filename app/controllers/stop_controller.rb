@@ -18,12 +18,12 @@ class StopController < ApplicationController
 	
 	def show
 		@stop = Stop.new(params[:id])
-		@times = @stop.arrivals_and_departures
+		@time = Time.now
 		
 		respond_to do |format|
 			format.html
-			format.json { render :json => [@stop, @times] }
-			format.xml  { render :xml => [@stop, @times] }
+			format.json { render :json => @stop }
+			format.xml  { render :xml => @stop }
 		end
 	end
 end

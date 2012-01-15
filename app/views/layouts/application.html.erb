@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=320, initial-scale=1, user-scalable=no">
 
-    <title><%= content_for?(:title) ? yield(:title) : "WhichBus" %></title>
+    <title>WhichBus<%= content_for?(:title) ? " | " + yield(:title) : "" %></title>
     <%= stylesheet_link_tag :all %>
     <%= javascript_include_tag :all %>
     <%= csrf_meta_tag %>
@@ -59,9 +59,7 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
   
   <!-- container -->
   <div class="show-on-desktops container">
-  
-
-    <div class="row">
+      <div class="row">
       <%= image_tag "whichbus_text.png", :size => "220x0"%>
     </div>
     
@@ -71,6 +69,7 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
       <% end %>
       <%= content_tag :h1, yield(:title) if show_title? %>
     </div>
+	<%= yield(:desktop) %>
 	<%= yield %>
   </body>
 </html>

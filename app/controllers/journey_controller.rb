@@ -7,6 +7,8 @@ class JourneyController < ApplicationController
 	end
 	
 	def options
+		OneBusRecord.reset_json_count
+		
 		#expects two locations -- geocode them straight up!
 		@from = GoogleGeocoder.geocode(params[:from])
 		@to = GoogleGeocoder.geocode(params[:to])
@@ -19,14 +21,16 @@ class JourneyController < ApplicationController
 		@to_stops = Stop.by_location(@to.lat, @to.lng).first(10)
 		
 		#call routing helper to find the routes
-		@routes = self.class.calc_routes(@from_stops, @to_stops)
+		@journeys = self.class.calc_journeys(@from_stops, @to_stops)
 		#display them
+		
+		@time = Time.now
 	end
 	
 	def show
 	end
 	
-	def self.calc_routes(from_stops, to_stops, within_minutes=9999)
+	def self.calc_journeys(from_stops, to_stops, within_minutes=90)
 		result = []
 		# go thru each from stop and get routes
 		from_stops.each do |fs|
@@ -38,12 +42,17 @@ class JourneyController < ApplicationController
 				# get intersection of from_routes and to_routes
 				routes = from_route_ids & to_route_ids
 				routes.each do |r|
-					# route = fs.routes.find{|rte| rte.id == r && rte.arrivals.length > 0 && rte.arrivals.first.time_to_arrival < within_minutes}
+					# route = fs.routes.find{|rte| rte.id == r && rte.arrivals.length > 0 && rte.arrivals.first.time_to_arrival < within_minutes * 60}
 					route = fs.routes.find{|rte| rte.id == r && rte.arrivals.length > 0 }
-					result << [fs, route, ts] if route
+					if route
+						route.arrivals.each do |arr|
+							result << [fs, route, arr, ts]
+						end
+					end
 				end
 			end
 		end
+		result.sort_by! {|r| r[2].scheduledArrivalTime }
 		result
 	end
 end

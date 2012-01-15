@@ -21,72 +21,60 @@
 	</li>
 <% end %>
 </ul>
-br/>
 <br/>
 
 <h2>How to Get There</h2>
 <ul>
-<% @routes.sort_by{|r| r[1].arrivals.first.time_to_arrival}.each do |route| %>
+<% @journeys.each do |journey| %>
 	<li>
-		Route <%= route[1].shortName %>(<%= route[1].arrivals.first.time_to_arrival_in_words %>) from <%= route[0].name %> to <%= route[2].name %>!!
+		Route <%= journey[1].shortName %> (<%= journey[2].time_to_arrival_in_words(@time) %> <%= journey[2].time_to_arrival(@time) %>) from <%= journey[0].name %> to <%= journey[3].name %>!!
 	</li>
 <% end %>
 </ul>
 
 <% content_for :head do %>
-
 <style type="text/css">
+.route_num {
+	font-size: 2rem;
+	vertical-align: middle;
+}
 
+.route_desc {
+	font-size: .75em;
+}
+.show-on-desktops .route_desc {
+	font-size: 1.2em
+}
 
+.route_time {
+	font-size: 2rem;
+	vertical-align: middle;
+}
 
+.phones {
+	margin: 0px;
+}
 
 </style>
-
-
 <% end %>
 
 
 <% content_for :mobile do %>
-<div class="show-on-phones phones">
-	<div class="row display">
-		<div class="phone-three columns">
-			<div style="margin:0px;">
-				<img <%=  image_tag "header.jpg" %>
-			</div>
-				
-			<table style="width:320px;">
-			<tbody>
-				<tr>
-				<td cellspan="3">
-				From: <%=@from.full_address %>
-				To: <%= @to.full_address %>
-				</td>
-				
-				</tr>
-
-
-				<tr>
-					<td><!-- INPUT Route #--><span id="route">511</span> <span id="direction">to Redmond</span></td>
-
-					<td><!-- Departs "5th and Pine" --> <p>Departs: 5th & Pine</p> <p>Arrives: Redmond Town Center</p></td>
-					
-					<td><!-- Time left till departure -->3m</td>
-
-				</tr>
-
-			</tbody>
-
-			</table>
-
+<div class="row display">
+	<div class="phone-four columns">
+		<div style="margin:0px;">
+			<img <%=  image_tag "header.jpg" %>
 		</div>
 	</div>
 </div>
-
-
+<%= render "journey_list" %>
+<!--<div class="row display">
+	<div class="phone-three columns">
+	</div>
+</div>-->
 <% end %> 
 
 
 <% content_for :desktop do %>
-
-
+<%= render "journey_list" %>
 <% end %> 
