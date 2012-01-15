@@ -1,5 +1,5 @@
-<div class="row display">
-	<div class="six phone-four columns well title">
+<div class="row">
+	<div class="twelve phone-four columns well title">
 		<!-- journey information/map -->
 		<div id="canvas_map">
 		</div>
@@ -17,7 +17,7 @@
 	</div>
 </div>
 <% else %>
-<% @journeys.each do |journey| %>
+<% @journeys.find_all {|j| j[2].time_to_arrival > -600 }.each do |journey| %>
 <!-- [start, route, arrival, end] -->
 <a href="stop/<%= journey[0].id %>">
 <div class="row display well">
