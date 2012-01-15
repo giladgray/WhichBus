@@ -38,8 +38,8 @@ class ArrivalDeparture < OneBusRecord
 		result = minutes < 0 ? "-" : ""
 		minutes = minutes.to_int.abs
 		case
-		when minutes < 1
-			result << "Now!"
+		when minutes <= 1
+			result = "Now!"
 		when minutes < 60
 			result << "#{minutes}m"
 		when minutes < (60*24)
