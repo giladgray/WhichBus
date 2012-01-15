@@ -6,7 +6,8 @@ require 'ostruct'
 class OneBusRecord
 
   attr_reader :data
-
+  attr_accessor :distance
+  
   def initialize(url_or_hash)
    if url_or_hash.is_a? Hash
        @data = OpenStruct.new(url_or_hash)
@@ -21,6 +22,7 @@ class OneBusRecord
 	(data.methods - Object.methods - [:data, :method_missing, :delete_field, :marshal_dump, :marshal_load, :table, :modifiable, :new_ostruct_member]).each do |m|
 		result[m] = data.send(m) unless m.to_s.end_with?("=")
 	end
+	result[:distance] = distance
 	result
   end
    
