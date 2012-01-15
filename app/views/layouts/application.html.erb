@@ -90,12 +90,6 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
       <%= image_tag "whichbus_text.png", :size => "220x0"%>
     </div>
     
-    <div class="row">
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-      <% end %>
-      <%= content_tag :h1, yield(:title) if show_title? %>
-      <%= yield %>
-    </div>
+	<%= yield(:desktop) %>
   </body>
 </html>
