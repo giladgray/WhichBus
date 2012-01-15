@@ -19,12 +19,17 @@ function foundLocation(position) {
 			list = $("#stop_list");
 			data.each(function(stop) {
 				//add a list item for each stop with a link to the stop page
-				var li = $("<li>");
-				li.append($("<a>").attr("href", "stop/" + stop.id)
-								.text(stop.name)).append(" ");
-				li.append($("<span>").addClass("distance")
-								   .text(stop.distance.toFixed(2) + " mi"));
-				list.append(li);
+				var li = $("<tr>");
+
+				li.append($("<td>"));
+				li.append($("<a>").attr("href", "stop/" + stop.id).text(stop.name)).append(" ");
+				li.append($("</td>"));
+
+				li.append($("<td>"));				
+				li.append($("<span>").addClass("distance").text(stop.distance.toFixed(2) + " mi"));
+				li.append($("</td>"));
+				
+				li.append($("</tr>"));
 			});
 		});
 }

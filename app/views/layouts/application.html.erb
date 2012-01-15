@@ -24,6 +24,21 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+
+  <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjJxK5PWs_HUYDfkLxHPZumnjV6ORDIDs&sensor=false">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var myOptions = {
+          center: new google.maps.LatLng(-34.397, 150.644),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            myOptions);
+      }
+    </script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=320, initial-scale=1, user-scalable=no">
 
@@ -48,6 +63,7 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 </style>
 
 </head>
+
  <body <%= content_for?(:onload) ? "onload=#{yield(:onload)}" : "" %> >
   <div class="container show-on-phones phone">
       <div class="row display">
@@ -74,12 +90,14 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 
   <!-- container -->
   <div class="show-on-desktops container">
+  
 
     <div class="row">
       <div class="twelve columns">
       <%= image_tag "whichbus_text.png", :size => "220x0"%>
       </div>
     </div>
+    
     <div class="row">
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
