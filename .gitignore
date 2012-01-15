@@ -3,8 +3,4 @@
 db/*.sqlite3
 log/*.log
 tmp/
-<<<<<<< HEAD
-Gemfile.lock
-=======
 *~ 
->>>>>>> c63afbd82051b364e90383e67d9f7b3f350ffc1b
