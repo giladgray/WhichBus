@@ -12,7 +12,7 @@
   <!-- Set the viewport width to device width for mobile -->
  
 
-    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "WhichBus" %></title>
     <%= stylesheet_link_tag :all %>
     <%= javascript_include_tag :all %>
     <%= csrf_meta_tag %>
@@ -40,7 +40,10 @@ background-repeat:repeat-xy;
 
 .phone input {margin:10px 0px; }
 
-.phone {} 
+.phone {max-width:320px;} 
+
+h1,h2,h3,h4,h5 {color: #7D8073;}
+
 
 </style>
 
