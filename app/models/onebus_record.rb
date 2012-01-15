@@ -22,6 +22,7 @@ class OneBusRecord
 	(data.methods - Object.methods - [:data, :method_missing, :delete_field, :marshal_dump, :marshal_load, :table, :modifiable, :new_ostruct_member]).each do |m|
 		result[m] = data.send(m) unless m.to_s.end_with?("=")
 	end
+	result[:name] = data.name
 	result[:distance] = distance
 	result
   end

@@ -4,15 +4,15 @@ gem 'rails', '3.0.5'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-group :production do
-  gem 'pg' 
-  gem 'thin'
-end
+#group :production do
+#  gem 'pg' 
+#  gem 'thin'
+#end
 group :development, :test do
   gem 'sqlite3'
+  gem 'nifty-generators'
 end
 gem 'json_pure'
-gem 'nifty-generators', :group => :development
 gem 'geokit-rails3'
 
 # Use unicorn as the web server

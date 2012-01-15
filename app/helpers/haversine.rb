@@ -78,6 +78,8 @@ c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a))
 #dFeet = Rfeet * c         # delta in feet
 #dMeters = Rmeters * c     # delta in meters
 
+puts Rmiles * c
+
 Rmiles * c
 
 #@distances ||= {}

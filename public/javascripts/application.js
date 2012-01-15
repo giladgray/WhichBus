@@ -5,7 +5,7 @@ function geolocate() {
 	navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
 }
 
-var returnData;
+var returnData, list;
 function foundLocation(position) {
 	var latitude = position.coords.latitude;
 	var longitude = position.coords.longitude;
@@ -15,14 +15,16 @@ function foundLocation(position) {
 	$.getJSON("stop.json", { lat: latitude, lon: longitude },
 		function(data) {
 			returnData = data;
-			$("#stop-count").text(data.length);
-			var list = $("#stop-list");
+			$("#stop_count").text(data.length);
+			list = $("#stop_list");
 			data.each(function(stop) {
 				//add a list item for each stop with a link to the stop page
-				list.append($("<li>").append(
-					$("<a>").attr("href", "stop/" + stop.id)
-							.append(stop.name)
-							.append(" (" + stop.distance + " mi)"));
+				var li = $("<li>");
+				li.append($("<a>").attr("href", "stop/" + stop.id)
+								.text(stop.name)).append(" ");
+				li.append($("<span>").addClass("distance")
+								   .text(stop.distance.toFixed(2) + " mi"));
+				list.append(li);
 			});
 		});
 }

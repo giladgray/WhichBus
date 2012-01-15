@@ -42,16 +42,5 @@ class Stop < OneBusRecord
   def methods
 	data.methods
   end
-  
-  def as_json(options={})
-	{ :id => data.id,
-	  :code => data.code,
-	  :name => data.name,
-	  :direction => data.direction,
-	  :locationType => data.locationType,	# 0 = stop, 1 = station
-	  :latitude => data.lat,
-	  :longitude => data.lon,
-	  :routes => routes }
-  end
 
 end
