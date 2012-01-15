@@ -7,7 +7,7 @@ gem 'rails', '3.0.5'
 group :production do
  gem 'pg' 
  gem 'thin'
-#end
+end
 group :development, :test do
   gem 'sqlite3'
   gem 'nifty-generators'
