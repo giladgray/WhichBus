@@ -5,6 +5,7 @@ require 'ostruct'
 
 class OneBusRecord
   include ActionView::Helpers::DateHelper
+  @@json_count = 0;
 
   attr_reader :data
   attr_accessor :distance
@@ -33,12 +34,18 @@ class OneBusRecord
   end
    
   def self.get_json(url, verbose=false)
+	@@json_count += 1
+	puts "JSON REQUEST #{@@json_count}: #{url}"
 	data = Net::HTTP.get_response(URI.parse(url)).body
 	result = JSON.parse(data)
 	unless result["code"] == 200 
 		raise result["code"].to_s + ": " + result["text"]
 	end
 	result
+  end
+  
+  def self.reset_json_count
+	@@json_count = 0
   end
   
   def method_missing(method_sym, *arguments, &block)
