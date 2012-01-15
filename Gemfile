@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.5'
-gem 'thin'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :production do
-  gem 'pg'
+  gem 'pg' 
+  gem 'thin'
 end
 group :development, :test do
   gem 'sqlite3'
