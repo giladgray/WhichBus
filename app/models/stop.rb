@@ -33,7 +33,3 @@ class Stop < OneBusRecord
   end
 
 end
-
-# stop = Stop.new("1_75403")
-# puts stop.name
-# stop.routes.each {|r| puts r["name"] }
