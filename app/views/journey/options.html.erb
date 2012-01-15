@@ -26,9 +26,9 @@ br/>
 
 <h2>How to Get There</h2>
 <ul>
-<% @routes.each do |route| %>
+<% @routes.sort_by{|r| r[1].arrivals.first.time_to_arrival}.each do |route| %>
 	<li>
-		Route <%= route[1].shortName %> from <%= route[0].name %> to <%= route[2].name %>!!
+		Route <%= route[1].shortName %>(<%= route[1].arrivals.first.time_to_arrival_in_words %>) from <%= route[0].name %> to <%= route[2].name %>!!
 	</li>
 <% end %>
 </ul>

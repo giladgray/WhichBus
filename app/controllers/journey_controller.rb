@@ -26,9 +26,7 @@ class JourneyController < ApplicationController
 	def show
 	end
 	
-	
-
-	def self.calc_routes(from_stops, to_stops)
+	def self.calc_routes(from_stops, to_stops, within_minutes=9999)
 		result = []
 		# go thru each from stop and get routes
 		from_stops.each do |fs|
@@ -37,11 +35,12 @@ class JourneyController < ApplicationController
 			# go thru each to_stop and intersect routes
 			to_stops.each do |ts|
 				to_route_ids = ts.routes.map{|r| r.id}
+				# get intersection of from_routes and to_routes
 				routes = from_route_ids & to_route_ids
-				#routes = fs.routes.map{|r| r.id
-				#result << routes.map{|r| [fs.id, r, ts.id]} if routes.length > 0
 				routes.each do |r|
-					result << [fs, fs.routes.find{|rte| rte.id == r}, ts]
+					# route = fs.routes.find{|rte| rte.id == r && rte.arrivals.length > 0 && rte.arrivals.first.time_to_arrival < within_minutes}
+					route = fs.routes.find{|rte| rte.id == r && rte.arrivals.length > 0 }
+					result << [fs, route, ts] if route
 				end
 			end
 		end
