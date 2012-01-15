@@ -7,10 +7,11 @@
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 
 <head>
-<meta charset="utf-8" />
+    <meta charset="utf-8" />
 
-  <!-- Set the viewport width to device width for mobile -->
- 
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=320, initial-scale=1, user-scalable=no">
 
     <title><%= content_for?(:title) ? yield(:title) : "WhichBus" %></title>
     <%= stylesheet_link_tag :all %>
@@ -18,18 +19,29 @@
     <%= csrf_meta_tag %>
     <%= yield(:head) %><!--[if lt IE 9]>
     <link rel="stylesheet" href="stylesheets/ie.css">
-  <![endif]-->
+    <![endif]-->
 
   <!-- IE Fix for HTML5 Tags -->
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="viewport" content="width=320, initial-scale=1, user-scalable=no">
+
+  <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjJxK5PWs_HUYDfkLxHPZumnjV6ORDIDs&sensor=false">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var myOptions = {
+          center: new google.maps.LatLng(-34.397, 150.644),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            myOptions);
+      }
+    </script>
 
 <style type="text/css">
-
-.container {margin:25px;}
 
 #title {font-size:6rem} 
 
@@ -37,6 +49,8 @@ body {
 background:#e7e6e6;
 background-repeat:repeat-xy; 
 }
+
+.container {margin:25px;}
 
 .phone input {margin:10px 0px; }
 
@@ -48,38 +62,34 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 </style>
 
 </head>
- <body>
-  <div class="container show-on-phones phone">
-      <div class="row display">
-        <div class="phone-three columns" >
-          <%= image_tag "whichbuslogo.png" , :size => "320x0"%>
-        </div>
+
+ <body <%= content_for?(:onload) ? "onload=#{yield(:onload)}" : "" %> >
+  <div class="show-on-phones phone" style="margin:0px 0px 0px 0px;">
+      <div class="row display" style="margin-bottom:32px;">
+          <%= image_tag "header.jpg" , :size => "320x0"%>
       </div>
       <div class="row display">
-        <div class="phone-two columns">
-          <input  type="text" name="from" placeholder="Where from, yo?">
-        </div>
+          <%= image_tag "whichbuslogo.png" , :size => "256x0"%>
+      </div>
+      <div class="row display" style="margin:4px 0px 0px 0px;">
+          <input class="phone-home-input" type="text" name="from" placeholder="Where from, yo?">
+      </div>
+      <div class="row display" style="margin:0px 0px 16px 0px;">
+          <input class="phone-home-input" type="text" name="to" placeholder="And where to?">
       </div>
       <div class="row display">
-        <div class="phone-two columns">
-        <input type="text" name="to" placeholder="And where to?">
-        </div>
-      </div>
-      <div class="row display">
-          <div class="phone-three columns">
-          <%= image_tag "mapbutton.png" , :size => "320x0" %> 
-          </div>
+          <%= image_tag "mapbutton.png" , :size => "200x0" %> 
       </div>
   </div>
 
   <!-- container -->
   <div class="show-on-desktops container">
+  
 
     <div class="row">
-      <div class="twelve columns">
       <%= image_tag "whichbus_text.png", :size => "220x0"%>
-      </div>
     </div>
+    
     <div class="row">
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>

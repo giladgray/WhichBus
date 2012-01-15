@@ -1,0 +1,49 @@
+<% content_for :mobile do %>
+	<%= form_tag "journey", :method => :get do %>     
+	<div class="row display">
+        <div class="phone-three columns" >
+          <%= image_tag "whichbuslogo.png" , :size => "320x0"%>
+        </div>
+	</div>
+    <div class="row display">
+        <div class="phone-two columns">
+			<%= text_field_tag "from", nil, :placeholder => "Where from, yo?" %>
+        </div>
+    </div>
+    <div class="row display">
+        <div class="phone-two columns">
+			<%= text_field_tag "to", nil, :placeholder => "And where to?" %>
+        </div>
+    </div>
+    <div class="row display">
+        <div class="phone-three columns">
+			<%= image_submit_tag "mapbutton.png", :width => "320" %> 
+        </div>
+    </div>
+	<% end %>
+<% end %>
+
+<% content_for :desktop do %>
+	<%= form_tag "journey", :method => :get do %>     
+	<div class="row display">
+        <div class="phone-three columns" >
+          <%= image_tag "whichbuslogo.png" , :size => "320x0"%>
+        </div>
+	</div>
+    <div class="row display">
+        <div class="phone-two columns">
+			<%= text_field_tag "from", nil, :placeholder => "Where from, yo?" %>
+        </div>
+    </div>
+    <div class="row display">
+        <div class="phone-two columns">
+			<%= text_field_tag "to", nil, :placeholder => "And where to?" %>
+        </div>
+    </div>
+    <div class="row display">
+        <div class="phone-three columns">
+			<%= image_submit_tag "mapbutton.png", :width => "320" %> 
+        </div>
+    </div>
+	<% end %>
+<% end %>

@@ -6,12 +6,14 @@ gem 'rails', '3.0.5'
 
 #group :production do
 #  gem 'pg' 
+#  gem 'thin'
 #end
 group :development, :test do
   gem 'sqlite3'
+  gem 'nifty-generators'
 end
 gem 'json_pure'
-gem 'nifty-generators', :group => :development
+gem 'geokit'
 gem 'geokit-rails3'
 
 # Use unicorn as the web server

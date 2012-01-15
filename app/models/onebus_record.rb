@@ -4,6 +4,7 @@ require 'net/http'
 require 'ostruct'
 
 class OneBusRecord
+  include ActionView::Helpers::DateHelper
 
   attr_reader :data
   attr_accessor :distance
@@ -17,11 +18,16 @@ class OneBusRecord
 	end
   end
   
+  def as_xml(options={})
+	as_json(options)
+  end
+  
   def as_json(options={})
 	result={}
 	(data.methods - Object.methods - [:data, :method_missing, :delete_field, :marshal_dump, :marshal_load, :table, :modifiable, :new_ostruct_member]).each do |m|
 		result[m] = data.send(m) unless m.to_s.end_with?("=")
 	end
+	result[:name] = data.name
 	result[:distance] = distance
 	result
   end
