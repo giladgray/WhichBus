@@ -5,14 +5,15 @@ gem 'rails', '3.0.5'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #group :production do
-  gem 'pg' 
-  gem 'thin'
+#  gem 'pg' 
+#  gem 'thin'
 #end
 group :development, :test do
   gem 'sqlite3'
   gem 'nifty-generators'
 end
 gem 'json_pure'
+gem 'geokit'
 gem 'geokit-rails3'
 
 # Use unicorn as the web server
