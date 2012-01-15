@@ -11,8 +11,6 @@ require 'haversine'
 
 class Stop < OneBusRecord
 					
-	attr_accessor :distance
-					
   def initialize(stop, hash=nil)
 	url = "http://api.onebusaway.org/api/where/stop/#{stop}.json?key=TEST"
     hash ? super(hash) : super(url) 
@@ -24,11 +22,10 @@ class Stop < OneBusRecord
 	 results = []
 	 stops.each do |s|
 		stop = Stop.new(s[:id], s)
-		haversine_distance(lat, lon, stop.lat, stop.lon)
-		stop.distance = @distance["mi"]
+		stop.distance = haversine_distance(lat.to_f, lon.to_f, stop.lat.to_f, stop.lon.to_f)
 		results << stop
 	 end
-	 results.sort_by_distance
+	 results.sort_by! {|s| s.distance }
 	 results
   end
   

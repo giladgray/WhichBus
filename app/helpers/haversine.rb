@@ -49,11 +49,15 @@ the result will be a Hash of distances which are key'd by 'mi','km','ft', and 'm
 =end
 
 def haversine_distance( lat1, lon1, lat2, lon2 )
+lat1 = lat1.to_f
+lon1 = lon1.to_f
+lat2 = lat2.to_f
+lon2 = lon2.to_f
 
 puts "distance from (#{lat1}, #{lon1}) to (#{lat2}, #{lon2})"
 
-dlon = lon2.to_f - lon1.to_f
-dlat = lat2.to_f - lat1.to_f
+dlon = lon2 - lon1
+dlat = lat2 - lat1
 
 dlon_rad = dlon * RAD_PER_DEG 
 dlat_rad = dlat * RAD_PER_DEG
@@ -69,15 +73,18 @@ lon2_rad = lon2 * RAD_PER_DEG
 a = (Math.sin(dlat_rad/2))**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) * (Math.sin(dlon_rad/2))**2
 c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a))
 
-dMi = Rmiles * c          # delta between the two points in miles
-dKm = Rkm * c             # delta in kilometers
-dFeet = Rfeet * c         # delta in feet
-dMeters = Rmeters * c     # delta in meters
+#dMi = Rmiles * c          # delta between the two points in miles
+#dKm = Rkm * c             # delta in kilometers
+#dFeet = Rfeet * c         # delta in feet
+#dMeters = Rmeters * c     # delta in meters
 
-@distances["mi"] = dMi
-@distances["km"] = dKm
-@distances["ft"] = dFeet
-@distances["m"] = dMeters
+Rmiles * c
+
+#@distances ||= {}
+#@distances["mi"] = Rmiles * c
+#@distances["km"] = Rkm * c
+#@distances["ft"] = Rfeet * c
+#@distances["m"] = Rmeters * c
 end
 
 def test_haversine
