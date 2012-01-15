@@ -63,7 +63,8 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 </style>
 
 </head>
- <body onload="initialize()">
+
+ <body <%= content_for?(:onload) ? "onload=#{yield(:onload)}" : "" %> >
   <div class="container show-on-phones phone">
       <div class="row display">
         <div class="phone-three columns" >
