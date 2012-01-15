@@ -34,13 +34,20 @@
 
 <% content_for :head do %>
 <style type="text/css">
+.journey_span {
+	/*margin: 8px;
+	line-height: 1em;*/
+}
 .route_num {
-	font-size: 2rem;
+	font-size: 4rem;
 	vertical-align: middle;
+	color: #7D8073;
 }
 
 .route_desc {
+	padding-top: 5px !important;
 	font-size: .75em;
+	vertical-align: middle;
 }
 .show-on-desktops .route_desc {
 	font-size: 1.2em
@@ -51,10 +58,6 @@
 	vertical-align: middle;
 }
 
-.phones {
-	margin: 0px;
-}
-
 </style>
 <% end %>
 
@@ -63,15 +66,11 @@
 <div class="row display">
 	<div class="phone-four columns">
 		<div style="margin:0px;">
-			<img <%=  image_tag "header.jpg" %>
+			<%=  image_tag "header.jpg" %>
 		</div>
 	</div>
 </div>
 <%= render "journey_list" %>
-<!--<div class="row display">
-	<div class="phone-three columns">
-	</div>
-</div>-->
 <% end %> 
 
 
