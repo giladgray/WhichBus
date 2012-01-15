@@ -4,6 +4,10 @@ require 'net/http'
 require 'ostruct'
 require 'onebus_record'
 require 'route'
+require 'geokit'
+require 'vendor/plugins/geokit-rails/init.rb'
+
+
 
 class Stop < OneBusRecord
   acts_as_mappable :lat_column_name => :lat,
