@@ -14,15 +14,17 @@ function foundLocation(position) {
 	
 	$.getJSON("stop.json", { lat: latitude, lon: longitude },
 		function(data) {
-			alert("stops achieved.");
 			returnData = data;
+			$("#stop-count").text(data.length);
 			var list = $("#stop-list");
-			$(data).each(function() {
-				list.append($("<li>").text($(this).name));
+			data.each(function(stop) {
+				//add a list item for each stop with a link to the stop page
+				list.append($("<li>").append(
+					$("<a>").attr("href", "stop/" + stop.id).text(stop.name)));
 			});
-			//$("#user_location").html(data);
 		});
 }
+
 function noLocation() {
 	alert("Geolocation failed! Sucks for you.");
 }
