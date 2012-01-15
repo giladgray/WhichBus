@@ -7,10 +7,11 @@
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 
 <head>
-<meta charset="utf-8" />
+    <meta charset="utf-8" />
 
-  <!-- Set the viewport width to device width for mobile -->
- 
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=320, initial-scale=1, user-scalable=no">
 
     <title><%= content_for?(:title) ? yield(:title) : "WhichBus" %></title>
     <%= stylesheet_link_tag :all %>
@@ -18,7 +19,7 @@
     <%= csrf_meta_tag %>
     <%= yield(:head) %><!--[if lt IE 9]>
     <link rel="stylesheet" href="stylesheets/ie.css">
-  <![endif]-->
+    <![endif]-->
 
   <!-- IE Fix for HTML5 Tags -->
   <!--[if lt IE 9]>
@@ -39,12 +40,8 @@
             myOptions);
       }
     </script>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="viewport" content="width=320, initial-scale=1, user-scalable=no">
 
 <style type="text/css">
-
-.container {margin:25px;}
 
 #title {font-size:6rem} 
 
@@ -52,6 +49,8 @@ body {
 background:#e7e6e6;
 background-repeat:repeat-xy; 
 }
+
+.container {margin:25px;}
 
 .phone input {margin:10px 0px; }
 
@@ -65,12 +64,31 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 </head>
 
  <body <%= content_for?(:onload) ? "onload=#{yield(:onload)}" : "" %> >
-  <div class="container show-on-phones phone">
-	<%= yield(:mobile) %>
+  <div class="show-on-phones phone" style="margin:0px 0px 0px 0px;">
+      <div class="row display" style="margin-bottom:32px;">
+          <%= image_tag "header.jpg" , :size => "320x0"%>
+      </div>
+      <div class="row display">
+          <%= image_tag "whichbuslogo.png" , :size => "256x0"%>
+      </div>
+      <div class="row display" style="margin:4px 0px 0px 0px;">
+          <input class="phone-home-input" type="text" name="from" placeholder="Where from, yo?">
+      </div>
+      <div class="row display" style="margin:0px 0px 16px 0px;">
+          <input class="phone-home-input" type="text" name="to" placeholder="And where to?">
+      </div>
+      <div class="row display">
+          <%= image_tag "mapbutton.png" , :size => "200x0" %> 
+      </div>
   </div>
 
   <!-- container -->
   <div class="show-on-desktops container">
+  
+
+    <div class="row">
+      <%= image_tag "whichbus_text.png", :size => "220x0"%>
+    </div>
     
     <div class="row">
       <% flash.each do |name, msg| %>
@@ -79,13 +97,5 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
       <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
     </div>
-
-    <div class="row">
-      <div class="twelve columns">
-      <%= image_tag "whichbus_text.png", :size => "220x0"%>
-      </div>
-    </div>
-	
-	<%= yield(:desktop) %>
   </body>
 </html>
