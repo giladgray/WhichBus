@@ -15,8 +15,16 @@ class OneBusRecord
 	   @data = OpenStruct.new(result["data"])
 	end
   end
+  
+  def as_json(options={})
+	result={}
+	(data.methods - Object.methods - [:data, :method_missing, :delete_field, :marshal_dump, :marshal_load, :table, :modifiable, :new_ostruct_member]).each do |m|
+		result[m] = data.send(m) unless m.to_s.end_with?("=")
+	end
+	result
+  end
    
-  def self.get_json(url)
+  def self.get_json(url, verbose=false)
 	data = Net::HTTP.get_response(URI.parse(url)).body
 	result = JSON.parse(data)
 	unless result["code"] == 200 
