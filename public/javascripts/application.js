@@ -30,6 +30,7 @@ function foundLocation(position) {
 				li.append($("</td>"));
 				
 				li.append($("</tr>"));
+				list.append(li);
 			});
 		});
 }
