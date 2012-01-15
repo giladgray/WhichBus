@@ -4,6 +4,7 @@ require 'net/http'
 require 'ostruct'
 
 class OneBusRecord
+  include ActionView::Helpers::DateHelper
 
   attr_reader :data
   attr_accessor :distance
@@ -15,6 +16,10 @@ class OneBusRecord
 	   result = self.class.get_json(url_or_hash)
 	   @data = OpenStruct.new(result["data"])
 	end
+  end
+  
+  def as_xml(options={})
+	as_json(options)
   end
   
   def as_json(options={})

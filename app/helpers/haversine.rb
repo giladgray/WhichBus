@@ -1,5 +1,6 @@
 
 # haversine.rb
+# source: http://www.esawdust.com/blog/gps/files/HaversineFormulaInRuby.html
 #
 # haversine formula to compute the great circle distance between two points given their latitude and longitudes
 #
@@ -27,8 +28,8 @@
 #   http://www.movable-type.co.uk/scripts/latlong.html
 #   http://en.wikipedia.org/wiki/Haversine_formula
 #
-# This formula can compute accurate distances between two points given latitude and longitude, even for 
-# short distances.
+# This formula can compute accurate distances between two points given latitude 
+# and longitude, even for short distances.
 
 # PI = 3.1415926535
 RAD_PER_DEG = 0.017453293  #  PI/180
@@ -40,8 +41,9 @@ Rkm = 6371              # radius in kilometers...some algorithms use 6367
 Rfeet = Rmiles * 5282   # radius in feet
 Rmeters = Rkm * 1000    # radius in meters
 
-@distances = Hash.new   # this is global because if computing lots of track point distances, it didn't make
-        # sense to new a Hash each time over potentially 100's of thousands of points
+@distances = Hash.new   # this is global because if computing lots of track point 
+						# distances, it didn't make sense to new a Hash each time 
+						# over potentially 100's of thousands of points
 
 =begin rdoc
 given two lat/lon points, compute the distance between the two points using the haversine formula
