@@ -1,2 +1,23 @@
-From: <%= @from.full_address %> <br/>
-To: <%= @to.full_address %> <br/>
+<h2>From: <%= @from.full_address %> </h2>
+<ul>
+<% @from_stops.each do |fs| %>
+	<li>
+		<strong><%= fs.name %></strong>
+		<% fs.routes.each do |r| %>
+			&nbsp;<%= r.shortName %>
+		<% end %>
+	</li>
+<% end %>
+</ul>
+
+<h2>To: <%= @to.full_address %>  </h2>
+<ul>
+<% @to_stops.each do |ts| %>
+	<li>
+		<strong><%= ts.name %></strong>
+		<% ts.routes.each do |r| %>
+			&nbsp;<%= r.shortName %>
+		<% end %>
+	</li>
+<% end %>
+</ul>
