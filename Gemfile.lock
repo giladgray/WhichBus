@@ -45,6 +45,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.17.2)
     nifty-generators (0.4.6)
+    pg (0.12.2)
     polyglot (0.3.3)
     rack (1.2.5)
     rack-mount (0.6.14)
@@ -79,5 +80,6 @@ DEPENDENCIES
   geokit-rails3
   json_pure
   nifty-generators
+  pg
   rails (= 3.0.5)
   sqlite3
