@@ -29,7 +29,7 @@ function foundLocation(position) {
 				li.append($("<span>").addClass("distance").text(stop.distance.toFixed(2) + " mi"));
 				li.append($("</td>"));
 				
-				list.append($("</tr>"));
+				li.append($("</tr>"));
 			});
 		});
 }
