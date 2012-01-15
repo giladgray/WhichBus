@@ -21,14 +21,13 @@
 	</li>
 <% end %>
 </ul>
-br/>
 <br/>
 
 <h2>How to Get There</h2>
 <ul>
-<% @routes.sort_by{|r| r[1].arrivals.first.time_to_arrival}.each do |route| %>
+<% @journeys.each do |journey| %>
 	<li>
-		Route <%= route[1].shortName %>(<%= route[1].arrivals.first.time_to_arrival_in_words %>) from <%= route[0].name %> to <%= route[2].name %>!!
+		Route <%= journey[1].shortName %> (<%= journey[2].time_to_arrival_in_words(@time) %> <%= journey[2].time_to_arrival(@time) %>) from <%= journey[0].name %> to <%= journey[3].name %>!!
 	</li>
 <% end %>
 </ul>

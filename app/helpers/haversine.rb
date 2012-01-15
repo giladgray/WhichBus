@@ -56,7 +56,7 @@ lon1 = lon1.to_f
 lat2 = lat2.to_f
 lon2 = lon2.to_f
 
-puts "distance from (#{lat1}, #{lon1}) to (#{lat2}, #{lon2})"
+#puts "distance from (#{lat1}, #{lon1}) to (#{lat2}, #{lon2})"
 
 dlon = lon2 - lon1
 dlat = lat2 - lat1
@@ -80,7 +80,7 @@ c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a))
 #dFeet = Rfeet * c         # delta in feet
 #dMeters = Rmeters * c     # delta in meters
 
-puts Rmiles * c
+#puts Rmiles * c
 
 Rmiles * c
 
