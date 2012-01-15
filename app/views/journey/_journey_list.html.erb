@@ -1,0 +1,35 @@
+<div class="row display">
+	<div class="twelve phone-four columns">
+		<!-- journey information/map -->
+		<div id="canvas_map">
+		</div>
+		<em>From:</em> <%= @from.full_address %><br/>
+		<em>To:</em>   <%= @to.full_address %>
+	</div>
+</div>
+<% if @journeys.length == 0 %>
+<div class="row display well">
+	<div class="twelve phone-four columns error">
+		No Routes Found!
+	</div>
+</div>
+<% else %>
+<% @journeys.each do |journey| %>
+<!-- [start, route, arrival, end] -->
+<div class="row display well">
+	<div class="two phone-one columns route_num">
+		<span class="journey_span"><%= journey[1].shortName %></span>
+	</div>
+	<div class="eight phone-two columns route_desc">
+		<span class="journey_span">
+			<%= truncate(journey[0].name, :length => 20) %><br/>&dArr;<br/>
+			<%= truncate(journey[3].name, :length => 20) %>
+		</span>
+	</div>
+	<div class="two phone-one columns route_time">
+		<span class="journey_span <%= journey[2].css_class_for_arrival_time(@time) %>">
+			<%= journey[2].time_to_arrival_short(@time) %>
+		</span>
+	</div>
+</div>
+<% end end %>
