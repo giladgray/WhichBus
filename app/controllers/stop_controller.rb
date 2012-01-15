@@ -20,6 +20,22 @@ class StopController < ApplicationController
 		@stop = Stop.new(params[:id])
 		@time = Time.now
 		
+		@arrivals = []
+		routes = []
+		@stop.routes.each do |r|
+			if r.arrivals.length > 0
+				r.arrivals.each do |arr|
+					@arrivals << [r, arr]
+				end
+			else
+				routes << [r, nil]
+			end
+		end
+		
+		routes.sort_by! {|arr| arr[0].shortName.to_i }
+		@arrivals.sort_by! {|arr| arr[1].scheduledArrivalTime }
+		@arrivals += routes
+		
 		respond_to do |format|
 			format.html
 			format.json { render :json => @stop }

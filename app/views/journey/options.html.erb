@@ -1,4 +1,4 @@
-<h2>From: <%= @from.full_address %> </h2>
+<!-- <h2>From: <%= @from.full_address %> </h2>
 <ul>
 <% @from_stops.each do |fs| %>
 	<li>
@@ -30,37 +30,15 @@
 		Route <%= journey[1].shortName %> (<%= journey[2].time_to_arrival_in_words(@time) %> <%= journey[2].time_to_arrival(@time) %>) from <%= journey[0].name %> to <%= journey[3].name %>!!
 	</li>
 <% end %>
-</ul>
+</ul> -->
 
 <% content_for :head do %>
 <style type="text/css">
-.journey_span {
-	/*margin: 8px;
-	line-height: 1em;*/
-}
-.route_num {
-	font-size: 4rem;
-	vertical-align: middle;
-	color: #7D8073;
-}
-
-.route_desc {
-	padding-top: 5px !important;
-	font-size: .75em;
-	vertical-align: middle;
-}
-.show-on-desktops .route_desc {
-	font-size: 1.2em
-}
-
-.route_time {
-	font-size: 2rem;
-	vertical-align: middle;
-}
 
 </style>
 <% end %>
 
+<% content_for :title do "Your Journey Options" end %>
 
 <% content_for :mobile do %>
 <div class="row display">
@@ -72,7 +50,6 @@
 </div>
 <%= render "journey_list" %>
 <% end %> 
-
 
 <% content_for :desktop do %>
 <%= render "journey_list" %>
