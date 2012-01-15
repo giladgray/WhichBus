@@ -53,9 +53,9 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 </head>
 
  <body <%= content_for?(:onload) ? "onload=#{yield(:onload)}" : "" %> >
-  <div class="show-on-phones phone" style="margin:0px 0px 0px 0px;">
-	<%= yield(:mobile) %>
-  </div>
+	<div class="show-on-phones phone" style="margin:0px 0px 0px 0px;">
+		<%= yield(:mobile) %>
+	</div>
   
   <!-- container -->
   <div class="show-on-desktops container" style="padding:0px 0px 0px 0px; width=100%; margin:auto; text-align:center;">
