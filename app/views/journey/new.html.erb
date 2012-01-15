@@ -1,6 +1,6 @@
 <% content_for :mobile do %>
 	<%= form_tag "journey", :method => :get do %>     
-	<div class="row display" style="margin-bottom:32px;">
+	  <div class="row display" style="margin-bottom:32px;">
           <%= image_tag "header.jpg" , :size => "320x0"%>
       </div>
       <div class="row display">
@@ -19,26 +19,21 @@
 <% end %>
 
 <% content_for :desktop do %>
-	<%= form_tag "journey", :method => :get do %>     
-	<div class="row display">
-        <div class="phone-three columns" >
-          <%= image_tag "whichbuslogo.png" , :size => "320x0"%>
-        </div>
-	</div>
-    <div class="row display">
-        <div class="phone-two columns">
-			<%= text_field_tag "from", nil, :placeholder => "Where from, yo?" %>
-        </div>
-    </div>
-    <div class="row display">
-        <div class="phone-two columns">
-			<%= text_field_tag "to", nil, :placeholder => "And where to?" %>
-        </div>
-    </div>
-    <div class="row display">
-        <div class="phone-three columns">
-			<%= image_submit_tag "mapbutton.png", :width => "320" %> 
-        </div>
-    </div>
+	<%= form_tag "journey", :method => :get do %>
+      <div style="margin:0px 0px 0px 0px; width:100%; border:solid 10px black;">
+          <div class="row display topbar">
+            &nbsp;
+          </div>
+          <div class="row display" style="margin:auto; text-align:center;">
+              <%= image_tag "whichbuslogo.png" %>
+          </div>
+          <div class="row display" style="margin:auto; margin-top:20px; text-align:center;">
+              <%= text_field_tag "from", nil, :class => "phone-home-input", :placeholder => "Where from, yo?" %>
+              <%= text_field_tag "to", nil, :class => "phone-home-input", :placeholder => "And where to?" %>
+          </div>
+          <div class="row display" style="margin:auto; text-align:center;">
+              <%= image_submit_tag "mapbutton.png", :class => "phone-home-submit" %> 
+          </div>
+      </div>
 	<% end %>
 <% end %>
