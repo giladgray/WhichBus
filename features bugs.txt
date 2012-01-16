@@ -4,3 +4,5 @@ tap on display row to expand for full stop titles + options
 negative now color
 filter negative arrival times
 trimming journey options: neighboring arrival stops
+geocode fail
+difference btw scheduled and predicted times --> late
