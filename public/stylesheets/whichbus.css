@@ -103,6 +103,7 @@
 .topbarimage {
   background-image: url('/images/headerslice.jpg');
   background-repeat:repeat-x;
+  width: 100%;
 }
   
 .topbar {

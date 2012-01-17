@@ -57,25 +57,25 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 		<%= yield(:mobile) %>
 	</div>
   
-  <!-- container -->
-  <div class="show-on-desktops container" style="padding:0px 0px 0px 0px; width=100%; margin:auto; text-align:center;">
-    <div class="row" style="text-align:center;">
-      <% flash.each do |name, msg| %>
-          <%= content_tag :div, msg, :id => "flash_#{name}" %>
-        <% end %>
-        <%= content_tag :h1, yield(:title) if show_title? %>
-    </div>
-    <%= yield(:desktop) %>
-  </div>
-  
-  <div class="show-on-tablets container" style="width=100%; margin:auto; text-align:center;">
-    <div class="row" style="text-align:center;">
-      <% flash.each do |name, msg| %>
-          <%= content_tag :div, msg, :id => "flash_#{name}" %>
-        <% end %>
-        <%= content_tag :h1, yield(:title) if show_title? %>
-    </div>
-    <%= yield(:desktop) %>
-  </div>
+	<!-- container -->
+	<div class="show-on-desktops show-on-tablets container" style="padding:0px 0px 0px 0px; width=100%; margin:auto; text-align:center;">
+		<div class="row display topbarimage">
+            <%= link_to image_tag("aboutbutton.jpg"), "/" %>
+            <%= link_to image_tag("teambutton.jpg"), "/" %>
+            <%= link_to image_tag("contactbutton.jpg"), "/" %>
+            <%= image_tag "headerslice.jpg", :style => "width:300px; height:50px;" %>
+            <%= link_to image_tag("loginbutton.jpg"), "/" %>            
+            <%= image_tag "headerslice.jpg", :style => "width:30px; height:50px;" %>
+            <%= link_to image_tag("facebook-logo-square.png", :size => "40x40", :style => "margin-bottom:5px"), "http://www.facebook.com/whichbus" %>
+            <%= link_to image_tag("twitter.png", :size => "40x40", :style => "margin-bottom:5px"), "http://www.twitter.com/whichbus" %>
+		</div>
+		<div class="row" style="text-align:center;">
+			<% flash.each do |name, msg| %>
+				<%= content_tag :div, msg, :id => "flash_#{name}" %>
+			<% end %>
+			<%= content_tag :h1, yield(:title) if show_title? %>
+		</div>
+		<%= yield(:desktop) %>
+	</div>
   </body>
 </html>
