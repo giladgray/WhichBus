@@ -1,10 +1,10 @@
-.now { /* 0 to 6 */
+.now , .late { /* 0 to 6 */
 	color: red;
 }
 .soon { /* 7 to 15 */
 	color: orange;
 }
-.soonish { /* 15 to 36 */
+.soonish, .early { /* 15 to 36 */
 	color: green;
 }
 .later { /* >36 */
@@ -13,14 +13,15 @@
 .gone { /* <0 */
 	color: gray;
 }
-.late {
-	color: magenta;
-}
 
 .journey_span {
 	/*margin: 8px;
 	line-height: 1em;*/
-	display: block;
+}
+.journey_status {
+	line-height: 1rem;
+	font-size: 1rem;
+	margin: 8px 0;
 }
 .route_num {
 	font-size: 4rem;

@@ -5,28 +5,41 @@ require 'ostruct'
 require 'onebus_record'
 
 class ArrivalDeparture < OneBusRecord
-
+	@@time_format = "%l:%M%P"
+	
+	def predicted_departure_time
+		Time.at(data.predictedDepartureTime / 1000).strftime(@@time_format)
+	end
+	
+	def scheduled_arrival_time
+		Time.at(data.scheduledArrivalTime / 1000).strftime(@@time_format)
+	end
+	
 	def time_to_arrival(from_time = Time.now)
 		Time.at(data.scheduledArrivalTime / 1000) - from_time
 	end
 	
+	def time_to_departure(from_time = Time.now)
+		Time.at(data.predictedDepartureTime / 1000) - from_time
+	end
+	
 	def time_to_arrival_in_words(from_time = Time.now)
-		distance_of_time_in_words(Time.at(data.scheduledArrivalTime / 1000), from_time)
+		ArrivalDeparture.time_to_words_short((Time.at(data.scheduledArrivalTime / 1000) - from_time) / 60)
 	end
 	
 	def time_to_departure_in_words(from_time = Time.now)
-		distance_of_time_in_words(Time.at(data.predictedDepartureTime / 1000), from_time)
+		ArrivalDeparture.time_to_words_short((Time.at(data.predictedDepartureTime / 1000) - from_time) / 60)
 	end
 	
 	def css_class_for_arrival_time(from_time = Time.now)
-		case time_to_arrival(from_time) / 60
+		case time_to_departure(from_time) / 60
 		when -1000...0
 			"gone"
-		when 0..6
+		when 0...7
 			"now"
 		when 7...15
 			"soon"
-		when 15..30
+		when 15...31
 			"soonish"
 		else
 			"later"
@@ -35,7 +48,35 @@ class ArrivalDeparture < OneBusRecord
 	
 	def time_to_arrival_short(from_time = Time.now)
 		minutes = (Time.at(data.scheduledArrivalTime / 1000) - from_time) / 60
-		result = minutes < 0 ? "-" : ""
+		ArrivalDeparture.time_to_words_short(minutes)
+    end
+	
+	def predicted_departure_difference
+		change = (data.predictedDepartureTime - data.scheduledArrivalTime) / (1000 * 60)
+		case 
+		when change == 0
+			"on time"
+		when change < 0
+			"#{-change}m early"
+		else
+			"#{change}m late"
+		end
+	end
+	
+	def css_class_for_time_difference
+		change = (data.predictedDepartureTime - data.scheduledArrivalTime) / (1000 * 60)
+		case
+		when change == 0
+			"gone"
+		when change < 0
+			"early"
+		else
+			"late"
+		end
+	end
+
+	def self.time_to_words_short(minutes, signed=true)
+		result = (minutes < 0 and signed) ? "-" : ""
 		minutes = minutes.to_int.abs
 		case
 		when minutes <= 1
@@ -52,6 +93,5 @@ class ArrivalDeparture < OneBusRecord
 			result << "#{(minutes / 1440).round}d"
 		end
 		result
-    end
-
+	end
 end
