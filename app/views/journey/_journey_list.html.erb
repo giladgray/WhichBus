@@ -31,9 +31,15 @@
 		</span>
 	</div>
 	<div class="one phone-one columns route_time">
+		<p class="journey_status">
+			<%= journey[2].predicted_departure_time %>
+		</p>
 		<span class="journey_span <%= journey[2].css_class_for_arrival_time(@time) %>">
-			<%= journey[2].time_to_arrival_short(@time) %>
+			<%= journey[2].time_to_departure_in_words(@time) %>
 		</span>
+		<p class="journey_status <%= journey[2].css_class_for_time_difference %>">
+			<%= journey[2].predicted_departure_difference %>
+		</p>	
 	</div>
 </div>
 </a>

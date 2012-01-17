@@ -52,7 +52,7 @@ class JourneyController < ApplicationController
 				end
 			end
 		end
-		result.sort_by! {|r| r[2].scheduledArrivalTime }
+		result.sort_by! {|r| r[2].predictedDepartureTime }
 		result
 	end
 end
