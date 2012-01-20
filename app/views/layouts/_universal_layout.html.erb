@@ -1,0 +1,50 @@
+<div class="container full-size">
+  <div class="row display topbarimage">
+    <!-- the WhichBus header appears on all pages, in the upper left on desktop and at the top on phone -->
+    <div class="five four-phone columns">
+		  <%= link_to image_tag("header.jpg", :height => 50, :style=>"max-height:50px"), "/" %>
+    </div>
+    <!-- the header bar has been converted to Foundation's nav-bar -->
+    <div class="seven columns hide-on-phones">
+      <ul class="nav-bar full-size">
+        <li><%= link_to "ABOUT", "/"%></li>
+        <li><%= link_to "CONTACT", "/" %></li>
+        <li><%= link_to "LOGIN", "/" %></li>
+        <li><%= link_to image_tag("facebook-logo-square.png", :size => "40x40", :style => "margin-bottom:5px; display:inline"), "http://www.facebook.com/whichbus" %></li>
+        <li><%= link_to image_tag("twitter.png", :size => "40x40", :style => "margin-bottom:5px; display:inline"), "http://www.twitter.com/whichbus" %><li>
+      </ul>
+      <!-- old links preserved for posterity -->
+      <!-- <%= link_to image_tag("aboutbutton.jpg"), "/"%>
+      <%= link_to image_tag("teambutton.jpg"), "/" %>
+      <%= link_to image_tag("contactbutton.jpg"), "/" %>
+      <%= link_to image_tag("loginbutton.jpg"), "/" %> -->   
+      </div>
+  </div>
+  <!-- the first real thing on the page is the page title -->
+  <div class="row display title">
+    <div class="twelve phone-four columns">
+      <h3><%= yield(:page_title) %></h3>
+    </div>
+  </div>
+  <!-- the following div contains the real page content -->
+  <div class="row display">
+    <!-- a 50% width column that becomes full-screen on phones -->
+    <div class="six phone-four columns">
+      <div class="row display show-on-phones">
+        <!-- the map is the first element in the list on phones -->
+        <div id="map_canvas_mobile" style="height:200px">
+          [map placeholder]
+        </div>
+      </div>
+      <!-- individual views print a list of items here -->
+      <!-- we need to refine the CSS classes for these items -->
+      <%= yield(:model_list) %>
+    </div>
+    <!-- on desktops and tablets we have a big map on the right side of the screen -->
+    <div class="six columns hide-on-phones ">
+      <div id="map_canvas" style="width: 100%; height: 600px; background-color: red">
+        [desktop map placeholder]
+      </div>
+    </div>
+  </div>
+</div>

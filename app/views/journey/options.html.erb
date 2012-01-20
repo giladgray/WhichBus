@@ -35,25 +35,20 @@
 <% content_for :head do %>
 <style type="text/css">
 
-
-
 </style>
 
 
 <!-- Google Maps JS -->
- <script type="text/javascript"
-      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjJxK5PWs_HUYDfkLxHPZumnjV6ORDIDs&sensor=true">
-    </script>
-
-
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjJxK5PWs_HUYDfkLxHPZumnjV6ORDIDs&sensor=true"></script>
 <script>
-
 function geolocate() {
 	navigator.geolocation.getCurrentPosition(initializeMap, noLocation);
 }
+
 function noLocation() {
 	alert("Geolocation failed!");
 }
+
 function initializeMap(position) {
 
 	var latitude = position.coords.latitude;
@@ -78,26 +73,19 @@ function initializeMap(position) {
 }
 
 window.onload = geolocate;
-
 </script>
 <!-- Google Maps JS END -->
-
 <% end %>
 
 <% content_for :title do "Your Journey Options" end %>
 
-<% content_for :mobile do %>
-<div class="row display">
-	<div class="phone-four columns">
-		<div style="margin:0px;height:45px;">
-			<%= link_to image_tag("header.jpg"), "/" %>
-		</div>
-	</div>
-</div>
-<%= render "map" %> 
+<% content_for :page_title do%>
+	<em>From:</em> <%= @from.street_address.nil? ? @from.district : @from.street_address %>, 
+		<%= @from.city %><br/>
+	<em>To:</em> <%= @to.street_address.nil? ? @to.district : @to.street_address %>, 
+		<%= @to.city %><br/>
+<% end %>
+    
+<% content_for :model_list do %>
 <%= render "journey_list" %>
-<% end %> 
-
-<% content_for :desktop do %>
-<%= render "journey_list" %>
-<% end %> 
+<% end %>

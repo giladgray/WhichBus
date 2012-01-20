@@ -1,30 +1,32 @@
 <!-- Stop index -->
 
-<% content_for :mobile do %>
-<%= render "layouts/mobile_header"%>
-<% end %>
-
-<div class="row display title">
-	<div class="six columns">
-	<h4>There are <span id="stop_count"><%= @stops.length %></span> stops near you:</h4>
-  <h5>You are at (<%= @user_location.latitude %>, <%= @user_location.longitude %>)</h5>
-	</div>
-</div>
-
-<div class="row display list">
-  <div class="six phone-four columns">
-    <% @stops.each do |stop| %>
-    <div class="row display well">      
-    	<div class="ten phone-three columns route_desc j">
-        <h5 class="journey_span"><%= link_to stop.name, stop_path(stop.id)%></h5>
-    	</div>
-    	<div class="two phone-one columns route_time journey_span">
-          <%= stop.distance.round(2) %>mi
-    	</div>
-    </div>
-    <% end %>
-		<!-- TODO make this a display row in the javascript -->
-		<ul id="stop_list">
-		</ul>
+<% content_for :title do "Nearby Stops" end %>
+<% content_for :page_title do %>
+<div class="row display">
+  <div class="two phone-one columns">
+    <span class="route_num"><%= @stops.length %></span>
+  </div>
+  <div class="ten phone-three columns">
+    <span style="text-align:left">Nearby Stops</span>
   </div>
 </div>
+<% end %>
+
+<% content_for :model_list do%>
+  <% @stops.each do |stop| %>
+  <div class="row display well">      
+  	<div class="ten phone-three columns route_desc">
+      <h5 class="journey_span"><%= link_to stop.name, stop_path(stop.id)%></h5>
+  	</div>
+  	<div class="two phone-one columns route_time">
+      <h5 class="journey_span">
+        <%= stop.distance.round(2) %>mi
+      </h5>
+  	</div>
+  </div>
+  <% end %>
+<% end %>
+  
+<!-- TODO make this a display row in the javascript -->
+<ul id="stop_list">
+</ul>

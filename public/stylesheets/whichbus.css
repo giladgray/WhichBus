@@ -1,3 +1,8 @@
+.full-size {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .now , .late { /* 0 to 6 */
 	color: red;
 }
@@ -15,9 +20,9 @@
 }
 
 .journey_span {
-	/*margin: 8px;
-	line-height: 1em;*/
+  height: 100%;
   vertical-align: middle;
+  padding: 0.5em;
 }
 .journey_status {
 	line-height: 1rem;
@@ -26,18 +31,14 @@
 }
 .route_num {
 	font-size: 4rem;
-	vertical-align: middle !important;
 	color: #7D8073;
-	display: block;
 }
 .show-on-desktops .route_num {
 	/* font-size: 5em; */
 }
 
 .route_desc {
-	padding-top: 5px !important;
-	font-size: .75em;
-	vertical-align: middle;
+	font-size: 1.5rem;
 	text-align: left;
 }
 .show-on-desktops .route_desc {
@@ -46,7 +47,6 @@
 
 .route_time {
 	font-size: 2rem;
-	vertical-align: middle;
   text-align: center;
 }
 .route_time span{
@@ -58,7 +58,7 @@
 .well {
   background-color: #f5f5f5;
   margin-bottom: 5px;
-  padding: 19px;
+  /* padding: 19px;*/
   min-height: 20px;
   border: 1px solid #eee;
   border: 1px solid rgba(0, 0, 0, 0.05);

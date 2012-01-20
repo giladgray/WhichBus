@@ -54,12 +54,8 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 
  <body<%= content_for?(:onload) ? " onload=#{yield(:onload)}" : "" %>>
 
-	<div class="show-on-phones phone" style="margin:0px 0px 0px 0px;">
-		<%= yield(:mobile) %>
-    <%= yield %>
-	</div>
+  <%= render("layouts/universal_layout") %>
   
-	<!-- container -->
 	<div class="show-on-desktops show-on-tablets container" style="padding:0px 0px 0px 0px; width=100%; margin:auto; text-align:center;">
 		<div class="row display topbarimage">
             <%= link_to image_tag("aboutbutton.jpg"), "/" %>

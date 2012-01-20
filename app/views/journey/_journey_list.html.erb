@@ -1,41 +1,29 @@
-<div class="row">
-	<div class="twelve phone-four columns well title">
-<div class="row display title">
-	<div class="twelve phone-four columns">
-		<!-- journey information/map -->
-		<p style="margin:0px;">
-		<em>From:</em> <%= @from.street_address.nil? ? @from.district : @from.street_address %>, 
-			<%= @from.city %><br/>
-		<em>To:</em> <%= @to.street_address.nil? ? @to.district : @to.street_address %>, 
-			<%= @to.city %><br/>
-		</p>
-	</div>
-</div>
-<div class="row display list">
-  <div class="six phone-four columns">
-  <% if @journeys.length == 0 %>
-    <div class="row display well">
-    	<div class="six phone-four columns error">
-    		<h4>No Direct Routes Found!</h4>
-    		<em>Coming soon: multi-bus routes<br/>Get excited dawg!</em>
-    	</div>
-    </div>
-  <% else %>
-  <% @journeys.find_all {|j| j[2].time_to_departure > -600 }.each do |journey| %>
-    <!-- journey = [start, route, arrival, end] -->
-    <a href="stop/<%= journey[0].id %>">
-    <div class="row display well">
-    	<div class="two phone-one columns route_num">
-    		<h1 class="journey_span"><%= journey[1].shortName %></h1>
-    	</div>
-    	<div class="eight phone-two columns route_desc">
-    		<p class="journey_span">
-    			<h5><%= truncate(journey[0].name, :length => 35) %></h5> <!--<br/>&dArr;<br/> -->
-    			<h6>&rArr;<%= truncate(journey[3].name, :length => 35) %></h6>
-    		</p>
-    	</div>
-    	<div class="two phone-one columns route_time">
-    		<p class="journey_status">
+<% if @journeys.length == 0 %>
+  <div class="row display well">
+  	<div class="twelve phone-four columns error">
+  		<h4>No Direct Routes Found!</h4>
+  		<em>Coming soon: multi-bus routes<br/>Get excited dawg!</em>
+  	</div>
+  </div>
+<% else %>
+<% @journeys.find_all {|j| j[2].time_to_departure > -600 }.each do |journey| %>
+  <!-- journey = [start, route, arrival, end] -->
+  <div class="row display well">
+  <a href="stop/<%= journey[0].id %>">
+  	<div class="two phone-one columns">
+  		<div class="journey_span route_num">
+        <%= journey[1].shortName %>
+      </div>
+  	</div>
+  	<div class="eight phone-two columns">
+  		<div class="journey_span route_desc">
+  			<h5><%= truncate(journey[0].name, :length => 35) %></h5> <!--<br/>&dArr;<br/> -->
+  			<h6>&rArr;<%= truncate(journey[3].name, :length => 35) %></h6>
+  		</div>
+  	</div>
+  	<div class="two phone-one columns ">
+      <div class="journey_span route_time">
+    		<p class="journey_status ">
     			<%= journey[2].predicted_departure_time %>
     		</p>
     		<span class="journey_span <%= journey[2].css_class_for_arrival_time(@time) %>">
@@ -44,9 +32,8 @@
     		<p class="journey_status <%= journey[2].css_class_for_time_difference %>">
     			<%= journey[2].predicted_departure_difference %>
     		</p>	
-    	</div>
-    </div>
-    </a>
-  <% end end %>
+      </div>
+  	</div>
+  </a>
   </div>
-</div>
+<% end end %>
