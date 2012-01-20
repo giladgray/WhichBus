@@ -35,7 +35,43 @@
 <% content_for :head do %>
 <style type="text/css">
 
+
+
 </style>
+
+
+<!-- Google Maps JS -->
+ <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjJxK5PWs_HUYDfkLxHPZumnjV6ORDIDs&sensor=true">
+    </script>
+
+
+<script>
+
+function geolocate() {
+	navigator.geolocation.getCurrentPosition(initializeMap, noLocation);
+}
+function noLocation() {
+	alert("Geolocation failed!");
+}
+function initializeMap(position) {
+	var latitude = position.coords.latitude;
+	var longitude = position.coords.longitude;
+  var myOptions = {
+    zoom: 12,
+    center: new google.maps.LatLng(latitude, longitude),
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    minzoom: 10,
+    disableDefaultUI: true
+  }
+  var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+}
+
+window.onload = geolocate;
+
+</script>
+<!-- Google Maps JS END -->
+
 <% end %>
 
 <% content_for :title do "Your Journey Options" end %>
@@ -43,11 +79,12 @@
 <% content_for :mobile do %>
 <div class="row display">
 	<div class="phone-four columns">
-		<div style="margin:0px;">
+		<div style="margin:0px;height:45px;">
 			<%= link_to image_tag("header.jpg"), "/" %>
 		</div>
 	</div>
 </div>
+<%= render "map" %> 
 <%= render "journey_list" %>
 <% end %> 
 

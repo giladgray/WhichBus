@@ -357,3 +357,6 @@ table .purple {
 table .headerSortUp.purple, table .headerSortDown.purple {
   background-color: #e2d5f0;
 }
+
+
+#map_canvas {height:150px;} 

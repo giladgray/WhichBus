@@ -1,19 +1,19 @@
 <div class="row">
 	<div class="twelve phone-four columns well title">
 		<!-- journey information/map -->
-		<div id="canvas_map">
-		</div>
+		<p style="margin:0px;">
 		<em>From:</em> <%= @from.street_address.nil? ? @from.district : @from.street_address %>, 
 			<%= @from.city %><br/>
 		<em>To:</em> <%= @to.street_address.nil? ? @to.district : @to.street_address %>, 
 			<%= @to.city %><br/>
+		</p>
 	</div>
 </div>
 <% if @journeys.length == 0 %>
 <div class="row display well">
 	<div class="six phone-four columns error">
 		<h4>No Direct Routes Found!</h4>
-		<em>Coming soon: multi-bus routes<br/>Get excited dawg!</em>
+		<em>Coming soon: multi-bus routes<br/>Get excited!</em>
 	</div>
 </div>
 <% else %>
