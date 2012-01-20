@@ -1,27 +1,33 @@
 <% content_for :title do "Stop #{@stop.name}" end %>
 
-<div class="row display well title">
+<div class="row display title">
 	<div class="twelve phone-four columns">
 		<h2><%= @stop.name %></h2>
+    <%= @stop.address %>
 	</div>
 </div>
-<% @arrivals.each do |arr| %>
-<!-- [route, arrival] -->
-<div class="row display well">
-	<div class="one phone-one columns route_num">
-		<span class="journey_span"><%= arr[0].shortName %></span>
-	</div>
-	<div class="four phone-two columns route_desc">
-		<span class="journey_span">
-			<%= truncate(arr[0].description, :length => 25) %>
-		</span>
-	</div>
-	<div class="one phone-one columns route_time">
-		<% unless arr[1].nil? %>
-		<span class="journey_span <%= arr[1].css_class_for_arrival_time(@time) %>">
-			<%= arr[1].time_to_arrival_short(@time) %>
-		</span>
-		<% end %>
-	</div>
+<div class="row display">
+  <div class="five phone-four columns">
+    <% @arrivals.each do |arr| %>
+    <!-- arr = [route, arrival] -->
+    <div class="row display well">
+    	<div class="three phone-one columns route_num">
+    		<span class="journey_span"><%= arr[0].shortName %></span>
+    	</div>
+    	<div class="seven phone-two columns route_desc">
+    		<span class="journey_span">
+    			<%= arr[0].description %>
+    			<!-- <%= truncate(arr[0].description, :length => 25) %> -->
+    		</span>
+    	</div>
+    	<div class="one phone-one columns route_time">
+    		<% unless arr[1].nil? %>
+    		<span class="journey_span <%= arr[1].css_class_for_arrival_time(@time) %>">
+    			<%= arr[1].time_to_arrival_short(@time) %>
+    		</span>
+    		<% end %>
+    	</div>
+    </div>
+    <% end %>
+  </div>
 </div>
-<% end %>

@@ -1,21 +1,11 @@
 <!-- Stop show -->
 <% content_for :title do "WhichBus :: #{@stop.name}" end %>
 
-<% content_for :desktop do %>
-	<%= render "arrival_list" %>
-<% end %>
-
 <% content_for :mobile do %>
-<div class="row display">
-	<div class="phone-four columns">
-		<div style="margin:0px;">
-			<%= link_to image_tag("header.jpg"), "/" %>
-		</div>
-	</div>
-</div>
+<%= render "layouts/mobile_header"%>
+<% end %>
 
 <%= render "arrival_list" %>
-<% end %>
 
 <h2><%= @stop.name %> (<%= @stop.direction %>)</h2> <br/>
 ID: <%= @stop.id %> <br/>

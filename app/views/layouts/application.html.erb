@@ -52,9 +52,11 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 
 </head>
 
- <body <%= content_for?(:onload) ? "onload=#{yield(:onload)}" : "" %> >
+ <body<%= content_for?(:onload) ? " onload=#{yield(:onload)}" : "" %>>
+
 	<div class="show-on-phones phone" style="margin:0px 0px 0px 0px;">
 		<%= yield(:mobile) %>
+    <%= yield %>
 	</div>
   
 	<!-- container -->
@@ -76,6 +78,8 @@ h1,h2,h3,h4,h5 {color: #7D8073;}
 			<%= content_tag :h1, yield(:title) if show_title? %>
 		</div>
 		<%= yield(:desktop) %>
+    <%= yield %>
 	</div>
+  
   </body>
 </html>

@@ -1,46 +1,48 @@
-<div class="row">
-	<div class="twelve phone-four columns well title">
+<div class="row display title">
+	<div class="twelve phone-four columns">
 		<!-- journey information/map -->
-		<div id="canvas_map">
-		</div>
 		<em>From:</em> <%= @from.street_address.nil? ? @from.district : @from.street_address %>, 
 			<%= @from.city %><br/>
 		<em>To:</em> <%= @to.street_address.nil? ? @to.district : @to.street_address %>, 
 			<%= @to.city %><br/>
 	</div>
 </div>
-<% if @journeys.length == 0 %>
-<div class="row display well">
-	<div class="six phone-four columns error">
-		<h4>No Direct Routes Found!</h4>
-		<em>Coming soon: multi-bus routes<br/>Get excited dawg!</em>
-	</div>
+<div class="row display list">
+  <div class="six phone-four columns">
+  <% if @journeys.length == 0 %>
+    <div class="row display well">
+    	<div class="six phone-four columns error">
+    		<h4>No Direct Routes Found!</h4>
+    		<em>Coming soon: multi-bus routes<br/>Get excited dawg!</em>
+    	</div>
+    </div>
+  <% else %>
+  <% @journeys.find_all {|j| j[2].time_to_departure > -600 }.each do |journey| %>
+    <!-- journey = [start, route, arrival, end] -->
+    <a href="stop/<%= journey[0].id %>">
+    <div class="row display well">
+    	<div class="two phone-one columns route_num">
+    		<h1 class="journey_span"><%= journey[1].shortName %></h1>
+    	</div>
+    	<div class="eight phone-two columns route_desc">
+    		<p class="journey_span">
+    			<h5><%= truncate(journey[0].name, :length => 35) %></h5> <!--<br/>&dArr;<br/> -->
+    			<h6>&rArr;<%= truncate(journey[3].name, :length => 35) %></h6>
+    		</p>
+    	</div>
+    	<div class="two phone-one columns route_time">
+    		<p class="journey_status">
+    			<%= journey[2].predicted_departure_time %>
+    		</p>
+    		<span class="journey_span <%= journey[2].css_class_for_arrival_time(@time) %>">
+    			<%= journey[2].time_to_departure_in_words(@time) %>
+    		</span>
+    		<p class="journey_status <%= journey[2].css_class_for_time_difference %>">
+    			<%= journey[2].predicted_departure_difference %>
+    		</p>	
+    	</div>
+    </div>
+    </a>
+  <% end end %>
+  </div>
 </div>
-<% else %>
-<% @journeys.find_all {|j| j[2].time_to_arrival > -600 }.each do |journey| %>
-<!-- [start, route, arrival, end] -->
-<a href="stop/<%= journey[0].id %>">
-<div class="row display well">
-	<div class="one phone-one columns route_num">
-		<span class="journey_span"><%= journey[1].shortName %></span>
-	</div>
-	<div class="four phone-two columns route_desc">
-		<span class="journey_span">
-			<%= truncate(journey[0].name, :length => 25) %><br/>&dArr;<br/>
-			<%= truncate(journey[3].name, :length => 25) %>
-		</span>
-	</div>
-	<div class="one phone-one columns route_time">
-		<p class="journey_status">
-			<%= journey[2].predicted_departure_time %>
-		</p>
-		<span class="journey_span <%= journey[2].css_class_for_arrival_time(@time) %>">
-			<%= journey[2].time_to_departure_in_words(@time) %>
-		</span>
-		<p class="journey_status <%= journey[2].css_class_for_time_difference %>">
-			<%= journey[2].predicted_departure_difference %>
-		</p>	
-	</div>
-</div>
-</a>
-<% end end %>

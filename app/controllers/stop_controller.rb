@@ -4,10 +4,12 @@ class StopController < ApplicationController
 	geocode_ip_address
 	
 	def index
-		@stops = []
+    @user_location = request.location
+    
+		@stops = Stop.by_location(@user_location.latitude, @user_location.longitude)
 		if params.has_key?("lat") and params.has_key?("lon")
 			@stops = Stop.by_location(params[:lat], params[:lon])
-		end
+    end
 		
 		respond_to do |format|
 			format.html

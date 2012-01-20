@@ -9,6 +9,7 @@ Whichbus::Application.routes.draw do
   root :to => "journey#new"
   
   match "journey" => "journey#options"
+  match "s/:id" => "stop#show"
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

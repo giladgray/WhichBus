@@ -17,6 +17,7 @@
 .journey_span {
 	/*margin: 8px;
 	line-height: 1em;*/
+  vertical-align: middle;
 }
 .journey_status {
 	line-height: 1rem;
@@ -37,7 +38,7 @@
 	padding-top: 5px !important;
 	font-size: .75em;
 	vertical-align: middle;
-	text-align: center;
+	text-align: left;
 }
 .show-on-desktops .route_desc {
 	font-size: 1.2em
@@ -46,9 +47,12 @@
 .route_time {
 	font-size: 2rem;
 	vertical-align: middle;
+  text-align: center;
+}
+.route_time span{
+  text-align: right;
 }
 .show-on-desktops .route_time {
-	/* font-size: 3em */
 }
 
 .well {
@@ -75,9 +79,14 @@
 	font-size: 1.5em;
 	line-height: 1.5em;
 }
-.title h2 {
+.title h1, .title h2, .title h3, .title h4, .title h5, .title h6 {
 	padding-top: 8px;
 	color: white;
+}
+
+.show-on-desktops .list {
+  max-height: 600px;
+  overflow: auto;
 }
 
 ::-webkit-input-placeholder  { 
