@@ -29,7 +29,7 @@ class Stop < OneBusRecord
   	stops.each do |s|
   		stop = Stop.new(s[:id], s)
       #we should be able to replace this call with the Geocoder distance_to() method 
-  		stop.distance = haversine_distance(lat.to_f, lon.to_f, stop.lat.to_f, stop.lon.to_f) #stop.distance_to([lat, lon])
+  		stop.distance = stop.distance_to([lat, lon])
   		results << stop
 	  end
 	  results.sort_by! {|s| s.distance }
