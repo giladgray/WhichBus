@@ -30,9 +30,12 @@ GEM
     activesupport (3.0.5)
     arel (2.0.10)
     builder (2.1.2)
+    daemons (1.1.5)
+    dalli (1.1.4)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     geocoder (1.1.0)
+    eventmachine (0.12.10)
     geokit (1.6.0)
     geokit-rails3 (0.1.5)
       geokit (~> 1.5)
@@ -79,10 +82,13 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+
   geocoder
   geokit
   geokit-rails3
   json_pure
   nifty-generators
+  pg
   rails (= 3.0.5)
   sqlite3
+  thin

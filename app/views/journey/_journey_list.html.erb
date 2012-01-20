@@ -1,10 +1,14 @@
+<div class="row">
+	<div class="twelve phone-four columns well title">
 <div class="row display title">
 	<div class="twelve phone-four columns">
 		<!-- journey information/map -->
+		<p style="margin:0px;">
 		<em>From:</em> <%= @from.street_address.nil? ? @from.district : @from.street_address %>, 
 			<%= @from.city %><br/>
 		<em>To:</em> <%= @to.street_address.nil? ? @to.district : @to.street_address %>, 
 			<%= @to.city %><br/>
+		</p>
 	</div>
 </div>
 <div class="row display list">
