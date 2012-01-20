@@ -1,34 +1,24 @@
-<% content_for :mobile do %>
-	<%= form_tag "journey", :method => :get do %>     
-	  <div class="row display" style="margin-bottom:32px;">
-          <%= image_tag "header.jpg" , :size => "320x0"%>
+<div class="row display">
+  <div class="twelve columns">
+	  <%= form_tag "journey", :method => :get do %>     
+      <div class="row display">
+        <div class="eight columns centered">
+          <%= image_tag "whichbuslogo.png" %>
+          <div class="row display" style="margin:4px 0px 0px 0px;">
+            <div class="six columns">
+                <%= text_field_tag "from", nil, :class => "phone-home-input", :placeholder => "Where from, yo?" %>
+            </div>
+            <div class="six columns">
+                <%= text_field_tag "to", nil, :class => "phone-home-input", :placeholder => "And where to?" %>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row display">
-          <%= image_tag "whichbuslogo.png" , :size => "256x0"%>
-      </div>
-      <div class="row display" style="margin:4px 0px 0px 0px;">
-          <%= text_field_tag "from", nil, :class => "phone-home-input", :placeholder => "Where from, yo?" %>
-      </div>
-      <div class="row display" style="margin:8px 0px 16px 0px;">
-          <%= text_field_tag "to", nil, :class => "phone-home-input", :placeholder => "And where to?" %>
-      </div>
-      <div class="row display">
-          <%= image_submit_tag "mapbutton.png", :class => "phone-home-submit", :size => "200x0" %> 
+        <div class="four columns centered">
+          <%= submit_tag "Map That Bus!", :class=>"phone-home-submit large round blue button" %>
+        </div>
       </div>
 	<% end %>
-<% end %>
-
-<% content_for :desktop do %>
-	<%= form_tag "journey", :style =>"margin-top: 20px;", :method => :get do %>
-	<div class="row display" style="margin:auto; text-align:center;">
-		<%= image_tag "whichbuslogo.png" %>
-	</div>
-	<div class="row display" style="margin:auto; margin-top:20px; text-align:center;">
-		<%= text_field_tag "from", nil, :class => "phone-home-input", :placeholder => "Where from, yo?" %>&nbsp;&nbsp;
-		<%= text_field_tag "to", nil, :class => "phone-home-input", :placeholder => "And, where to?" %>
-	</div>
-	<div class="row display" style="margin:auto; text-align:center;">
-		<%= image_submit_tag "mapbutton.png", :class => "phone-home-submit" %> 
-	</div>
-	<% end %>
-<% end %>
+  </div>
+</div>

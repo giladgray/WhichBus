@@ -1,24 +1,24 @@
 require 'stop'
 
 class JourneyController < ApplicationController
-	include GeoKit::Geocoders
-
+  
 	def new
+    render :layout => "splash"
 	end
 	
 	def options
 		OneBusRecord.reset_json_count
 		
 		#expects two locations -- geocode them straight up!
-		@from = GoogleGeocoder.geocode(params[:from])
-		@to = GoogleGeocoder.geocode(params[:to])
+		@from = Geocoder.search(params[:from]).first #GoogleGeocoder.geocode(params[:from])
+		@to = Geocoder.search(params[:to]).first #GoogleGeocoder.geocode(params[:to])
 		
 		#if(@from.success and @to.success)
 			#error handling!
 		
 		#find stops around those locations
-		@from_stops = Stop.by_location(@from.lat, @from.lng).first(10)
-		@to_stops = Stop.by_location(@to.lat, @to.lng).first(10)
+		@from_stops = Stop.by_location(@from.latitude, @from.longitude).first(10)
+		@to_stops = Stop.by_location(@to.latitude, @to.longitude).first(10)
 		
 		#call routing helper to find the routes
 		@journeys = self.class.calc_journeys(@from_stops, @to_stops)

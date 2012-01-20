@@ -1,14 +1,11 @@
-include GeoKit
 include Geocoder
 
-require 'geokit-rails3'
 require 'rubygems'
 require 'json'
 require 'net/http'
 require 'ostruct'
 require 'onebus_record'
 require 'route'
-require 'haversine'
 
 class Stop < OneBusRecord
   attr_accessor  :address
@@ -28,8 +25,7 @@ class Stop < OneBusRecord
   	results = []
   	stops.each do |s|
   		stop = Stop.new(s[:id], s)
-      #we should be able to replace this call with the Geocoder distance_to() method 
-  		stop.distance = stop.distance_to([lat, lon])
+  		stop.distance = stop.distance_to([lat.to_f, lon.to_f])
   		results << stop
 	  end
 	  results.sort_by! {|s| s.distance }

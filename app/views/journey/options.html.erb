@@ -1,4 +1,4 @@
-<!-- <h2>From: <%= @from.full_address %> </h2>
+<!-- <h2>From: <%= @from.address %> </h2>
 <ul>
 <% @from_stops.each do |fs| %>
 	<li>
@@ -10,7 +10,7 @@
 <% end %>
 </ul>
 
-<h2>To: <%= @to.full_address %>  </h2>
+<h2>To: <%= @to.address %>  </h2>
 <ul>
 <% @to_stops.each do |ts| %>
 	<li>
@@ -80,10 +80,8 @@ window.onload = geolocate;
 <% content_for :title do "Your Journey Options" end %>
 
 <% content_for :page_title do%>
-	<em>From:</em> <%= @from.street_address.nil? ? @from.district : @from.street_address %>, 
-		<%= @from.city %><br/>
-	<em>To:</em> <%= @to.street_address.nil? ? @to.district : @to.street_address %>, 
-		<%= @to.city %><br/>
+	<em>From:</em> <%= @from.address %>, <%= @from.city %><br/>
+	<em>To:</em> <%= @to.address %>, <%= @to.city %><br/>
 <% end %>
     
 <% content_for :model_list do %>

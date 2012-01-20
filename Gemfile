@@ -14,8 +14,6 @@ group :development, :test do
   gem 'nifty-generators'
 end
 gem 'json_pure'
-gem 'geokit'
-gem 'geokit-rails3'
 gem 'geocoder'
 
 # Use unicorn as the web server

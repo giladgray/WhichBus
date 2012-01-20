@@ -36,10 +36,6 @@ GEM
       abstract (>= 1.0.0)
     eventmachine (0.12.10)
     geocoder (1.1.0)
-    geokit (1.6.0)
-    geokit-rails3 (0.1.5)
-      geokit (~> 1.5)
-      rails (~> 3.0)
     i18n (0.6.0)
     json_pure (1.6.4)
     mail (2.2.19)
@@ -90,8 +86,6 @@ PLATFORMS
 DEPENDENCIES
   dalli
   geocoder
-  geokit
-  geokit-rails3
   json_pure
   nifty-generators
   pg
