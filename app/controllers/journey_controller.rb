@@ -2,6 +2,8 @@ require 'stop'
 
 class JourneyController < ApplicationController
   
+  caches_page :new
+  
 	def new
     render :layout => "splash"
 	end
@@ -13,8 +15,7 @@ class JourneyController < ApplicationController
 		@from = Geocoder.search(params[:from]).first #GoogleGeocoder.geocode(params[:from])
 		@to = Geocoder.search(params[:to]).first #GoogleGeocoder.geocode(params[:to])
 		
-		#if(@from.success and @to.success)
-			#error handling!
+    #TODO validation: null parameters, geocode fail
 		
 		#find stops around those locations
 		@from_stops = Stop.by_location(@from.latitude, @from.longitude).first(10)

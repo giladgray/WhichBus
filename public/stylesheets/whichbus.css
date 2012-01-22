@@ -55,6 +55,18 @@
 .show-on-desktops .route_time {
 }
 
+img.logo {
+  width: 90%;
+  padding: 15px 0;
+}
+
+.giant {
+  font-size: 24px !important;
+  line-height: 36px !important;
+  padding: 4px 5px !important;
+  margin-bottom: 15px !important;
+}
+
 .well {
   background-color: #f5f5f5;
   margin-bottom: 5px;

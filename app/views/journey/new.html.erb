@@ -3,20 +3,30 @@
 	  <%= form_tag "journey", :method => :get do %>     
       <div class="row display">
         <div class="eight columns centered">
-          <%= image_tag "whichbuslogo.png" %>
+          <div class="row display">
+            <%= image_tag "whichbuslogo.png", :class => "logo" %>
+          </div>
+        </div>
+        <div class="eight columns centered">
           <div class="row display" style="margin:4px 0px 0px 0px;">
             <div class="six columns">
-                <%= text_field_tag "from", nil, :class => "phone-home-input", :placeholder => "Where from, yo?" %>
+                <%= text_field_tag "from", flash[:from], :class => "giant input-text", :placeholder => "Where from, yo?" %>
+                <% if flash[:from_err] %>
+                <small class="error"><%= flash[:from_err] %></small>
+                <% end %>
             </div>
             <div class="six columns">
-                <%= text_field_tag "to", nil, :class => "phone-home-input", :placeholder => "And where to?" %>
+                <%= text_field_tag "to", flash[:to], :class => "giant input-text", :placeholder => "And where to?" %>
+                <% if flash[:to_err] %>
+                <small class="error"><%= flash[:to_err] %></small>
+                <% end %>
             </div>
           </div>
         </div>
       </div>
       <div class="row display">
         <div class="four columns centered">
-          <%= submit_tag "Map That Bus!", :class=>"phone-home-submit large round blue button" %>
+          <%= submit_tag "Map That Bus!", :class=>"phone-home-submit giant radius blue button" %>
         </div>
       </div>
 	<% end %>
