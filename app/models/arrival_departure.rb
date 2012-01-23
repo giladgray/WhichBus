@@ -4,15 +4,40 @@ require 'net/http'
 require 'ostruct'
 require 'onebus_record'
 
+#TODO: sometimes predicted times are 0. this is bad and should be replaced with scheduled
+#when prediced times = 0 then prediction = -15000d 
+
 class ArrivalDeparture < OneBusRecord
 	@@time_format = "%l:%M%P"
 	
+  def all_times
+    "#{scheduled_arrival_time}/#{predicted_arrival_time} => #{scheduled_departure_time}/#{predicted_departure_time}"
+  end
+  
+  def print_html(time = Time.now)
+    #content_tag(:div, predicted_departure_time, :class=>"row small")
+    content_tag(:div, time_to_departure_in_words(time), :class=>"row #{css_class_for_arrival_time(time)}").to_s
+    #content_tag(:div, predicted_departure_difference, :class=>"row small #{css_class_for_time_difference}")
+  end
+  
+  def self.convert_time(time)
+		Time.at(time / 1000).strftime(@@time_format)
+  end
+  
+	def predicted_arrival_time
+		self.class.convert_time(data.predictedArrivalTime)
+	end
+  
 	def predicted_departure_time
-		Time.at(data.predictedDepartureTime / 1000).strftime(@@time_format)
+		self.class.convert_time(data.predictedDepartureTime)
 	end
 	
 	def scheduled_arrival_time
 		Time.at(data.scheduledArrivalTime / 1000).strftime(@@time_format)
+	end
+	
+	def scheduled_departure_time
+		Time.at(data.scheduledDepartureTime / 1000).strftime(@@time_format)
 	end
 	
 	def time_to_arrival(from_time = Time.now)

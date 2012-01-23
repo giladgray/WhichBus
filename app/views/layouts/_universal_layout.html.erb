@@ -10,7 +10,7 @@
   <!-- the following div contains the real page content -->
   <div class="row display">
     <!-- a 50% width column that becomes full-screen on phones -->
-    <div class="six phone-four columns">
+    <div class="five phone-four columns">
       <div class="row display show-on-phones">
         <!-- the map is the first element in the list on phones -->
         <div id="map_canvas_mobile" style="height:200px">
@@ -22,7 +22,7 @@
       <%= yield(:model_list) %>
     </div>
     <!-- on desktops and tablets we have a big map on the right side of the screen -->
-    <div class="six columns hide-on-phones ">
+    <div class="seven columns hide-on-phones ">
       <div id="map_canvas" style="width: 100%; height: 600px; background-color: red">
         [desktop map placeholder]
       </div>

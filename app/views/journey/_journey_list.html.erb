@@ -9,31 +9,23 @@
 <% @journeys.find_all {|j| j[2].time_to_departure > -600 }.each do |journey| %>
   <!-- journey = [start, route, arrival, end] -->
   <div class="row display well">
-  <a href="stop/<%= journey[0].id %>">
-  	<div class="two phone-one columns">
-  		<div class="journey_span route_num">
-        <%= journey[1].shortName %>
-      </div>
-  	</div>
-  	<div class="eight phone-two columns">
-  		<div class="journey_span route_desc">
-  			<h5><%= truncate(journey[0].name, :length => 35) %></h5> <!--<br/>&dArr;<br/> -->
-  			<h6>&rArr;<%= truncate(journey[3].name, :length => 35) %></h6>
-  		</div>
-  	</div>
-  	<div class="two phone-one columns ">
-      <div class="journey_span route_time">
-    		<p class="journey_status ">
-    			<%= journey[2].predicted_departure_time %>
-    		</p>
-    		<span class="journey_span <%= journey[2].css_class_for_arrival_time(@time) %>">
-    			<%= journey[2].time_to_departure_in_words(@time) %>
-    		</span>
-    		<p class="journey_status <%= journey[2].css_class_for_time_difference %>">
-    			<%= journey[2].predicted_departure_difference %>
-    		</p>	
-      </div>
-  	</div>
-  </a>
+		<span class="journey route">
+      <%= journey[1].button %>
+    </span>
+		<span class="journey description">
+      <a href="stop/<%= journey[0].id %>">
+			  <h5><%= truncate(journey[0].name, :length => 35) %></h5> <!--<br/>&dArr;<br/> -->
+			  <h6>&rArr;<%= truncate(journey[3].name, :length => 35) %></h6>
+      </a>
+		</span>
+    <span class="journey time">
+			<small><%= journey[2].predicted_departure_time %></small>
+  		<span class="journey_span <%= journey[2].css_class_for_arrival_time(@time) %>">
+  			<%= journey[2].time_to_departure_in_words(@time) %>
+  		</span>
+			<small class="<%= journey[2].css_class_for_time_difference %>">
+        <%= journey[2].predicted_departure_difference %>
+      </small>
+    </span>
   </div>
 <% end end %>

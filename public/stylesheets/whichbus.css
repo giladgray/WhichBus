@@ -19,41 +19,46 @@
 	color: gray;
 }
 
-.journey_span {
+/* journey formatting */
+.headsign{
+  display: block-inline;
+  border: 1px solid gray;
+  padding: 2px;
+  margin-bottom: 5px;
+}
+.row.journey {
+  padding: 8px 10px;
+}
+span.journey {
+  display: block-inline;
   height: 100%;
   vertical-align: middle;
-  padding: 0.5em;
 }
-.journey_status {
-	line-height: 1rem;
-	font-size: 1rem;
-	margin: 8px 0;
+.journey.route {
+  font-size: 3rem;
+  padding: 0.25rem 0.5rem 0.5rem;
 }
-.route_num {
-	font-size: 4rem;
-	color: #7D8073;
+.journey.route a{
+  padding: 8px !important;
 }
-.show-on-desktops .route_num {
-	/* font-size: 5em; */
+.journey.description {
+  font-size: 1.7rem;
+  display: inline-block;
 }
-
-.route_desc {
-	font-size: 1.5rem;
-	text-align: left;
-}
-.show-on-desktops .route_desc {
-	font-size: 1.2em
-}
-
-.route_time {
-	font-size: 2rem;
+.journey.time {
+  float: right;
+  font-size: 2rem;
   text-align: center;
+  vertical-align: middle;
 }
-.route_time span{
-  text-align: right;
+.journey.time .row {
+  line-height: 1.9rem;
 }
-.show-on-desktops .route_time {
+.journey.time .row.small{
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
+
 
 img.logo {
   width: 90%;
@@ -80,9 +85,6 @@ img.logo {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-}
-.phone .well {
-	padding: 0px;
 }
 .title {
 	border-bottom: 3px solid #7D8073;

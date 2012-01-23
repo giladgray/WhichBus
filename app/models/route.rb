@@ -16,5 +16,9 @@ class Route < OneBusRecord
   	puts url
   	self.class.get_json(url)["data"]["entry"]["stopIds"]
   end
+  
+  def button
+    link_to journey[1].shortName, route_path(journey[1].id), :class=>"button radius"
+  end
 
 end

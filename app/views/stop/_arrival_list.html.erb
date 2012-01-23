@@ -1,24 +1,44 @@
 
+<% content_for :head do %>
+<script type="text/javacsript">
+$(document).ready(function() {
+  alert("ready");
+  $("#toggleButton").click(function() {
+    alert("hello!");
+    $(".row.journey.hidden").toggle();
+  });
+});
+</script>
+<style type="text/css">
+.hidden {
+  display: none;
+}
+</style>
+<% end %>
+
 <% @arrivals.each do |arr| %>
 <!-- arr = [route, arrival] -->
-<div class="row display well">
-	<div class="three phone-one columns ">
-		<div class="journey_span route_num">
-      <%= link_to arr[0].shortName, route_path(arr[0].id) %>
-    </div>
-	</div>
-	<div class="seven phone-two columns">
-		<div class="journey_span route_desc">
-			<%= arr[0].description %>
-			<!-- <%= truncate(arr[0].description, :length => 25) %> -->
-		</div>
-	</div>
-	<div class="one phone-one columns">
-		<% unless arr[1].nil? %>
-		<div class="journey_span route_time <%= arr[1].css_class_for_arrival_time(@time) %>">
-			<%= arr[1].time_to_arrival_short(@time) %>
-		</div>
-		<% end %>
-	</div>
+<div class="row display well journey <%= "hidden" if arr[1].nil? %>">
+	<span class="journey route">
+    <%= link_to arr[0].shortName, route_path(arr[0].id), :class=>"button radius" %>
+  </span>
+    
+	<span class="journey description">
+    <% unless arr[1].nil? %>
+    <small class="headsign radius"><%= arr[1].tripHeadsign %></small><br/>
+    <% end %>
+		<%= arr[0].description %>
+  </span>
+  
+	<% unless arr[1].nil? %>
+	<span class="journey time">
+    <%= content_tag(:div, arr[1].predicted_departure_time, :class=>"row small") %>
+    <%= content_tag(:div, arr[1].time_to_departure_in_words(@time), :class=>"row #{arr[1].css_class_for_arrival_time(@time)}") %>
+    <%= content_tag(:div, arr[1].predicted_departure_difference, :class=>"row small #{arr[1].css_class_for_time_difference}") %>
+  </span>
+	<% end %>
 </div>
 <% end %>
+<div class="row display well">
+  <span id="toggleButton" class="button gray radius full-width">Show Hidden Stops</a>
+</div>
