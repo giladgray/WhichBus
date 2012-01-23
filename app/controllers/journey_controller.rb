@@ -1,6 +1,17 @@
 require 'stop'
 
 class JourneyController < ApplicationController
+  @@lat_lon_regex = /(?<lat>-?\d+(\.\d+)?),(?<lon>-?\d+(\.\d+)?)/
+  
+  def self.geocode(query, limit=10)
+    if coord = @@lat_lon_regex.match(query)
+      limit = 1
+      query = [coord[:lat], coord[:lon]]
+    end
+    
+    location = Geocoder.search(query).first
+    location
+  end
   
   caches_page :new
   
@@ -10,16 +21,14 @@ class JourneyController < ApplicationController
 	
 	def options
 		OneBusRecord.reset_json_count
-		
-		#expects two locations -- geocode them straight up!
-		@from = Geocoder.search(params[:from]).first #GoogleGeocoder.geocode(params[:from])
-		@to = Geocoder.search(params[:to]).first #GoogleGeocoder.geocode(params[:to])
+    
+    @from = self.class.geocode(params[:from])
+		@from_stops = Stop.by_location(@from.latitude, @from.longitude).first(10)
+    
+    @to = self.class.geocode(params[:to])
+		@to_stops = Stop.by_location(@to.latitude, @to.longitude).first(10)
 		
     #TODO validation: null parameters, geocode fail
-		
-		#find stops around those locations
-		@from_stops = Stop.by_location(@from.latitude, @from.longitude).first(10)
-		@to_stops = Stop.by_location(@to.latitude, @to.longitude).first(10)
 		
 		#call routing helper to find the routes
 		@journeys = self.class.calc_journeys(@from_stops, @to_stops)
@@ -28,7 +37,7 @@ class JourneyController < ApplicationController
 		@time = Time.now
 	end
 	
-	def show
+	def which
 	end
 	
 	def self.calc_journeys(from_stops, to_stops, within_minutes=90)
