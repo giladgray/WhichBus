@@ -1,24 +1,17 @@
 <!-- Route Show -->
 <% content_for :title do "Route #{@route.shortName}" end %>
 
-<div class="row">
-	<div class="one columns">
-	<h1 style="font-size:4em;"><%= @route.shortName %></h1>
-	</div>
+<% content_for :page_title do  %>
+	<span class="route button radius"><%= @route.shortName %></span>
+	<%= @route.description %>
+<% end %>
 
-	<div class="six columns">
-	<h3 style="text-align:left; vertical-align:text-bottom; padding-top:18px;"><%= @route.description %></h3>
+<% content_for :model_list do %>
+	<% @route.stops.each do |stop| %>
+	<div class="row display well">
+		<span class="journey description">
+			<%= stop.name %>
+		</span>
 	</div>
-</div>
-<div class="row">
-	<div style="height:400px;" class="four columns well">
-	Comments go here
-	</div>
-	<div class="six columns">
-	<img src="http://placehold.it/300x200">
-	<div class="well" style="height:200px; width:300px; padding:0px;">
-
-	Formatted bus times here
-
-	</div>
-</div>
+	<% end %>
+<% end %>

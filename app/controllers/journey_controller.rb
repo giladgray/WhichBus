@@ -16,19 +16,19 @@ class JourneyController < ApplicationController
   caches_page :new
   
 	def new
-    render :layout => "splash"
+		render :layout => "splash"
 	end
 	
 	def options
 		OneBusRecord.reset_json_count
     
-    @from = self.class.geocode(params[:from])
+		@from = self.class.geocode(params[:from])
 		@from_stops = Stop.by_location(@from.latitude, @from.longitude).first(10)
     
-    @to = self.class.geocode(params[:to])
+		@to = self.class.geocode(params[:to])
 		@to_stops = Stop.by_location(@to.latitude, @to.longitude).first(10)
 		
-    #TODO validation: null parameters, geocode fail
+		#TODO validation: null parameters, geocode fail
 		
 		#call routing helper to find the routes
 		@journeys = self.class.calc_journeys(@from_stops, @to_stops)

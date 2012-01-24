@@ -14,6 +14,8 @@ class OneBusRecord < ActiveRecord::Base
     if url_or_hash.is_a? Hash
       @data = OpenStruct.new(url_or_hash)
   	else
+		# here is where we search the cache for this
+		# unless it's an A/D, those always need updating
 	    result = self.class.get_json(url_or_hash)
 	    @data = OpenStruct.new(result["data"])
   	end

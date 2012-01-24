@@ -34,7 +34,7 @@ span.journey {
   height: 100%;
   vertical-align: middle;
 }
-.journey.route {
+.route {
   font-size: 3rem;
   padding: 0.25rem 0.5rem 0.5rem;
 }
