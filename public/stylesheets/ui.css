@@ -102,6 +102,7 @@
 	
 	/* Hovers ---------- */
 	.button:hover, .button:focus 				{ background-color: #0192dd; color: #fff; }
+	.whichbus-green:hover .button:focus         { background-color: rgb(145, 212, 153); color:#7D8073;}
 	.blue.button:hover, .blue.button:focus		{ background-color: #0192dd; 	}
 	.red.button:hover, .red.button:focus 		{ background-color: #d01217; 	}
 	.white.button:hover, .white.button:focus	{ background-color: #dadada; color: #333; }
