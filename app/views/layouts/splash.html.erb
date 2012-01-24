@@ -11,11 +11,12 @@
 
     <!-- Set the viewport width to device width for mobile -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=320, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     <title>WhichBus<%= content_for?(:title) ? " | " + yield(:title) : "" %></title>
     <%= stylesheet_link_tag :all %>
     <%= javascript_include_tag :all %>
+    https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
     <%= csrf_meta_tag %>
     <%= yield(:head) %><!--[if lt IE 9]>
     <link rel="stylesheet" href="stylesheets/ie.css">
