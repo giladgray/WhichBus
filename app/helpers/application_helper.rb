@@ -1,6 +1,6 @@
 module ApplicationHelper
 	def route_button(route)
-		link_to(route.shortName, route_path(route.id), :class=>"button radius")
+		link_to(route.shortName, route_path(route.id), :class=>"button radius whichbus-green")
 	end
 	
 	def predicted_time(arrival)
