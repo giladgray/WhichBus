@@ -10,7 +10,7 @@
         <div class="eight columns centered">
           <div class="row display" style="margin:4px 0px 0px 0px;">
             <div class="six columns">
-                <%= text_field_tag "from", flash[:from], :class => "giant input-text", :placeholder => "Where from, yo?" %>
+                <%= text_field_tag "from", flash[:from], :class => "giant input-text ", :placeholder => "Where from, yo?" %>
                 <% if flash[:from_err] %>
                 <small class="error"><%= flash[:from_err] %></small>
                 <% end %>
@@ -26,8 +26,9 @@
       </div>
       <div class="row display">
         <div class="four columns centered">
-          <%= submit_tag "Map That Bus!", :class=>"phone-home-submit giant radius blue button" %>
+          <%= submit_tag "Map That Bus!", :class=>"phone-home-submit giant radius pacifico whichbus-green button", :style=>"text-shadow:0px 0px 1px dimgrey;" %>
         </div>
+        
       </div>
 	<% end %>
   </div>
