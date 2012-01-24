@@ -128,6 +128,7 @@ img.logo {
   background-image: url('/images/headerslice.jpg');
   background-repeat:repeat-x;
   width: 100%;
+  vertical-align:middle;
 }
   
 .topbar {
@@ -383,3 +384,19 @@ table .headerSortUp.purple, table .headerSortDown.purple {
 
 
 #map_canvas {height:150px;} 
+
+@font-face {
+    font-family: 'PacificoRegular';
+    src: url('/pacifico/Pacifico-webfont.eot');
+    src: url('/pacifico/Pacifico-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/pacifico/Pacifico-webfont.woff') format('woff'),
+         url('/pacifico/Pacifico-webfont.ttf') format('truetype'),
+         url('/pacifico/Pacifico-webfont.svg#PacificoRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.pacifico {font-family: 'PacificoRegular', Arial, sans-serif;letter-spacing: 0;}
+
+.header-title{ color:#fff; font-size:30px; vertical-align:middle; text-shadow: 0px 0px 1px dimgrey;    }
+
