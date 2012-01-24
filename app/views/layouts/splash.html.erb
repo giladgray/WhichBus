@@ -16,7 +16,7 @@
     <title>WhichBus<%= content_for?(:title) ? " | " + yield(:title) : "" %></title>
     <%= stylesheet_link_tag :all %>
     <%= javascript_include_tag :all %>
-    https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <%= csrf_meta_tag %>
     <%= yield(:head) %><!--[if lt IE 9]>
     <link rel="stylesheet" href="stylesheets/ie.css">
