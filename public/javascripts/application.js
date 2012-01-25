@@ -12,36 +12,142 @@ function toggleHidden() {
 
 
 /* Google Maps JS */
+var map, clickMarker;
+var nearbyMarkers = new Array();
+var pos;
+function detectBrowser() {
+	var useragent = navigator.userAgent;
+  var mapdiv = $("#map_canvas");
+
+	mapdiv.css('width', '100%');
+	if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1) {
+	  mapdiv.css('height', '200px');
+	} else {
+	  mapdiv.css('height', '600px');
+	}
+}
+      
 function geolocate() {
-	navigator.geolocation.getCurrentPosition(initializeMap, noLocation);
+	navigator.geolocation.getCurrentPosition(function(position) {
+      pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      clickMarker = marker("Your Location", pos);
+      centerMap(pos);
+    }, noLocation);
 }
 
 function noLocation() {
-	alert("Geolocation failed!");
+  msg = "Geolocation Error: ";
+  switch (error.code) {
+    case error.TIMEOUT:
+      msg += "Timeout";
+      break;
+    case error.POSITION_UNAVAILABLE:
+      msg += "Position unavailable";
+      break;
+    case error.PERMISSION_DENIED:
+      msg += "Permission denied";
+      break;
+    case error.UNKNOWN_ERROR:
+      msg += "Unknown error";
+      break;
+  }
+  alert(msg);
 }
 
-function initializeMap(position) {
-
-	var latitude = position.coords.latitude;
-	var longitude = position.coords.longitude;
-	var myLatlng = new google.maps.LatLng(latitude,longitude);
-	
+//call this in onload and pass the clickHandler function name. easy!
+function initializeMap(clickHandler, doGeolocate) {
+  var defaultPosition = new google.maps.LatLng(47.652709,-122.32149);
+  
+  //default map options!
   var myOptions = {
-    zoom: 14,
-    center: new google.maps.LatLng(latitude, longitude),
+    zoom: 11,
+    center: defaultPosition,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    minzoom: 10,
     disableDefaultUI: true
   }
 
-  var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  detectBrowser();
+  //build the map, add a click handler
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  google.maps.event.addListener(map, 'click', function(event) {
+    clickHandler(event.latLng);
+  });
+	clickMarker = marker("Seattle", defaultPosition);
 
+  if(doGeolocate != false)
+    geolocate();
+}
+
+function centerMap(position) {
+  //clicks at the given position which calls whatever clickHandler was specified in initializeMap
+  google.maps.event.trigger(map, 'click', {latLng: position});
+  if(map.zoom < 13)
+    map.setZoom(14);
+}
+
+//creates a maps.LatLng with the given coordinates. easy!
+function latlng(lat, lng) {
+  return new google.maps.LatLng(lat, lng);
+}
+//creates a maps.Marker with the given title and position 
+//and adds it to the given marker group (an array of markers)
+function marker(title, position, group) {
   var marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      title:"Your Location"
+    map: map,
+    position: position,
+    title: title,
+  });
+  
+  if(group != undefined)
+    group.push(marker);
+    
+  return marker;
+}
+
+//given an array of markers, removes all of them from the map and empties the array.
+function clearMarkerGroup(group) {
+  if(group != null) {
+    $.each(group, function(index, marker) {
+      marker.setMap(null);
+    });
+    group.splice(0, group.length);   
+  }
+}
+
+function showStopMarker(position) {
+  clickMarker.setPosition(position);
+  map.setCenter(position);
+}
+
+var result, click;
+function loadNearbyStops(position) {
+  //clear the list of nearby markers
+  clearMarkerGroup(nearbyMarkers);
+  
+  clickMarker.setPosition(position);
+  map.setCenter(position);
+  //perform an AJAX request to stop#index with the user's location
+  var url = "/stop.json";
+  $("#results").text("You clicked at (" + position.lat() + "," + position.lng() +")").append("<br/>");
+  $.get(url, { "lat": position.lat(), "lon": position.lng() }, function (data) {
+    result = data
+    //the API returns a JSON array of stops
+    //iterate through the array and display each one in the list column and create a marker for its
+    $.each(data, function(index, stop) {
+      $("#results").append(createStopDisplay(stop));
+      var m = marker(stop.name, new google.maps.LatLng(stop.lat, stop.lon), nearbyMarkers);
+    });
   });
 }
 
-window.onload = geolocate;
+//builds the HTML to display a stop using the journey CSS classes
+function createStopDisplay(stop) {
+  var div = $("<div>").addClass("row display well journey");
+  div.append($("<span>").addClass("journey description").html($("<a>").attr("href", "/stop/" + stop.id).text(stop.name)));
+  div.append($("<span>").addClass("journey time").html($("<div>").addClass("row").text(stop.distance.toFixed(2) + "mi")));
+  return div;
+}
+
+/*window.onload = geolocate;*/
+
 /* Google Maps JS END */

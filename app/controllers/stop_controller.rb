@@ -41,4 +41,21 @@ class StopController < ApplicationController
 			format.xml  { render :xml => @stop }
 		end
 	end
+  
+  def schedule
+    @stop = Stop.new(params[:id])
+    
+    @arrivals = []
+    @stop.routes.each do |r|
+      if r.arrivals.length > 0
+        @arrivals += r.arrivals
+      end
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to stop_path }
+      format.json { render :json => @arrivals }
+      format.xml  { render :xml => @arrivals }
+    end
+  end
 end

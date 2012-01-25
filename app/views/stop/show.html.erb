@@ -8,6 +8,9 @@ $(document).ready(function() {
 });
 </script>
 <% end %>
+<% content_for :onload do "initializeMap(showStopMarker,false);" end %>
+<% content_for :onload do "centerMap(latlng(#{@stop.lat},#{@stop.lon}));" end %>
+
 <% content_for :title do @stop.name end %>
 <% content_for :page_title do @stop.name end %>
 

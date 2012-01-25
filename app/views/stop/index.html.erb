@@ -14,15 +14,11 @@
 
 <% content_for :model_list do %>
   <% @stops.each do |stop| %>
-  <div class="row display well journey">      
-  	<div class="ten phone-three columns route_desc">
-      <h5 class="journey_span"><%= link_to stop.name, stop_path(stop.id)%></h5>
-  	</div>
-  	<div class="two phone-one columns route_time">
-      <h5 class="journey_span">
-        <%= stop.distance.round(2) %>mi
-      </h5>
-  	</div>
+  <div class="row display well journey">
+    <span class="journey description"><%= link_to truncate(stop.name, :length => 32), stop_path(stop.id) %></span>
+    <span class="journey time">
+      <div class="row"><%= stop.distance.round(2) %>mi</div>
+    </span>
   </div>
   <% end %>
 <% end %>
