@@ -15,6 +15,7 @@ group :development, :test do
 end
 gem 'json_pure'
 gem 'geocoder'
+gem 'jquery-rails', '>= 1.0.12'
 
 # Use unicorn as the web server
 # gem 'unicorn'
