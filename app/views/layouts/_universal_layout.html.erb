@@ -10,22 +10,19 @@
   <!-- the following div contains the real page content -->
   <div class="row display">
     <!-- a 50% width column that becomes full-screen on phones -->
-    <div class="five phone-four columns">
-      <div class="row display show-on-phones">
+	<div class="seven push-five phone-four columns">
+      <div class="row display">
         <!-- the map is the first element in the list on phones -->
-        <div id="map_canvas_mobile" style="height:200px">
+		<!-- but on desktops and tablets it is pushed to the right side of the screen -->
+        <div id="map_canvas" style="height:200px">
           [map placeholder]
         </div>
       </div>
+	</div>
+    <div class="five pull-seven phone-four columns model-list">
       <!-- individual views print a list of items here -->
       <!-- we need to refine the CSS classes for these items -->
       <%= yield(:model_list) %>
-    </div>
-    <!-- on desktops and tablets we have a big map on the right side of the screen -->
-    <div class="seven columns hide-on-phones ">
-      <div id="map_canvas" style="width: 100%; height: 600px; background-color: red">
-        [desktop map placeholder]
-      </div>
     </div>
   </div>
 </div>

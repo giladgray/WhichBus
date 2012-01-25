@@ -4,6 +4,7 @@ db/*.sqlite3
 log/*.log
 tmp/
 *~ 
+index.html
 
 /._redcar/lucene/_a0.cfs
 /._redcar/lucene/_a0_1.del
