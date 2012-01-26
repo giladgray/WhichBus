@@ -13,14 +13,7 @@
 <% end %>
 
 <% content_for :model_list do %>
-  <% @stops.each do |stop| %>
-  <div class="row display well journey">
-    <span class="journey description"><%= link_to truncate(stop.name, :length => 32), stop_path(stop.id) %></span>
-    <span class="journey time">
-      <div class="row"><%= stop.distance.round(2) %>mi</div>
-    </span>
-  </div>
-  <% end %>
+<%= render "stop_list" %>
 <% end %>
   
 <!-- TODO make this a display row in the javascript -->

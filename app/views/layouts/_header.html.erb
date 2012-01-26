@@ -1,22 +1,17 @@
 <div class="row display topbarimage">
   <!-- the WhichBus header appears on all pages, in the upper left on desktop and at the top on phone -->
-  <div class="five phone-four columns">
+  <div class="six phone-four columns">
       <div class="pacifico header-title">WhichBus
       </div>
   </div>
   <!-- the header bar has been converted to Foundation's nav-bar -->
-  <div class="seven columns hide-on-phones">
-    <ul class="nav-bar full-size">
-      <li><%= link_to "ABOUT", "/"%></li>
-      <li><%= link_to "CONTACT", "/" %></li>
-      <li><%= link_to "LOGIN", "/" %></li>
+  <div class="six columns hide-on-phones">
+    <ul class="nav-bar full-size pacifico">
+      <li><%= link_to "About", "/"%></li>
+      <li><%= link_to "Contact", "/" %></li>
+      <li><%= link_to "Login", "/" %></li>
       <li><%= link_to image_tag("facebook-logo-square.png", :size => "40x40", :style => "margin-bottom:5px; display:inline"), "http://www.facebook.com/whichbus" %></li>
-      <li><%= link_to image_tag("twitter.png", :size => "40x40", :style => "margin-bottom:5px; display:inline"), "http://www.twitter.com/whichbus" %><li>
+      <li><%= link_to image_tag("twitter.png", :size => "40x40", :style => "margin-bottom:5px; display:inline"), "http://www.twitter.com/whichbus" %></li>
     </ul>
-    <!-- old links preserved for posterity -->
-    <!-- <%= link_to image_tag("aboutbutton.jpg"), "/"%>
-    <%= link_to image_tag("teambutton.jpg"), "/" %>
-    <%= link_to image_tag("contactbutton.jpg"), "/" %>
-    <%= link_to image_tag("loginbutton.jpg"), "/" %> -->   
   </div>
 </div>

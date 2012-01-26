@@ -3,14 +3,14 @@
   
   <!-- the first real thing on the page is the page title -->
   <div class="row display title">
-    <div class="twelve phone-four columns">
+    <div id="page-title" class="twelve phone-four columns">
       <h3><%= yield(:page_title) %></h3>
     </div>
   </div>
   <!-- the following div contains the real page content -->
   <div class="row display">
     <!-- a 50% width column that becomes full-screen on phones -->
-	<div class="seven push-five phone-four columns">
+	<div id="map-container" class="seven push-five phone-four columns">
       <div class="row display">
         <!-- the map is the first element in the list on phones -->
 		<!-- but on desktops and tablets it is pushed to the right side of the screen -->
@@ -19,7 +19,7 @@
         </div>
       </div>
 	</div>
-    <div class="five pull-seven phone-four columns model-list">
+    <div id="model-list" class="five pull-seven phone-four columns model-list">
       <!-- individual views print a list of items here -->
       <!-- we need to refine the CSS classes for these items -->
       <%= yield(:model_list) %>

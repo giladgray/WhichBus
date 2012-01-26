@@ -1,4 +1,3 @@
-
 <% content_for :head do %>
 <style type="text/css">
 .hidden {
@@ -8,24 +7,23 @@
 <% end %>
 
 <% @arrivals.each do |arr| %>
-<!-- arr = [route, arrival] -->
-<div class="row display well journey <%= "hidden" if arr[1].nil? %>">
+<div class="row display well journey <%= "hidden" if arr.nil? %>">
 	<span class="journey route">
-    <%= link_to arr[0].shortName, route_path(arr[0].id), :class=>"button radius whichbus-green" %>
+    <%= link_to arr.routeShortName, route_path(arr.routeId), :class=>"button radius whichbus-green" %>
   </span>
     
 	<span class="journey description">
-    <% unless arr[1].nil? %>
-    <small class="headsign radius"><%= arr[1].tripHeadsign %></small><br/>
+    <% unless arr.nil? %>
+    <small class="headsign radius"><%= arr.tripHeadsign %></small><br/>
     <% end %>
-		<%= arr[0].description %>
+		<%= arr.description %>
   </span>
   
-	<% unless arr[1].nil? %>
+	<% unless arr.nil? %>
 	<span class="journey time">
-    <%= content_tag(:div, arr[1].predicted_departure_time, :class=>"row small") %>
-    <%= content_tag(:div, arr[1].time_to_departure_in_words(@time), :class=>"row #{arr[1].css_class_for_arrival_time(@time)}") %>
-    <%= content_tag(:div, arr[1].predicted_departure_difference, :class=>"row small #{arr[1].css_class_for_time_difference}") %>
+    <%= content_tag(:div, arr.predicted_departure_time, :class=>"row small") %>
+    <%= content_tag(:div, arr.time_to_departure_in_words(@time), :class=>"row #{arr.css_class_for_arrival_time(@time)}") %>
+    <%= content_tag(:div, arr.predicted_departure_difference, :class=>"row small #{arr.css_class_for_time_difference}") %>
   </span>
 	<% end %>
 </div>

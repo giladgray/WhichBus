@@ -91,12 +91,14 @@ function latlng(lat, lng) {
 }
 //creates a maps.Marker with the given title and position 
 //and adds it to the given marker group (an array of markers)
-function marker(title, position, group) {
+function marker(title, position, group, handler) {
   var marker = new google.maps.Marker({
     map: map,
     position: position,
     title: title,
   });
+  if(handler != undefined)
+    google.maps.event.addListener(marker, 'click', handler);
   
   if(group != undefined)
     group.push(marker);
@@ -125,18 +127,38 @@ function loadNearbyStops(position) {
   clearMarkerGroup(nearbyMarkers);
   
   clickMarker.setPosition(position);
-  map.setCenter(position);
   //perform an AJAX request to stop#index with the user's location
   var url = "/stop.json";
   $("#results").text("You clicked at (" + position.lat() + "," + position.lng() +")").append("<br/>");
-  $.get(url, { "lat": position.lat(), "lon": position.lng() }, function (data) {
+  $("#model-list").slideUp();
+  $("#model-list").text("");
+  $.get(url, { "lat": position.lat(), "lon": position.lng(), "api":"yes" }, function (data) {
     result = data
+    //$("#model-list").html(data);
     //the API returns a JSON array of stops
     //iterate through the array and display each one in the list column and create a marker for its
     $.each(data, function(index, stop) {
-      $("#results").append(createStopDisplay(stop));
-      var m = marker(stop.name, new google.maps.LatLng(stop.lat, stop.lon), nearbyMarkers);
+      $("#model-list").append(createStopDisplay(stop));
+      var m = marker(stop.name, new google.maps.LatLng(stop.lat, stop.lon), nearbyMarkers, function() { loadStopData(stop.id); });
     });
+    $("#model-list").slideDown('slow');
+  });
+}
+
+function loadStopData(stopId) {
+  var url = "/stop/" + stopId + "/schedule";
+  $("#model-list").slideUp();
+  $("#model-list").text("");
+  $.get(url, { "api":"yes" }, function (data) {
+    result = data
+    $("#model-list").html(data);
+    //the API returns a JSON array of stops
+    //iterate through the array and display each one in the list column and create a marker for its
+    /*$.each(data, function(index, stop) {
+      $("#model-list").append(createArrivalDisplay(stop));
+      //var m = marker(stop.name, new google.maps.LatLng(stop.lat, stop.lon), nearbyMarkers);
+    });*/
+    $("#model-list").slideDown('slow');
   });
 }
 
@@ -146,6 +168,10 @@ function createStopDisplay(stop) {
   div.append($("<span>").addClass("journey description").html($("<a>").attr("href", "/stop/" + stop.id).text(stop.name)));
   div.append($("<span>").addClass("journey time").html($("<div>").addClass("row").text(stop.distance.toFixed(2) + "mi")));
   return div;
+}
+
+function createArrivalDisplay(arrival) {
+  return arrival;
 }
 
 /*window.onload = geolocate;*/
