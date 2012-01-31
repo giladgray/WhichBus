@@ -227,7 +227,7 @@ function showJourney(from, to) {
 		
 		$.each(result["trips"], function(index, trip) {
 			//output trip
-			$("#model-list").append(createJourneyDisplay(trip));
+			$("#model-list").append(createJourneyDisplay(trip).fadeIn());
 		});
 	});
 }
