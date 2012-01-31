@@ -18,6 +18,7 @@
 }
 .gone { /* <0 */
 	color: gray;
+  font-variant: small-caps;
 }
 .model-list {
 }
@@ -401,5 +402,7 @@ table .headerSortUp.purple, table .headerSortDown.purple {
 
 .pacifico {font-family: 'PacificoRegular', Arial, sans-serif;letter-spacing: 0;}
 
-.header-title{ color:#fff; font-size:30px; vertical-align:middle; text-shadow: 0px 0px 1px dimgrey;    }
+.header-title{ color:#fff; font-size:30px; vertical-align:middle; text-shadow: 0px 0px 1px dimgrey;}
 
+
+.button.radius.whichbus-green {  }
