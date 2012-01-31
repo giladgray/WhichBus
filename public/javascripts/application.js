@@ -160,7 +160,9 @@ function loadStopData(stopId) {
   $("#model-list").text("");
   $.get(url, { "api":"yes" }, function (data) {
     result = data
+	//the API returns the stop's schedule data formatted as HTML so we just plop it into the model-list
     $("#model-list").html(data);
+	
     //the API returns a JSON array of stops
     //iterate through the array and display each one in the list column and create a marker for its
     /*$.each(data, function(index, stop) {
@@ -180,23 +182,8 @@ function createStopDisplay(stop) {
 }
 
 function createJourneyDisplay(journey) {
-	/* [from, route, arrival, to]
-	html << content_tag(:div, arrival.display_arrival_time, :class=>"row small")
-		html << content_tag(:div, arrival.time_to_arrival_in_words(@time), :class=>"row #{arrival.css_class_for_arrival_time(@time)}")
-		html << content_tag(:div, arrival.prediction_difference, :class=>"row small #{arrival.css_class_for_time_difference}") 
-		<span class="journey route">
-			<%= route_button(journey[1]) %>
-			link_to(route.shortName, route_path(route.id), :class=>"button radius whichbus-green")
-		</span>
-		<span class="journey description">
-			<a href="stop/<%= journey[0].id %>">
-				<h5><%= truncate(journey[0].name, :length => 35) %></h5>
-				<h6>&rArr;<%= truncate(journey[3].name, :length => 35) %></h6>
-			</a>
-		</span>
-		<span class="journey time">
-			<%= predicted_time(journey[2]) %>
-		</span>*/
+	/* [from, route, arrival, to] */
+	//this is ugly but it works
 	var div = $("<div>").addClass("row display well journey");
 	div.append($("<span>").addClass("journey route").html(
 		$("<a>").addClass("button radius whichbus-green").attr("href", "route/" + journey[1].id).text(journey[1].shortName)
@@ -204,6 +191,7 @@ function createJourneyDisplay(journey) {
 	div.append($("<span>").addClass("journey description").html($("<a>").attr("href", "stop/"+journey[0].id).html(
 		$("<h5>").text(journey[0].name)
 	)));
+	//TODO: colorize times. we no longer have access to the Ruby methods so we'll have to write our own in JS
 	var time = $("<span>").addClass("journey time");
 	time.html($("<div>").addClass("row small").text(journey[2].arrival));
 	time.append($("<div>").addClass("row").text(journey[2].wait_time));
@@ -219,12 +207,15 @@ function createArrivalDisplay(arrival) {
 function showJourney(from, to) {
 	initializeMap(doNothing);
 	var url = "/options.json";
+	//call the options.json API to calculate the possible routes 
 	$.get(url, { "from" : from, "to" : to }, function(data) {
 		result = data;
+		//returns three things: from, to, and trips
+		//build title from the first two items
 		title = $("<h3>").append($("<em>").text("From: ")).append(result["from"].name).append("<br>");
 		title.append($("<em>").text("To: ")).append(result["to"].name);
 		$("#page-title").html(title).fadeIn();
-		
+		//iterate through trips, adding journey row for each one
 		$.each(result["trips"], function(index, trip) {
 			//output trip
 			$("#model-list").append(createJourneyDisplay(trip).fadeIn());
