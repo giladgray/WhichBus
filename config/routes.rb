@@ -8,7 +8,8 @@ Whichbus::Application.routes.draw do
   
   root :to => "journey#new"
   
-  match "journey" => "journey#options"
+  match "journey" => "journey#show"
+  match "options" => "journey#options"
   match "s/:id" => "stop#show"
   match "search" => "stop#search"
   match "stop/:id/schedule" => "stop#schedule"

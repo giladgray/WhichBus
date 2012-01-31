@@ -11,12 +11,12 @@ class ArrivalDeparture < OneBusRecord
 
 	# returns the predicted arrival time if it exists, otherwise returns scheduled
 	def arrival_time 
-		prediction? ? (predictedArrivalTime / 1000) : (scheduledArrivalTime / 1000)
+		prediction? ? (data.predictedArrivalTime / 1000) : (data.scheduledArrivalTime / 1000)
 	end
 	
 	# returns the predicted departure time if it exists, otherwise returns scheduled
 	def departure_time
-		prediction? ? (predictedDepartureTime / 1000) : (scheduledDepartureTime / 1000) 
+		prediction? ? (data.predictedDepartureTime / 1000) : (data.scheduledDepartureTime / 1000) 
 	end
 
 	def prediction?
@@ -28,15 +28,24 @@ class ArrivalDeparture < OneBusRecord
 	end
 
 	def self.convert_time(time)
-		Time.at(time / 1000).strftime(@@time_format)
+		Time.at(time).strftime(@@time_format)
 	end
   
+	def display_arrival_time
+		self.class.convert_time(arrival_time)
+	end
+	
+	def display_departure_time
+		self.class.convert_time(departure_time)
+	end
+  
+  ##
 	def predicted_arrival_time
-		self.class.convert_time(data.predictedArrivalTime)
+		self.class.convert_time(data.predictedArrivalTime / 1000)
 	end
   
 	def predicted_departure_time
-		self.class.convert_time(data.predictedDepartureTime)
+		self.class.convert_time(data.predictedDepartureTime / 1000)
 	end
 	
 	def scheduled_arrival_time
@@ -46,6 +55,7 @@ class ArrivalDeparture < OneBusRecord
 	def scheduled_departure_time
 		Time.at(data.scheduledDepartureTime / 1000).strftime(@@time_format)
 	end
+	##
 	
 	def time_to_arrival(from_time = Time.now)
 		Time.at(arrival_time) - from_time
@@ -56,11 +66,11 @@ class ArrivalDeparture < OneBusRecord
 	end
 	
 	def time_to_arrival_in_words(from_time = Time.now)
-		ArrivalDeparture.time_to_words_short((Time.at(data.scheduledArrivalTime / 1000) - from_time) / 60)
+		ArrivalDeparture.time_to_words_short(time_to_arrival(from_time) / 60)
 	end
 	
 	def time_to_departure_in_words(from_time = Time.now)
-		ArrivalDeparture.time_to_words_short((Time.at(data.predictedDepartureTime / 1000) - from_time) / 60)
+		ArrivalDeparture.time_to_words_short(time_to_departure(from_time) / 60)
 	end
 	
 	def css_class_for_arrival_time(from_time = Time.now)
@@ -78,10 +88,21 @@ class ArrivalDeparture < OneBusRecord
 		end
 	end
 	
-	def time_to_arrival_short(from_time = Time.now)
-		minutes = (Time.at(data.scheduledArrivalTime / 1000) - from_time) / 60
-		ArrivalDeparture.time_to_words_short(minutes)
-    end
+	def prediction_difference_minutes 
+		change = (arrival_time - data.scheduledArrivalTime / 1000) / (1000 * 60)
+	end
+	
+	def prediction_difference
+		change = prediction_difference_minutes
+		case
+		when change == 0
+			prediction? ? "on time" : "scheduled"
+		when change < 0
+			"#{-change}m early"
+		else
+			"#{change}m late"
+		end
+	end
 	
 	def predicted_departure_difference
 		change = (data.predictedDepartureTime - data.scheduledArrivalTime) / (1000 * 60)
@@ -96,7 +117,7 @@ class ArrivalDeparture < OneBusRecord
 	end
 	
 	def css_class_for_time_difference
-		change = (data.predictedDepartureTime - data.scheduledArrivalTime) / (1000 * 60)
+		change = prediction_difference_minutes
 		case
 		when change == 0
 			"gone"
@@ -124,6 +145,16 @@ class ArrivalDeparture < OneBusRecord
 			# TODO: days, hours, minutes
 			result << "#{(minutes / 1440).round}d"
 		end
+		result
+	end
+	
+	def as_json(options={})
+		time = Time.now
+		
+		result = super(options)
+		result[:arrival] = self.class.convert_time(arrival_time)
+		result[:wait_time] = time_to_arrival_in_words(time)
+		result[:status] = prediction_difference
 		result
 	end
 end

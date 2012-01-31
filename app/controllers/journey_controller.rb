@@ -35,6 +35,14 @@ class JourneyController < ApplicationController
 		#display them
 		
 		@time = Time.now
+		
+		respond_to do |format|
+			format.html
+			format.json { render :json => {"from" => {"name" => @from.address, "latitude" => @from.latitude, "longitude" => @from.longitude}, 
+										   "to" => {"name" => @to.address, "latitude" => @to.latitude, "longitude" => @to.longitude}, 
+										   "trips" => @journeys} }
+			format.xml  { render :xml => @journeys }
+		end
 	end
 	
 	def which
@@ -62,7 +70,7 @@ class JourneyController < ApplicationController
 							journey = result.find{|r| r[0].id == fs.id and r[1].id == route.id}
 							if journey.nil?
 								puts "new journey #{route.id} | #{fs.name}->#{ts.name}"
-								result << [fs, route, arr, ts]
+								result << [fs, route, arr, ts] #{ "from" => fs, "route" => route, "trip" => arr, "to" => ts}
 							else
 								puts "duplicate. #{journey[3].distance} ~ #{ts.distance}"
 								# and this to stop is CLOSER than that to stop, REPLACE
@@ -83,7 +91,7 @@ class JourneyController < ApplicationController
 		end
 		filtered_results = []
 		
-		result.sort_by! {|r| r[2].predictedDepartureTime }
+		result.sort_by! {|r| r[2].arrival_time }
 		result
 	end
 end

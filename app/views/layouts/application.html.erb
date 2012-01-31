@@ -52,7 +52,7 @@ h1,h2,h4,h5 {color: #7D8073; font-family:Pacifico,'Tahoma',serif; }
 
 </head>
 
- <body<%= content_for?(:onload) ? " onload=#{yield(:onload)}" : "" %>>
+<body onload="<%=yield(:onload) if content_for?(:onload)%>">
 
   <%= render("layouts/universal_layout") %>
   
