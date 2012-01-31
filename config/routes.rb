@@ -10,6 +10,8 @@ Whichbus::Application.routes.draw do
   
   match "journey" => "journey#options"
   match "s/:id" => "stop#show"
+  match "search" => "stop#search"
+  match "stop/:id/schedule" => "stop#schedule"
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

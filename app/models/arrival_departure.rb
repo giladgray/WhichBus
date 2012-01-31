@@ -9,15 +9,11 @@ require 'onebus_record'
 
 class ArrivalDeparture < OneBusRecord
 	@@time_format = "%l:%M%P"
+  
+  attr_accessor :description
 	
   def all_times
     "#{scheduled_arrival_time}/#{predicted_arrival_time} => #{scheduled_departure_time}/#{predicted_departure_time}"
-  end
-  
-  def print_html(time = Time.now)
-    #content_tag(:div, predicted_departure_time, :class=>"row small")
-    content_tag(:div, time_to_departure_in_words(time), :class=>"row #{css_class_for_arrival_time(time)}").to_s
-    #content_tag(:div, predicted_departure_difference, :class=>"row small #{css_class_for_time_difference}")
   end
   
   def self.convert_time(time)
