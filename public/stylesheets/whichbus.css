@@ -5,6 +5,7 @@
 
 .now , .late { /* 0 to 6 */
 	color: red;
+  font-variant: small-caps;
 }
 .soon { /* 7 to 15 */
 	color: orange;
