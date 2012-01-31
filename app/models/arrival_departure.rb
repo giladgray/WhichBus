@@ -4,21 +4,32 @@ require 'net/http'
 require 'ostruct'
 require 'onebus_record'
 
-#TODO: sometimes predicted times are 0. this is bad and should be replaced with scheduled
-#when prediced times = 0 then prediction = -15000d 
-
 class ArrivalDeparture < OneBusRecord
 	@@time_format = "%l:%M%P"
   
-  attr_accessor :description
+	attr_accessor :description
+
+	# returns the predicted arrival time if it exists, otherwise returns scheduled
+	def arrival_time 
+		prediction? ? (predictedArrivalTime / 1000) : (scheduledArrivalTime / 1000)
+	end
 	
-  def all_times
-    "#{scheduled_arrival_time}/#{predicted_arrival_time} => #{scheduled_departure_time}/#{predicted_departure_time}"
-  end
-  
-  def self.convert_time(time)
+	# returns the predicted departure time if it exists, otherwise returns scheduled
+	def departure_time
+		prediction? ? (predictedDepartureTime / 1000) : (scheduledDepartureTime / 1000) 
+	end
+
+	def prediction?
+		predictedDepartureTime > 0
+	end
+	
+	def all_times
+		"#{scheduled_arrival_time}/#{predicted_arrival_time} => #{scheduled_departure_time}/#{predicted_departure_time}"
+	end
+
+	def self.convert_time(time)
 		Time.at(time / 1000).strftime(@@time_format)
-  end
+	end
   
 	def predicted_arrival_time
 		self.class.convert_time(data.predictedArrivalTime)
@@ -37,11 +48,11 @@ class ArrivalDeparture < OneBusRecord
 	end
 	
 	def time_to_arrival(from_time = Time.now)
-		Time.at(data.scheduledArrivalTime / 1000) - from_time
+		Time.at(arrival_time) - from_time
 	end
 	
 	def time_to_departure(from_time = Time.now)
-		Time.at(data.predictedDepartureTime / 1000) - from_time
+		Time.at(departure_time) - from_time
 	end
 	
 	def time_to_arrival_in_words(from_time = Time.now)

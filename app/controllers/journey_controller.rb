@@ -56,12 +56,33 @@ class JourneyController < ApplicationController
 					route = fs.routes.find{|rte| rte.id == r && rte.arrivals.length > 0 }
 					if route
 						route.arrivals.each do |arr|
-							result << [fs, route, arr, ts]
+							# [from_stop, route, arrival, to_stop]
+							
+							# if something from this stop already exists ON THIS ROUTE
+							journey = result.find{|r| r[0].id == fs.id and r[1].id == route.id}
+							if journey.nil?
+								puts "new journey #{route.id} | #{fs.name}->#{ts.name}"
+								result << [fs, route, arr, ts]
+							else
+								puts "duplicate. #{journey[3].distance} ~ #{ts.distance}"
+								# and this to stop is CLOSER than that to stop, REPLACE
+								if ts.distance < journey[3].distance
+									puts "  optimization found! #{route.id} | #{journey[3].name}->#{ts.name}"
+									journey[3] = ts
+								end
+							end
+							# otherwise ignore
+							
+							# if something to this stop already exists ON THIS ROUTE
+							# and this from stop is CLOSER than that from stop, REPLACE
+							#result << [fs, route, arr, ts]
 						end
 					end
 				end
 			end
 		end
+		filtered_results = []
+		
 		result.sort_by! {|r| r[2].predictedDepartureTime }
 		result
 	end

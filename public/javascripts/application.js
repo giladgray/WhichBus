@@ -130,8 +130,7 @@ function loadNearbyStops(position) {
   //perform an AJAX request to stop#index with the user's location
   var url = "/stop.json";
   $("#results").text("You clicked at (" + position.lat() + "," + position.lng() +")").append("<br/>");
-  $("#model-list").slideUp();
-  $("#model-list").text("");
+  $("#model-list").fadeOut('fast');
   $.get(url, { "lat": position.lat(), "lon": position.lng(), "api":"yes" }, function (data) {
     result = data
     //$("#model-list").html(data);
@@ -139,10 +138,17 @@ function loadNearbyStops(position) {
     //iterate through the array and display each one in the list column and create a marker for its
     $.each(data, function(index, stop) {
       $("#model-list").append(createStopDisplay(stop));
-      var m = marker(stop.name, new google.maps.LatLng(stop.lat, stop.lon), nearbyMarkers, function() { loadStopData(stop.id); });
+      var m = marker(stop.name, new google.maps.LatLng(stop.lat, stop.lon), nearbyMarkers, clickStopMarker(stop));
     });
-    $("#model-list").slideDown('slow');
+    $("#model-list").fadeIn();
   });
+}
+
+function clickStopMarker(stop) { 
+	return function() {
+		$("#page-title-header").text(this.title);
+		loadStopData(stop.id);
+	};
 }
 
 function loadStopData(stopId) {
@@ -158,7 +164,7 @@ function loadStopData(stopId) {
       $("#model-list").append(createArrivalDisplay(stop));
       //var m = marker(stop.name, new google.maps.LatLng(stop.lat, stop.lon), nearbyMarkers);
     });*/
-    $("#model-list").slideDown('slow');
+    $("#model-list").fadeIn();
   });
 }
 

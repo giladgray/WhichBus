@@ -9,8 +9,8 @@
 <% @arrivals.each do |arr| %>
 <div class="row display well journey <%= "hidden" if arr.nil? %>">
 	<span class="journey route">
-    <%= link_to arr.routeShortName, route_path(arr.routeId), :class=>"button radius whichbus-green" %>
-  </span>
+		<%= link_to arr.routeShortName, route_path(arr.routeId), :class=>"button radius whichbus-green" %>
+	</span>
     
 	<span class="journey description">
     <% unless arr.nil? %>
@@ -21,9 +21,7 @@
   
 	<% unless arr.nil? %>
 	<span class="journey time">
-    <%= content_tag(:div, arr.predicted_departure_time, :class=>"row small") %>
-    <%= content_tag(:div, arr.time_to_departure_in_words(@time), :class=>"row #{arr.css_class_for_arrival_time(@time)}") %>
-    <%= content_tag(:div, arr.predicted_departure_difference, :class=>"row small #{arr.css_class_for_time_difference}") %>
+		<%= predicted_time(arr) %>
   </span>
 	<% end %>
 </div>

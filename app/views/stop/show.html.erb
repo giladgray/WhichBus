@@ -12,7 +12,7 @@ $(document).ready(function() {
 <% content_for :onload do "centerMap(latlng(#{@stop.lat},#{@stop.lon}));" end %>
 
 <% content_for :title do @stop.name end %>
-<% content_for :page_title do @stop.name end %>
+<% content_for :page_title do @stop.name.capitalize end %>
 
 <% content_for :model_list do %>
 <%= render "arrival_list" %>

@@ -41,6 +41,7 @@ class StopController < ApplicationController
 			end
 		end
 		
+		@arrivals.sort_by! {|arr| arr.scheduledArrivalTime }
 		@stop.routes.sort_by! {|rt| rt.shortName.to_i }
 		
 		respond_to do |format|
