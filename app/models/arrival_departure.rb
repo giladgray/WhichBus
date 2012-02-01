@@ -133,7 +133,7 @@ class ArrivalDeparture < OneBusRecord
 		minutes = minutes.to_int.abs
 		case
 		when minutes <= 1
-			result = "Now!"
+			result = "now!"
 		when minutes < 60
 			result << "#{minutes}m"
 		when minutes < (60*24)
@@ -152,9 +152,10 @@ class ArrivalDeparture < OneBusRecord
 		time = Time.now
 		
 		result = super(options)
-		result[:arrival] = self.class.convert_time(arrival_time)
-		result[:wait_time] = time_to_arrival_in_words(time)
-		result[:status] = prediction_difference
+		result[:arrival] = display_arrival_time
+    result[:wait_minutes] = time_to_arrival(time) / 60
+    result[:wait_time] = time_to_arrival_in_words(time)
+    result[:status] = prediction_difference
 		result
 	end
 end

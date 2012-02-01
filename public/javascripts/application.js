@@ -1,6 +1,19 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+function tag(tag, classes, text) {
+  return $(tag).addClass(classes).html(text);
+}
+function div(classes, text) {
+  return tag("<div>", classes, text);
+}
+function span(classes, text) {
+  return tag("<span>", classes, text);
+}
+function link(href, text, classes) {
+  return $("<a>").addClass(classes).attr("href", href).html(text);
+}
+
 function toggleHidden() {
 	btn = $("#toggleButton");
 	if(btn.text().startsWith("Show"))
@@ -32,6 +45,7 @@ function geolocate() {
       pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       clickMarker = marker("Your Location", pos);
       centerMap(pos);
+      console.log("geolocation successful");
     }, noLocation);
 }
 
@@ -68,11 +82,13 @@ function initializeMap(clickHandler, doGeolocate) {
 
   detectBrowser();
   //build the map, add a click handler
+  console.log("creating map...");
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   google.maps.event.addListener(map, 'click', function(event) {
     clickHandler(event.latLng);
   });
 	clickMarker = marker("Seattle", defaultPosition);
+  console.log("map initialized");
 
   if(doGeolocate != false)
     geolocate();
@@ -108,7 +124,7 @@ function marker(title, position, group, handler) {
 
 //given an array of markers, removes all of them from the map and empties the array.
 function clearMarkerGroup(group) {
-  if(group != null) {
+  if(group != undefined) {
     $.each(group, function(index, marker) {
       marker.setMap(null);
     });
@@ -122,6 +138,7 @@ function showStopMarker(position) {
 }
 
 function doNothing(event) {
+  //an empty click handler
 }
 
 var result, click;
@@ -130,15 +147,14 @@ function loadNearbyStops(position) {
   clearMarkerGroup(nearbyMarkers);
   
   clickMarker.setPosition(position);
+  //$("#results").text("You clicked at (" + position.lat() + "," + position.lng() +")").append("<br/>");
   //perform an AJAX request to stop#index with the user's location
   var url = "/stop.json";
-  $("#results").text("You clicked at (" + position.lat() + "," + position.lng() +")").append("<br/>");
   $("#model-list").fadeOut('fast');
   $.get(url, { "lat": position.lat(), "lon": position.lng(), "api":"yes" }, function (data) {
     result = data
-    //$("#model-list").html(data);
     //the API returns a JSON array of stops
-    //iterate through the array and display each one in the list column and create a marker for its
+    //iterate through the array and display each one in the list column and create a marker for it
     $.each(data, function(index, stop) {
       $("#model-list").append(createStopDisplay(stop));
       var m = marker(stop.name, new google.maps.LatLng(stop.lat, stop.lon), nearbyMarkers, clickStopMarker(stop));
@@ -160,7 +176,7 @@ function loadStopData(stopId) {
   $("#model-list").text("");
   $.get(url, { "api":"yes" }, function (data) {
     result = data
-	//the API returns the stop's schedule data formatted as HTML so we just plop it into the model-list
+    //the API returns the stop's schedule data formatted as HTML so we just plop it into the model-list
     $("#model-list").html(data);
 	
     //the API returns a JSON array of stops
@@ -175,29 +191,57 @@ function loadStopData(stopId) {
 
 //builds the HTML to display a stop using the journey CSS classes
 function createStopDisplay(stop) {
-  var div = $("<div>").addClass("row display well journey");
-  div.append($("<span>").addClass("journey description").html($("<a>").attr("href", "/stop/" + stop.id).text(stop.name)));
-  div.append($("<span>").addClass("journey time").html($("<div>").addClass("row").text(stop.distance.toFixed(2) + "mi")));
+  var _div = $("<div>").addClass("row display well journey");
+  //div.append(tag("<span>", "journey description", link("stop/" + stop.id, stop.name)));
+  _div.append(link("stop/" + stop.id, stop.name, "journey description"));
+  _div.append(span("journey time", stop.distance.toFixed(2) + "mi"));
   return div;
 }
 
 function createJourneyDisplay(journey) {
 	/* [from, route, arrival, to] */
-	//this is ugly but it works
-	var div = $("<div>").addClass("row display well journey");
-	div.append($("<span>").addClass("journey route").html(
-		$("<a>").addClass("button radius whichbus-green").attr("href", "route/" + journey[1].id).text(journey[1].shortName)
+	var _div = $("<div>").addClass("row display well journey");
+  //create the link button for the route
+	_div.append($("<span>").addClass("journey route").html(
+    link("route/" + journey[1].id, journey[1].shortName, "button radius whichbus-green")
 	));
-	div.append($("<span>").addClass("journey description").html($("<a>").attr("href", "stop/"+journey[0].id).html(
-		$("<h5>").text(journey[0].name)
-	)));
+  //create the description span in the middle with the headsign and route name
+	_div.append($("<span>").addClass("journey description").html(
+    $("<a>").attr("href", "stop/"+journey[0].id)
+      .html(tag("<small>", "headsign radius", journey[2].tripHeadsign))
+      .append("<br/>")
+	    .append($("<h5>").text(journey[0].name))));
+      
+  //create the journey's time display (time/minutes/delay)
 	//TODO: colorize times. we no longer have access to the Ruby methods so we'll have to write our own in JS
-	var time = $("<span>").addClass("journey time");
-	time.html($("<div>").addClass("row small").text(journey[2].arrival));
-	time.append($("<div>").addClass("row").text(journey[2].wait_time));
-	time.append($("<div>").addClass("row small").text(journey[2].status));
-	div.append(time);
-	return div;
+	_div.append($("<span>").addClass("journey time")
+    .html(div("row small", journey[2].arrival))
+    .append(div("row "+colorizeTime(journey[2].wait_minutes), journey[2].wait_time))
+    .append(div("row small "+colorizeStatus(journey[2].status), journey[2].status)));
+    
+	return _div;
+}
+//returns the CSS class for the wait time
+function colorizeTime(time) {
+  if(time < 0)
+    return "gone";
+  else if(time < 6)
+    return "now";
+  else if(time < 16)
+    return "soon";
+  else if(time < 36)
+    return "soonish";
+  else
+    return "later";
+}
+//returns the CSS class for the journey status
+function colorizeStatus(status) {
+  if(status.indexOf("early") > -1)
+    return "early";
+  else if (status.indexOf("late") > -1)
+    return "late";
+  else
+    return "";
 }
 
 function createArrivalDisplay(arrival) {
@@ -210,10 +254,14 @@ function showJourney(from, to) {
 	//call the options.json API to calculate the possible routes 
 	$.get(url, { "from" : from, "to" : to }, function(data) {
 		result = data;
+    from = result["from"];
+    to = result["to"];
 		//returns three things: from, to, and trips
 		//build title from the first two items
-		title = $("<h3>").append($("<em>").text("From: ")).append(result["from"].name).append("<br>");
-		title.append($("<em>").text("To: ")).append(result["to"].name);
+		title = $("<h3>").append($("<em>").text("From: ")).append(from.name).append("<br>");
+		title.append($("<em>").text("To: ")).append(to.name);
+    marker(from.name, latlng(from.latitude, from.longitude));
+    marker(to.name, latlng(to.latitude, to.longitude));
 		$("#page-title").html(title).fadeIn();
 		//iterate through trips, adding journey row for each one
 		$.each(result["trips"], function(index, trip) {

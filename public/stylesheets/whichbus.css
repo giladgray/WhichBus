@@ -48,6 +48,9 @@ span.journey {
 .journey.description {
   font-size: 1.7rem;
   display: inline-block;
+  max-width: 270px;
+  height: 45px;
+  overflow: hidden;
 }
 .journey.time {
   float: right;
