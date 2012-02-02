@@ -1,7 +1,15 @@
+// ...
+//= require jquery
+//= require jquery_ujs
+//= require mapping
+//= require_tree .
+
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-function tag(tag, classes, text) {
+/* NOTE: I'm commenting out javascript as I translate it to coffeescript */
+
+/*function tag(tag, classes, text) {
   return $(tag).addClass(classes).html(text);
 }
 function div(classes, text) {
@@ -12,7 +20,7 @@ function span(classes, text) {
 }
 function link(href, text, classes) {
   return $("<a>").addClass(classes).attr("href", href).html(text);
-}
+}*/
 
 function toggleHidden() {
 	btn = $("#toggleButton");
@@ -28,7 +36,7 @@ function toggleHidden() {
 var map, clickMarker;
 var nearbyMarkers = new Array();
 var pos;
-function detectBrowser() {
+/*function detectBrowser() {
 	var useragent = navigator.userAgent;
   var mapdiv = $("#map_canvas");
 
@@ -38,9 +46,9 @@ function detectBrowser() {
 	} else {
 	  mapdiv.css('height', '600px');
 	}
-}
+}*/
       
-function geolocate() {
+/*function geolocate() {
 	navigator.geolocation.getCurrentPosition(function(position) {
       pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       clickMarker = marker("Your Location", pos);
@@ -66,10 +74,10 @@ function noLocation() {
       break;
   }
   alert(msg);
-}
+}*/
 
 //call this in onload and pass the clickHandler function name. easy!
-function initializeMap(clickHandler, doGeolocate) {
+/*function initializeMap(clickHandler, doGeolocate) {
   var defaultPosition = new google.maps.LatLng(47.652709,-122.32149);
   
   //default map options!
@@ -92,7 +100,7 @@ function initializeMap(clickHandler, doGeolocate) {
 
   if(doGeolocate != false)
     geolocate();
-}
+}*/
 
 function centerMap(position) {
   //clicks at the given position which calls whatever clickHandler was specified in initializeMap
@@ -102,12 +110,12 @@ function centerMap(position) {
 }
 
 //creates a maps.LatLng with the given coordinates. easy!
-function latlng(lat, lng) {
+/*function latlng(lat, lng) {
   return new google.maps.LatLng(lat, lng);
-}
+}*/
 //creates a maps.Marker with the given title and position 
 //and adds it to the given marker group (an array of markers)
-function marker(title, position, group, handler) {
+/*function marker(title, position, group, handler) {
   var marker = new google.maps.Marker({
     map: map,
     position: position,
@@ -120,29 +128,29 @@ function marker(title, position, group, handler) {
     group.push(marker);
     
   return marker;
-}
+}*/
 
 //given an array of markers, removes all of them from the map and empties the array.
-function clearMarkerGroup(group) {
+/*function clearMarkerGroup(group) {
   if(group != undefined) {
     $.each(group, function(index, marker) {
       marker.setMap(null);
     });
     group.splice(0, group.length);   
   }
-}
+}*/
 
-function showStopMarker(position) {
+/*function showStopMarker(position) {
   clickMarker.setPosition(position);
   map.setCenter(position);
-}
+}*/
 
-function doNothing(event) {
+/*function doNothing(event) {
   //an empty click handler
 }
-
+*/
 var result, click;
-function loadNearbyStops(position) {
+/*function loadNearbyStops(position) {
   //clear the list of nearby markers
   clearMarkerGroup(nearbyMarkers);
   
@@ -161,16 +169,16 @@ function loadNearbyStops(position) {
     });
     $("#model-list").fadeIn();
   });
-}
+}*/
 
-function clickStopMarker(stop) { 
+/*function clickStopMarker(stop) { 
 	return function() {
 		$("#page-title-header").text(this.title);
 		loadStopData(stop.id);
 	};
-}
+}*/
 
-function loadStopData(stopId) {
+/*function loadStopData(stopId) {
   var url = "/stop/" + stopId + "/schedule";
   $("#model-list").slideUp();
   $("#model-list").text("");
@@ -185,21 +193,21 @@ function loadStopData(stopId) {
       $("#model-list").append(createArrivalDisplay(stop));
       //var m = marker(stop.name, new google.maps.LatLng(stop.lat, stop.lon), nearbyMarkers);
     });*/
-    $("#model-list").fadeIn();
+    /*$("#model-list").fadeIn();
   });
-}
+}*/
 
 //builds the HTML to display a stop using the journey CSS classes
-function createStopDisplay(stop) {
+/*function createStopDisplay(stop) {
   var _div = $("<div>").addClass("row display well journey");
   //div.append(tag("<span>", "journey description", link("stop/" + stop.id, stop.name)));
   _div.append(link("stop/" + stop.id, stop.name, "journey description"));
   _div.append(span("journey time", stop.distance.toFixed(2) + "mi"));
   return div;
-}
+}*/
 
-function createJourneyDisplay(journey) {
-	/* [from, route, arrival, to] */
+/*function createJourneyDisplay(journey) {
+  // [from, route, arrival, to]
 	var _div = $("<div>").addClass("row display well journey");
   //create the link button for the route
 	_div.append($("<span>").addClass("journey route").html(
@@ -220,7 +228,7 @@ function createJourneyDisplay(journey) {
     .append(div("row small "+colorizeStatus(journey[2].status), journey[2].status)));
     
 	return _div;
-}
+}*/
 //returns the CSS class for the wait time
 function colorizeTime(time) {
   if(time < 0)

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.5'
+gem 'rails', '3.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -13,9 +13,22 @@ group :development, :test do
   gem 'sqlite3'
   gem 'nifty-generators'
 end
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   "~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
+
 gem 'json_pure'
-gem 'geocoder'
-gem 'jquery-rails', '>= 1.0.12'
+gem 'geocoder'      # complete geocoding solution for rails
+gem 'jquery-rails'  # rails g jquery:install
+
+# add seamless CoffeeScript support to Rails applications
+#gem 'therubyracer'   # javascript interpreter to run coffeescript compiler
+
 
 # Use unicorn as the web server
 # gem 'unicorn'
