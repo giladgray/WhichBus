@@ -1,5 +1,3 @@
-alert("hello")
-
 allMarkers = new Array
 nearbyMarkers = new Array
 
@@ -198,6 +196,3 @@ window.showJourney = (from, to) ->
     # iterate through trips, adding journey row for each one
     for trip in result["trips"]
       $("#model-list").append journeyDisplay(trip).fadeIn()
-      
-# initialize the map immediately
-alert("done")
