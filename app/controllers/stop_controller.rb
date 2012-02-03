@@ -4,11 +4,12 @@ class StopController < ApplicationController
   
 	def index
 		@user_location = request.location
-		
-			@stops = Stop.by_location(@user_location.latitude, @user_location.longitude)
-			if params.has_key?("lat") and params.has_key?("lon")
-				@stops = Stop.by_location(params[:lat], params[:lon])
-		end
+
+        if params.has_key?("lat") and params.has_key?("lon")
+            @stops = Stop.by_location(params[:lat], params[:lon])
+        else
+            @stops = Stop.by_location(@user_location.latitude, @user_location.longitude)
+        end
 			
 		respond_to do |format|
 			format.html { 
@@ -35,13 +36,13 @@ class StopController < ApplicationController
 					r.arrivals.each{|arr| arr.description = r.description.empty? ? r.agency.name : r.description }
 					@arrivals << arr
 				end
-				r.arrivals.sort_by! {|arr| arr.scheduledArrivalTime }
+				r.arrivals.sort_by! {|arr| arr.arrival_time }
 			else
 				@routes << r
 			end
 		end
 		
-		@arrivals.sort_by! {|arr| arr.scheduledArrivalTime }
+		@arrivals.sort_by! {|arr| arr.arrival_time }
 		@stop.routes.sort_by! {|rt| rt.shortName.to_i }
 		
 		respond_to do |format|
@@ -63,6 +64,7 @@ class StopController < ApplicationController
 		end
 		
 		@time = Time.now
+        @arrivals.sort_by! {|arr| arr.arrival_time }
 		
 		respond_to do |format|
 			format.html { render :partial => "arrival_list" }
