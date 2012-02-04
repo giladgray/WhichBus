@@ -1,35 +1,41 @@
 <div class="row display">
   <div class="twelve columns">
-	  <%= form_tag "journey", :method => :get do %>     
+    <%= form_tag "journey", :method => :get do %>
       <div class="row display">
         <div class="eight columns centered">
           <div class="row display">
             <%= image_tag "whichbuslogo.png", :class => "logo" %>
           </div>
-        </div>
-        <div class="eight columns centered">
           <div class="row display" style="margin:4px 0px 0px 0px;">
             <div class="six columns">
+              <span class="textbox-container">
                 <%= text_field_tag "from", flash[:from], :class => "giant input-text ", :placeholder => "Where from, yo?" %>
-                <% if flash[:from_err] %>
+                <span class="clear-input button round whichbus-green">x</span>
+              </span>
+              <% if flash[:from_err] %>
                 <small class="error"><%= flash[:from_err] %></small>
-                <% end %>
+              <% end %>
             </div>
             <div class="six columns">
+              <span class="textbox-container">
                 <%= text_field_tag "to", flash[:to], :class => "giant input-text", :placeholder => "And where to?" %>
-                <% if flash[:to_err] %>
+                <span class="clear-input button round whichbus-green">x</span>
+              </span>
+              <% if flash[:to_err] %>
                 <small class="error"><%= flash[:to_err] %></small>
-                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
       <div class="row display">
         <div class="four columns centered">
-          <%= submit_tag "Map That Bus!", :class=>"phone-home-submit giant radius pacifico whichbus-green button", :style=>"text-shadow:0px 0px 1px dimgrey; font-weight:normal;" %>
+          <%= button_tag :type => 'submit', :class => "phone-home-submit giant radius pacifico whichbus-green button", :style=>"text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
+            <%= image_tag("mapthatbus.png", :size => "200x0") %>
+          <% end %>
         </div>
-        
+
       </div>
-	<% end %>
+    <% end %>
   </div>
 </div>

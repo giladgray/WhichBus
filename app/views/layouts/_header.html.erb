@@ -1,8 +1,25 @@
 <div class="row display topbarimage">
   <!-- the WhichBus header appears on all pages, in the upper left on desktop and at the top on phone -->
-  <div class="six phone-four columns">
+  <div class="six phone-three columns">
       <div class="pacifico header-title">WhichBus
       </div>
+  </div>
+  <div class="phone-one columns show-on-phones">
+    <ul class="nav-bar full-size" style="float:right">
+      <li class="has-flyout">
+        <%= image_tag("icons/settingsgear.png", :size=>"30x0",:style=>"float: right; padding: 4px 12px") %>
+        <div class="flyout small right">
+          <ul>
+            <li><%= link_to "#" do %>
+                  <%= image_tag "icons/aboutwhichbus.png" %> About WhichBus
+                <% end %>
+            </li>
+            <li><%= link_to "#" do %><%= image_tag "icons/knownissues.png" %> Known Issues <% end %></li>
+            <li><%= link_to "#" do %><%= image_tag "icons/reportabug.png" %> Report a Bug <% end %></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
   </div>
   <!-- the header bar has been converted to Foundation's nav-bar -->
   <div class="six columns hide-on-phones">
@@ -10,8 +27,21 @@
       <li><%= link_to "About", "/"%></li>
       <li><%= link_to "Contact", "/" %></li>
       <li><%= link_to "Login", "/" %></li>
-      <li><%= link_to image_tag("facebook-logo-square.png", :size => "40x40", :style => "margin-bottom:5px; display:inline"), "http://www.facebook.com/whichbus" %></li>
-      <li><%= link_to image_tag("twitter.png", :size => "40x40", :style => "margin-bottom:5px; display:inline"), "http://www.twitter.com/whichbus" %></li>
+      <li><%= link_to image_tag("facebook-logo-square.png", :size => "40x40", :style => "margin-bottom:5px; display:inline"), "http://www.facebook.com/whichbus", :class => "social-icon" %></li>
+      <li><%= link_to image_tag("twitter.png", :size => "40x40", :style => "margin-bottom:5px; display:inline"), "http://www.twitter.com/whichbus", :class => "social-icon" %></li>
+      <li class="has-flyout">
+		<a href="#" >?</a>
+		<a href="#" class="flyout-toggle"><span></span></a>
+		<div class="flyout medium right">
+          <%= form_tag "journey", :method => :get do %>
+            <%= text_field_tag "from", flash[:from], :class => "input-text", :placeholder => "Where from, yo?" %>
+            <%= text_field_tag "to", flash[:to], :class => "input-text", :placeholder => "And where to?" %>
+            <%= button_tag :type=>"submit", :class=>"radius pacifico whichbus-green button", :style=>"text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
+              <%= image_tag "mapthatbus.png", :size => "130x0" %>
+            <% end %>
+          <% end  %>
+		</div>
+      </li>
     </ul>
   </div>
 </div>
