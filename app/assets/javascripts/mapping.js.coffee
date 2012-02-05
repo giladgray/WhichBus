@@ -74,8 +74,9 @@ noLocation = () ->
     when error.UNKNOWN_ERROR
       msg += "Unknown error"
   alert(msg)
-geolocate = () ->
-  navigator.geolocation.getCurrentPosition yesLocation, noLocation
+geolocate = (success=yesLocation, fail=noLocation) ->
+  navigator.geolocation.getCurrentPosition success, fail
+window.geolocate = geolocate  
 
 # simplify Google Maps API
 # creates a maps.LatLng with the given coordinates. easy!
@@ -161,7 +162,6 @@ window.loadNearbyStops = (position) =>
         position: latlng(stop.lat, stop.lon)
         group: nearbyMarkers
         handler: clickStopMarker(stop)
-      # TODO: these markers aren't appearing on the map
 
 # event handler for clicking on a stop marker
 clickStopMarker = (stop) -> () ->
@@ -176,14 +176,24 @@ loadStopData = (stopId) ->
   $.get url, {api:yes}, (result) ->
     list.html(result).fadeIn()
 
-window.showJourney = (from, to) ->
+###
+# JOURNEY METHODS
+###
+hereStrings = ["current location", "here"]
+window.locationFound = (position) ->
+  $("input#currentPosition").val("#{position.coords.latitude},#{position.coords.longitude}")
+  alert "geocode success"
+window.showJourney = (from, to, userPosition) ->
+  list = $("#model-list")
+  list.html('<img class="loading" src="assets/loading.gif">')
   initializeMap(nothing)
   url = "/options.json"
   # TODO need to get location first because it's asynchronous
-  #if from == "current location"
-    #from = "#{@userPosition.position.lat()},#{@userPosition.position.lng()}"
+  from = userPosition if from in hereStrings
+  to = userPosition if to in hereStrings
   # call the options.json API to calculate the possible routes
   $.get url, {from: from, to: to}, (result) ->
+    list.html("")
     #returns three things: from, to, and trips
     from = result["from"]
     to = result["to"]
@@ -195,4 +205,4 @@ window.showJourney = (from, to) ->
     marker(to.name, latlng(to.latitude, to.longitude))
     # iterate through trips, adding journey row for each one
     for trip in result["trips"]
-      $("#model-list").append journeyDisplay(trip).fadeIn()
+      list.append journeyDisplay(trip).fadeIn()

@@ -36,6 +36,11 @@
     -o-transition: background-color .15s ease-in-out;
 }
 
+.loading {
+  vertical-align: middle;
+  margin: auto;
+}
+
 .border.radius {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
