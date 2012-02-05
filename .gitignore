@@ -6,16 +6,5 @@ tmp/
 *~ 
 index.html
 
-/._redcar/lucene/_a0.cfs
-/._redcar/lucene/_a0_1.del
-/._redcar/lucene/_a1.cfs
-/._redcar/lucene/_a1_1.del
-/._redcar/lucene/_a2.cfs
-/._redcar/lucene/_a2_1.del
-/._redcar/lucene/_a3.cfs
-/._redcar/lucene/segments.gen
-/._redcar/lucene/segments_95
-/._redcar/lucene_last_updated
-/._redcar/redcar.lock
-/._redcar/tags
-/._redcar/lucene/.gitignore
+._redcar
+.idea

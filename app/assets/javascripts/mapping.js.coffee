@@ -37,7 +37,7 @@ journeyDisplay = (journey) ->
   //create the description span in the middle with the headsign and route name
 	_div.append($("<span>").addClass("journey description").html(
     $("<a>").attr("href", "stop/"+journey[0].id)
-      .html(tag("<small>", "headsign radius", journey[2].tripHeadsign))
+      .html(tag("<small>", "headsign border round", journey[2].tripHeadsign))
       .append("<br/>")
 	    .append($("<h5>").text(journey[0].name))));
       
@@ -116,7 +116,7 @@ clearMarkerGroup = (group) ->
     
 initializeMap = (clickHandler, doGeolocate = true) ->
   defaultPosition = latlng(47.652709,-122.32149)
-  detectBrowser()
+  #  detectBrowser()
   options = 
     zoom: 13
     center: defaultPosition
