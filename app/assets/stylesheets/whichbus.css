@@ -30,6 +30,11 @@
   font-variant: small-caps;
 }
 
+.loading {
+  vertical-align: middle;
+  margin: auto;
+}
+
 /*.topbarimage {
   width: 100%;
   max-width: 100%;

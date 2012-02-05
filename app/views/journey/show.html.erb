@@ -1,5 +1,7 @@
 <!-- Journey show -->
 
-<% content_for :onload do "showJourney('#{params[:from]}','#{params[:to]}');" end %>
+<% content_for :onload do %>
+	showJourney('<%=params[:from] %>','<%=params[:to]%>','<%=params[:currentPosition]%>');
+<%end %>
 <% content_for :title do "" end %>
 

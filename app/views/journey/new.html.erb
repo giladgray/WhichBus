@@ -1,6 +1,8 @@
+<%= content_for :onload do "geolocate(locationFound)" end %>
+
 <div class="row display">
   <div class="twelve columns">
-    <%= form_tag "journey", :method => :get do %>
+    <form accept-charset="UTF-8" action="journey" method="get">
       <div class="row display">
         <div class="eight columns centered">
           <div class="row display">
@@ -30,12 +32,13 @@
       </div>
       <div class="row display">
         <div class="four columns centered">
-          <%= button_tag :type => 'submit', :class => "phone-home-submit giant radius pacifico whichbus-green button", :style=>"text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
+          <%= hidden_field_tag "currentPosition", "none" %>
+          <%= button_tag :type => 'submit', :name => nil, :class => "phone-home-submit giant radius pacifico whichbus-green button", :style=>"text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
             <%= image_tag("mapthatbus.png", :size => "200x0") %>
           <% end %>
         </div>
 
       </div>
-    <% end %>
+    </form>
   </div>
 </div>
