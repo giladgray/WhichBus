@@ -8,7 +8,7 @@
 <% else %>
 <!-- journey = [start, route, arrival, end] -->
 <% @journeys.find_all {|j| j[2].time_to_departure > -600 }.each do |journey| %>
-	<div class="row display well">
+	<div class="row display journey">
 		<span class="journey route">
 			<%= route_button(journey[1]) %>
 		</span>

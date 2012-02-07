@@ -76,8 +76,8 @@
 }*/
 
 .nav-bar {
-  background:  transparent;
-  border:  none;
+  background: transparent;
+  border: none;
 }
 .nav-bar li { border:  none; }
 
@@ -105,6 +105,9 @@
   box-shadow: 0 0  3px 3px #d3d3d3
 }
 /* map styling */
+#map_canvas {
+  height: 500px;
+}
 @media only screen and (max-width: 767px) {
   /* make the map canvas smaller on mobile screens */
   #map_canvas {
@@ -118,17 +121,22 @@
 .headsign {
   display: inline-block;
   border: 1px solid gray;
-  padding: 4px;
+  padding: 3px 5px;
   margin-bottom: 5px;
-  line-height: 1rem;
+  line-height: 1.3rem;
   background-color: white;
   color: black;
+  max-width: 245px;
+  max-height: 12px;
+  overflow: hidden;
 }
 
 .row.journey {
   padding: 8px 0;
   margin:  0;
-  border-bottom: 2px solid #4e4d4d;
+  border: 1px solid #4e4d4d;
+  border-top: 1px solid white;
+  background-color: #f5f5f5;
 }
 
 span.journey {
@@ -139,11 +147,13 @@ span.journey {
 
 .route {
   font-size: 2.75rem;
-  padding: 0.25rem 10px 0.5rem;
+  padding: 0.25rem 0 0.5rem 10px;
 }
-
-.journey.route a {
-  padding: 8px !important;
+.route a.button {
+  min-height: 45px;
+  min-width: 45px;
+  display: inline;
+  padding: 5px !important;
 }
 
 .journey.description {
@@ -152,6 +162,7 @@ span.journey {
   max-width: 270px;
   max-height: 45px;
   overflow: hidden;
+  padding-left: 10px;
 }
 
 .journey.time {
@@ -210,6 +221,7 @@ img.logo {
 
 .title h1, .title h2, .title h3, .title h4, .title h5, .title h6 {
   padding-top: 8px;
+  padding-left: 10px;
   color: white;
 }
 
@@ -561,10 +573,6 @@ table .purple {
 
 table .headerSortUp.purple, table .headerSortDown.purple {
   background-color: #e2d5f0;
-}
-
-#map_canvas {
-  height: 150px;
 }
 
 @font-face {

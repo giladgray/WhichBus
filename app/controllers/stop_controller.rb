@@ -28,22 +28,22 @@ class StopController < ApplicationController
 		@stop = Stop.new(params[:id])
 		@time = Time.now
 		
-		@arrivals = []
-		@routes = []
-		@stop.routes.each do |r|
-			if r.arrivals.length > 0
-				r.arrivals.each do |arr|
-					r.arrivals.each{|arr| arr.description = r.description.empty? ? r.agency.name : r.description }
-					@arrivals << arr
-				end
-				r.arrivals.sort_by! {|arr| arr.arrival_time }
-			else
-				@routes << r
-			end
-		end
+		# @arrivals = []
+		# @routes = []
+		# @stop.routes.each do |r|
+		# 	if r.arrivals.length > 0
+		# 		r.arrivals.each do |arr|
+		# 			r.arrivals.each{|arr| arr.description = r.description.empty? ? r.agency.name : r.description }
+		# 			@arrivals << arr
+		# 		end
+		# 		r.arrivals.sort_by! {|arr| arr.arrival_time }
+		# 	else
+		# 		@routes << r
+		# 	end
+		# end
 		
-		@arrivals.sort_by! {|arr| arr.arrival_time }
-		@stop.routes.sort_by! {|rt| rt.shortName.to_i }
+		# @arrivals.sort_by! {|arr| arr.arrival_time }
+		# @stop.routes.sort_by! {|rt| rt.shortName.to_i }
 		
 		respond_to do |format|
 			format.html

@@ -8,15 +8,15 @@ $(document).ready(function() {
 });
 </script>
 <% end %>
-<% content_for :onload do "initializeMap(showStopMarker,false);" end %>
-<% content_for :onload do "centerMap(latlng(#{@stop.lat},#{@stop.lon}));" end %>
+
+<!-- TODO: get a marker for the stop in there. -->
+<% content_for :onload do %>
+initializeMap(function(){loadStopData('<%=@stop.id%>')},showStopMarker,false);
+<% end %>
 
 <% content_for :title do @stop.name end %>
-<% content_for :page_title do @stop.name.capitalize end %>
+<% content_for :page_title do @stop.name end %>
 
-<% content_for :model_list do %>
-<%= render "arrival_list" %>
-<% end %>
 
 <!-- stop debug display
 <h2><%= @stop.name %> (<%= @stop.direction %>)</h2> <br/>

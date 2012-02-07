@@ -7,7 +7,7 @@
 <% end %>
 
 <% @arrivals.each do |arr| %>
-<div class="row display well journey <%= "hidden" if arr.nil? %>">
+<div class="row display journey <%= "hidden" if arr.nil? %>">
 	<span class="journey route">
 		<%= link_to arr.routeShortName, route_path(arr.routeId), :class=>"button radius whichbus-green" %>
 	</span>

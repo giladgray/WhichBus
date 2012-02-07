@@ -4,7 +4,8 @@
   <!-- the first real thing on the page is the page title -->
   <div class="row display title">
     <div id="page-title" class="twelve phone-four columns">
-      <h3 id="page-title-header"><%= yield(:page_title) %></h3>
+      <span id="page-title-header"><%= yield(:page_title) %></span>
+      <a href="#" onclick="refreshData()" class="right button route radius whichbus-green" title="Refresh">R</a>
     </div>
   </div>
   <!-- the following div contains the real page content -->
@@ -14,7 +15,7 @@
       <div class="row display">
         <!-- the map is the first element in the list on phones -->
 		<!-- but on desktops and tablets it is pushed to the right side of the screen -->
-        <div id="map_canvas" style="height:200px">
+        <div id="map_canvas">
           [map placeholder]
         </div>
       </div>
