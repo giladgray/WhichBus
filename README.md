@@ -9,3 +9,7 @@ People are using Google Maps to plot their route and see which buses (busai?) th
 ##The Solution
 
 WhichBus is going to combine these two websites and hopefully add lots of extra value to Seattlites trying to get where they need to go.
+
+
+
+WhichBus began at the January Startup Weekend in 2012 

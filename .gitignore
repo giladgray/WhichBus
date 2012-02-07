@@ -1,10 +1,10 @@
-
+*.css~
 .bundle
 db/*.sqlite3
 log/*.log
 tmp/
 *~ 
 index.html
-
+*.html.erb~
 ._redcar
 .idea
