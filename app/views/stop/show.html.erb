@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 <!-- TODO: get a marker for the stop in there. -->
 <% content_for :onload do %>
-initializeMap(function(){loadStopData('<%=@stop.id%>')},showStopMarker,false);
+initializeMap(function(){loadStopData('<%=@stop.id%>', '<%=params[:r]%>')}, showStopMarker,false);
 <% end %>
 
 <% content_for :title do @stop.name end %>

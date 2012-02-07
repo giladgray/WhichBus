@@ -162,13 +162,14 @@ clickStopMarker = (stop) -> () ->
   $("#page-title-header").text(stop.title)
   loadStopData stop.id
 
+# TODO: implement this filter parameter! it needs to come from somewhere, only Ruby knows about it
 # load arrivals for the given stop and display in list
-loadStopData = (stopId) ->
+loadStopData = (stopId, filter=null) ->
   # TODO: add a marker for the stop. need stop data for that, not just ID.
   url = "/stop/#{stopId}/schedule"
   list = $("#model-list")
   list.fadeOut()
-  $.get url, {api:yes}, (result) ->
+  $.get url, {api:yes, r: filter}, (result) ->
     list.html(result).fadeIn()
 window.loadStopData = loadStopData
 
