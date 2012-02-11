@@ -61,9 +61,13 @@
   position: fixed;
   top: 30px;
   margin:  auto;
+font-variant:small-caps;
+font-family: "Helvetica Neue", "Helvetica", sans-serif;
+text-align:center;
+text-transform:capitalize;
 	
 }
-#page-title-header {
+#page_title_header {
 font-variant:small-caps;
 font-family: "Helvetica Neue", "Helvetica", sans-serif;
 text-align:center;
