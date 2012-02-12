@@ -16,3 +16,17 @@ function toggleHidden() {
 		btn.text("Show Boring Routes");
 	$(".row.journey.hidden").toggle();
 }
+
+var opts = {
+  lines: 12, // The number of lines to draw
+  length: 0, // The length of each line
+  width: 8, // The line thickness
+  radius: 14, // The radius of the inner circle
+  color: '#bff3cd', // #rgb or #rrggbb
+  speed: 1.4, // Rounds per second
+  trail: 50, // Afterglow percentage
+  shadow: false, // Whether to render a shadow
+  hwaccel: true // Whether to use hardware acceleration
+};
+var target = document.getElementById('loading_spinner');
+var spinner = new Spinner(opts).spin(target);
