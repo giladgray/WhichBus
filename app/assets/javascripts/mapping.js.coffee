@@ -240,6 +240,7 @@ initializeMap = (dataFunction, clickHandler, doGeolocate = true) ->
   # final stuff: perform geolocation, load initial data
   geolocate() if doGeolocate
   @dataFunction = dataFunction
-  refreshData()
+  re freshData()
   @googleMap  # return the map object
 window.initializeMap = initializeMap
+

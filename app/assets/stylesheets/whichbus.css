@@ -275,9 +275,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d3d3d3', end
 }
 
 .topbarimage {
-  background-image: url('/assets/headerslice.jpg');
-  background-repeat: repeat-x;
-  width: 100%;
+  background: #bbf1cf; /* Old browsers */
+background: -moz-linear-gradient(top, #bbf1cf 0%, #a3d0b3 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bbf1cf), color-stop(100%,#a3d0b3)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #bbf1cf 0%,#a3d0b3 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #bbf1cf 0%,#a3d0b3 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #bbf1cf 0%,#a3d0b3 100%); /* IE10+ */
+background: linear-gradient(top, #bbf1cf 0%,#a3d0b3 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbf1cf', endColorstr='#a3d0b3',GradientType=0 ); /* IE6-9 */
   vertical-align: middle;
 }
 
