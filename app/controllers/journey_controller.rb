@@ -29,9 +29,10 @@ class JourneyController < ApplicationController
     @to_stops = Stop.by_location(@to.latitude, @to.longitude).first(10)
 
     #TODO validation: null parameters, geocode fail
+    @routes = self.class.find_routes(@from_stops, @to_stops)
 
     #call routing helper to find the routes
-    @journeys = self.class.calc_journeys(@from_stops, @to_stops)
+    # @journeys = self.class.calc_journeys(@from_stops, @to_stops)
     #display them
 
     @time = Time.now
@@ -48,6 +49,47 @@ class JourneyController < ApplicationController
   def which
   end
 
+  def self.find_routes(from_stops, to_stops)
+    # find the routes that serve FROM stops
+    from_routes = []
+    from_stops.each do |from|
+      from.routes.each do |route|
+        unless from_routes.include? route.id
+          from_routes << route.id
+        end
+      end
+    end
+    puts "From Routes: #{from_routes}"
+    # find the routes that serve TO stops
+    to_routes = []
+    to_stops.each do |to|
+      to.routes.each do |route|
+        unless to_routes.include? route.id
+          to_routes << route.id
+        end
+      end
+    end
+    puts "To Routes: #{to_routes}"
+
+    # find VALID routes that serve BOTH stops!
+    routes = from_routes & to_routes
+    puts "All Routes: #{routes}"
+    routes
+
+    # find FROM stops that are served by VALID routes
+    valid_from = from_stops.select do |stop|
+      intersect = stop.routes.map { |rt| rt.id } & routes
+      not intersect.empty?
+    end
+    # find TO stops that are served by VALID routes
+    valid_to = to_stops.select do |stop|
+      intersect = stop.routes.map { |rt| rt.id } & routes
+      not intersect.empty?
+    end
+    puts "Valid From: #{valid_from}"
+    puts "Valid To: #{valid_to}"
+  end
+
   def self.calc_journeys(from_stops, to_stops, within_minutes=90)
     result = []
     # go thru each from stop and get routes
@@ -59,9 +101,9 @@ class JourneyController < ApplicationController
         to_route_ids = ts.routes.map { |r| r.id }
         # get intersection of from_routes and to_routes
         routes = from_route_ids & to_route_ids
-        routes.each do |r|
+        routes.each do |routeId|
           # route = fs.routes.find{|rte| rte.id == r && rte.arrivals.length > 0 && rte.arrivals.first.time_to_arrival < within_minutes * 60}
-          route = fs.routes.find { |rte| rte.id == r && rte.arrivals.length > 0 }
+          route = fs.routes.find { |rte| rte.id == routeId }
           if route
             route.arrivals.each do |arr|
               # [from_stop, route, arrival, to_stop]
@@ -93,5 +135,11 @@ class JourneyController < ApplicationController
 
     result.sort_by! { |r| r[2].arrival_time }
     result
+
+    ###
+    # find routes that hit both stops
+    # find stops served by those routes
+    # load predictions for those stops
+    ###
   end
 end
