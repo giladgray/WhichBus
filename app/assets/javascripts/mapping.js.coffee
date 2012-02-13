@@ -156,6 +156,7 @@ window.loadNearbyStops = (position) =>
       markerOptions
         title: stop.name
         position: latlng(stop.lat, stop.lon)
+        icon: "assets/busstop.png"
         group: nearbyMarkers
         handler: clickStopMarker(stop)
 
@@ -167,7 +168,7 @@ clickStopMarker = (stop) -> () ->
 
 # TODO: implement this filter parameter! it needs to come from somewhere, only Ruby knows about it
 # load arrivals for the given stop and display in list
-loadStopData = (stopId, filter=null) ->
+loadStopData = (stopId, filter="") ->
   # TODO: add a marker for the stop. need stop data for that, not just ID.
   url = "/stop/#{stopId}/schedule"
   list = $("#model-list")
@@ -201,13 +202,14 @@ loadJourney = (from, to) -> (position) ->
   userPosition = "#{position.coords.latitude},#{position.coords.longitude}"
 
   title = $("#page-title-header")
-  title.html("<p id=\"loading_spinner\">Loading directions from #{from} to #{to}...").fadeIn()
+  title.html("Loading directions from #{from} to #{to}...").fadeIn()
   # update the query strings if the user asks for current location
   from = userPosition if from.toLowerCase() in hereStrings
   to = userPosition if to.toLowerCase() in hereStrings
   #alert "#{from} to #{to}"
   list = $("#model-list")
-  list.fadeOut()
+  list.fadeOut -> list.html("<p id=\"loading_spinner\"></p>").fadeIn()
+  loadingSpinner()
   # call the options.json API to calculate the possible routes
   $.get "/options.json", {from: from, to: to}, (result) =>
     list.html("").show()
