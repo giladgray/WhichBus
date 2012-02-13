@@ -48,8 +48,8 @@ stopDisplay = (stop) ->
 
 journeyDisplay = (journey) ->
   journeyDisplayOptions
-    route: link("route/#{journey[1].id}", "button radius whichbus-green", journey[1].shortName)
-    description: link "stop/#{journey[0].id}", "", tag("<small>", "headsign border round", journey[2].tripHeadsign), "<br/>", journey[0].name
+    route: link("route/#{journey[2].routeId}", "button radius whichbus-green", journey[2].routeShortName)
+    description: link("stop/#{journey[0].id}", "", tag("<small>", "headsign border round", journey[2].tripHeadsign), "<br/>", "#{journey[0].name} (#{milesOrFeet(journey[0].distance)})")
     time: [
       div("row small", journey[2].arrival)
       div("row #{colorizeTime(journey[2].wait_minutes)}", journey[2].wait_time)

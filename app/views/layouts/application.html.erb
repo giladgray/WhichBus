@@ -57,18 +57,6 @@ h1,h2,h4,h5 {color: #7D8073; font-family:Pacifico,'Tahoma',serif; }
   <%= render("layouts/universal_layout") %>
   
 	<div class="show-on-desktops show-on-tablets container" style="padding:0; width=100%; margin:auto; text-align:center;">
-		<div class="row display topbarimage">
-          <div class="row display">
-            <%= link_to image_tag("aboutbutton.jpg"), "/" %>
-            <%= link_to image_tag("teambutton.jpg"), "/" %>
-            <%= link_to image_tag("contactbutton.jpg"), "/" %>
-            <%= image_tag "headerslice.jpg", :style => "width:300px; height:50px;" %>
-            <%= link_to image_tag("loginbutton.jpg"), "/" %>            
-            <%= image_tag "headerslice.jpg", :style => "width:30px; height:50px;" %>
-            <%= link_to image_tag("facebook-logo-square.png", :size => "40x40", :style => "margin-bottom:5px"), "http://www.facebook.com/whichbus" %>
-            <%= link_to image_tag("twitter.png", :size => "40x40", :style => "margin-bottom:5px"), "http://www.twitter.com/whichbus" %>
-          </div>
-		</div>
 		<div class="row" style="text-align:center;">
 			<% flash.each do |name, msg| %>
 				<%= content_tag :div, msg, :id => "flash_#{name}" %>

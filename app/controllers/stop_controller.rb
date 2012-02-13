@@ -57,7 +57,7 @@ class StopController < ApplicationController
 		@stop = Stop.new(params[:id])
     
 		@arrivals = []
-		@stop.routes.each do |r|
+		@stop.routes_and_arrivals.each do |r|
 			# allow the user to filter certain routes!
 			if filter.empty? or filter.include? r.id or filter.include? r.shortName
 				r.arrivals.each{|arr| arr.description = r.description.empty? ? r.agency.name : r.description }
