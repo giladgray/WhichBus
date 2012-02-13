@@ -6,12 +6,9 @@ require 'net/http'
 require 'ostruct'
 require 'onebus_record'
 require 'route'
+require 'geocoder'
 
 class Stop < OneBusRecord
-  attr_accessor  :address
-  
-  reverse_geocoded_by :lat, :lon
-  after_validation :reverse_geocode
   
   def initialize(stop, hash=nil)
   	url = "http://api.onebusaway.org/api/where/stop/#{stop}.json?key=TEST"
@@ -25,7 +22,7 @@ class Stop < OneBusRecord
   	results = []
   	stops.each do |s|
   		stop = Stop.new(s[:id], s)
-  		stop.distance = stop.distance_to([lat.to_f, lon.to_f])
+  		stop.distance = Geocoder::Calculations.distance_between([stop.lat, stop.lon], [lat.to_f, lon.to_f])
   		results << stop
 	  end
 	  results.sort_by! {|s| s.distance }
@@ -37,10 +34,15 @@ class Stop < OneBusRecord
   	@arrivals_departures ||= self.class.get_json(url)["data"]["arrivalsAndDepartures"]
   	@arrivals_departures.map{|ad| ArrivalDeparture.new(ad)}
   end
-  
+
   def routes
+    data.routes.map { |r| Route.new(r[:id], r) }
+  end
+
+  # list of routes with arrivals folded in
+  def routes_and_arrivals
   	arrivals = arrivals_and_departures
-  	data.routes.map do |r| 
+  	data.routes.map do |r|
   		r["arrivals"] = arrivals.find_all{|arr| arr.routeId == r["id"] }
   		Route.new(r[:id], r)
   	end
@@ -50,4 +52,7 @@ class Stop < OneBusRecord
   	data.methods
   end
 
+  def to_s
+    "Stop #{data.id}: #{data.name}"
+  end
 end

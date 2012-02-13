@@ -3,7 +3,7 @@ require 'json'
 require 'net/http'
 require 'ostruct'
 
-class OneBusRecord < ActiveRecord::Base
+class OneBusRecord
   include ActionView::Helpers::DateHelper
   @@json_count = 0;
 
