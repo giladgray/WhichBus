@@ -22,7 +22,7 @@ function loadingSpinner() {
     lines: 12, // The number of lines to draw
     length: 0, // The length of each line
     width: 8, // The line thickness
-    radius: 14, // The radius of the inner circle
+    radius: 10, // The radius of the inner circle
     color: '#bff3cd', // #rgb or #rrggbb
     speed: 1.4, // Rounds per second
     trail: 50, // Afterglow percentage

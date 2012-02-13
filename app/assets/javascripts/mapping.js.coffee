@@ -185,7 +185,6 @@ window.locationFound = (position) ->
   $("input#currentPosition").val("#{position.coords.latitude},#{position.coords.longitude}")
   alert "geocode success"
 window.showJourney = (from, to, userPosition) ->
-  $("#model-list").html('<img class="loading" src="assets/loading.gif">')
   # initialize the map using loadJourney and no click functionality
   dataFunction = -> loadJourney(from, to)
   initializeMap(dataFunction, nothing)
