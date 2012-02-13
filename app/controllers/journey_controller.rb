@@ -30,11 +30,11 @@ class JourneyController < ApplicationController
 
     @time = Time.now
     #TODO validation: null parameters, geocode fail
-    @journeys = self.class.find_routes(@from_stops, @to_stops)
+    #call routing helper to discover journeys
+    @journeys = self.class.find_journeys(@from_stops, @to_stops)
 
     runtime = Time.now - @time # number of seconds find_routes consumed
     puts "FINISHED! with a time of #{runtime * 1000}ms"
-    #call routing helper to find the routes
     # @journeys = self.class.calc_journeys(@from_stops, @to_stops)
     #display them
 
@@ -48,7 +48,9 @@ class JourneyController < ApplicationController
     end
   end
 
-  def self.find_routes(from_stops, to_stops)
+  # Journey Algorithm Version 2.0
+  # load prediction data as late as possible, prune irrelevant stops first
+  def self.find_journeys(from_stops, to_stops)
     # find the routes that serve FROM stops
     from_routes = []
     from_stops.each do |from|
@@ -88,28 +90,23 @@ class JourneyController < ApplicationController
     puts "Valid From (#{valid_from.length}): #{valid_from.map { |s| s.name }.join(" | ")}"
     puts "Valid To (#{valid_to.length}): #{valid_to.map { |s| s.name }.join(", ")}"
 
-    current_time = Time.now
     puts ""
+    current_time = Time.now
     result = []
-    ## for all the valid departure stops...
-    #valid_from.each do |stop|
-    #  # go through its routes...
-    #  stop.routes_and_arrivals.select{ |r| valid_routes.include? r.id }.each do |route|
-    #    # and add a journey for each arrival
-    #    route.arrivals.each do |arr|
-    #      puts "#{route.id} from #{stop.name} in #{arr.time_to_arrival_in_words(current_time)}"
-    #      result << [stop, route, arr, stop] #TODO: destination stop
-    #    end
-    #  end
-    #end
+    # now that we've processed the data and found the valid stops and routes, let's work on the predictions.
+    # load the predictions for valid departure stops (subset of all nearby stops) and add those on valid routes.
 
+    # for all the valid departure stops...
     valid_from.each do |stop|
       puts "Processing stop #{stop.name}:"
-      stop.arrivals_and_departures.each do |arr|
+      # go through its arrivals from valid routes...
+      stop.arrivals_and_departures.select { |arr| valid_routes.include? arr.routeId }.each do |arr|
         journey = result.find { |r| r[2].tripId == arr.tripId }
+        # and add them to the list if this trip hasn't already been added
         if journey.nil?
           puts "  #{arr.routeId} in #{arr.time_to_arrival_in_words(current_time)}"
-          result << [stop, nil, arr, stop]
+          result << [stop, nil, arr, stop]  # TODO: find destination stop
+        # if the trip has been added then update it if this stop is closer
         elsif stop.distance < journey[0].distance
           puts "  #{arr.routeId} to #{stop.name} in #{arr.time_to_arrival_in_words(current_time)} **"
           journey[2] = arr
@@ -167,16 +164,9 @@ class JourneyController < ApplicationController
         end
       end
     end
-    filtered_results = []
 
     result.sort_by! { |r| r[2].arrival_time }
     result
-
-    ###
-    # find routes that hit both stops
-    # find stops served by those routes
-    # load predictions for those stops
-    ###
   end
 
 end

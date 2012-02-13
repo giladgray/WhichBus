@@ -108,6 +108,7 @@ marker = (title, position, group=null, handler=null) ->
 window.marker = marker
 
 # a more versatile marker creator that takes a hash of options
+# takes standard marker options + handler (click event handler), group (array of related markers)
 markerOptions = (options) ->
   options.map = @googleMap  # add marker to the map object
   mrkr = new google.maps.Marker(options)  # create marker from options hash (extra options will be ignored)
@@ -119,6 +120,7 @@ markerOptions = (options) ->
   mrkr
 window.markerOptions = markerOptions
 
+# creates a polyline! takes standard polyline options
 polyline = (options) ->
   options.map = @googleMap
   line = new google.maps.Polyline(options)
@@ -253,7 +255,8 @@ initializeMap = (dataFunction, clickHandler, doGeolocate = true) ->
       onSuccess: yesLocation
       onFail: noLocation
 window.initializeMap = initializeMap
-
+# but really, it takes an options hash that lets you set all sorts of things!
+# { zoom:, mapType:, defaultPosition:, clickHandler:, dataFunction:, geolocate: { enable:, onSuccess:, onFail: } }
 initializeMapOptions = (options) ->
   defaultPosition = defaultValue(options.defaultPosition, latlng(47.652709,-122.32149))
   mapOptions =
