@@ -31,10 +31,10 @@
       
     		<a href="#" >?</a>
     		<a href="#" class="flyout-toggle"><span></span></a>
-    		<div class="flyout medium right">
+    		<div class="flyout small right">
           <%= form_tag "journey", :method => :get do %>
-            <%= text_field_tag "from", flash[:from], :class => "input-text", :placeholder => "Where from, yo?" %>
-            <%= text_field_tag "to", flash[:to], :class => "input-text", :placeholder => "And where to?" %>
+            <%= text_field_tag "from", flash[:from], :class => "flyout_input", :placeholder => "Where from, yo?" %>
+            <%= text_field_tag "to", flash[:to], :class => "flyout_input", :placeholder => "And where to?" %>
             <%= button_tag :type=>"submit", :class=>"radius pacifico whichbus-green button", :style=>"text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
               <%= image_tag "mapthatbus.png", :size => "130x0" %>
             <% end %>
