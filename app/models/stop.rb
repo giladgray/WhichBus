@@ -29,17 +29,23 @@ class Stop < OneBusRecord
 	  results
   end
   
+  # just the arrivals
   def arrivals_and_departures
   	url = "http://api.onebusaway.org/api/where/arrivals-and-departures-for-stop/#{data.id}.json?key=TEST"
   	@arrivals_departures ||= self.class.get_json(url)["data"]["arrivalsAndDepartures"]
   	@arrivals_departures.map{|ad| ArrivalDeparture.new(ad)}
   end
 
+  # just the routes
   def routes
     data.routes.map { |r| Route.new(r[:id], r) }
   end
 
-  # list of routes with arrivals folded in
+  def routeIds
+    data.routes.map { |r| r[:id] }
+  end
+
+  # list of routes with arrivals folded in to the routes
   def routes_and_arrivals
   	arrivals = arrivals_and_departures
   	data.routes.map do |r|

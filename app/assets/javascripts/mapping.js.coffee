@@ -1,67 +1,6 @@
 allMarkers = new Array
 nearbyMarkers = new Array
 
-defaultValue = (value, defaultValue) ->
-  if value? then value else defaultValue
-
-# simplify HTML
-@tag = tag = (tagname, classes, body...) -> 
-  html = $(tagname).addClass(classes)
-  html.append text for text in body
-  html
-@div = div = (classes, body...) ->
-  tag "<div>", classes, body...
-@span = span = (classes, body...) ->
-  tag "<span>", classes, body...
-@link = link = (href, classes, body...) ->
-  @a = tag "<a>", classes, body...
-  @a.attr("href", href)
-  @a
-  #$("<a>").addClass(classes).attr("href", href).html(body)
-
-colorizeTime = (time) ->
-  if time < 0 then "gone"
-  else if time < 6 then "now"
-  else if time < 16 then "soon"
-  else if time < 36 then "soonish"
-  else "later"
-
-colorizeStatus = (status) ->
-  if status.indexOf("early") > -1 then "early"
-  else if status.indexOf("late") > -1 then "late"
-  else ""
-
-abbrevs = 0;
-abbreviate = (text, length) ->
-  if text.length > length
-    # put the truncated text in a span with a tooltip containing the full text
-    span("has-tip bottom", "#{text[0..length]}...").attr("title", text).attr("id", "abbrev#{abbrevs++}")
-  else text
-
-milesOrFeet = (distance) ->
-  if distance < 0.19 then "#{(distance * 5280).toFixed(0)}ft" else "#{distance.toFixed(2)}mi"
-
-stopDisplay = (stop) ->
-  display = $("<div>").addClass "row display journey"
-  display.append link("/stop/#{stop.id}", "journey description", abbreviate(stop.name, 30))
-  display.append span("journey time", milesOrFeet(stop.distance)) #.toFixed(2) + "mi")
-
-journeyDisplay = (journey) ->
-  journeyDisplayOptions
-    route: link("route/#{journey[2].routeId}", "button radius whichbus-green", journey[2].routeShortName)
-    description: link("stop/#{journey[0].id}", "", tag("<small>", "headsign border round", journey[2].tripHeadsign), "<br/>", "#{journey[0].name} (#{milesOrFeet(journey[0].distance)})")
-    time: [
-      div("row small", journey[2].arrival)
-      div("row #{colorizeTime(journey[2].wait_minutes)}", journey[2].wait_time)
-      div("row small #{colorizeStatus(journey[2].status)}", journey[2].status)
-    ]
-
-journeyDisplayOptions = (options) ->
-  route = span "journey route", options.route...
-  description = span "journey description", options.description...
-  time = span "journey time", options.time...
-  div "row display journey", route, description, time
-
 detectBrowser = () ->
   mapdiv = $("#map_canvas")
   mapdiv.css 'width', '100%'
@@ -158,7 +97,7 @@ window.loadNearbyStops = (position) =>
       markerOptions
         title: stop.name
         position: latlng(stop.lat, stop.lon)
-        icon: "assets/busstop.png"
+        icon: "/assets/busstop.png"
         group: nearbyMarkers
         handler: clickStopMarker(stop)
 
@@ -171,12 +110,27 @@ clickStopMarker = (stop) -> () ->
 # TODO: implement this filter parameter! it needs to come from somewhere, only Ruby knows about it
 # load arrivals for the given stop and display in list
 loadStopData = (stopId, filter="") ->
-  # TODO: add a marker for the stop. need stop data for that, not just ID.
-  url = "/stop/#{stopId}/schedule"
+  url = "/stop/#{stopId}/schedule.json"
   list = $("#model-list")
   list.fadeOut()
-  $.get url, {api:yes, r: filter}, (result) ->
-    list.html(result).fadeIn()
+  $.get url, {api:yes, r: filter}, (result) =>
+    list.html("").show()
+    stop = result["stop"]
+    pos = latlng(stop.lat, stop.lon)
+    # center the map and add a marker for the stop
+    @googleMap.setCenter(pos)
+    markerOptions
+      title: stop.name
+      position: pos
+      icon: "/assets/busstop.png"
+    # display each of the arrivals
+    if result["arrivals"].length == 0
+      list.append journeyDisplayError "No upcoming arrivals."
+    else
+      for trip in result["arrivals"]
+        list.append arrivalDisplay(trip).fadeIn()
+    
+    # loadNearbyStops(pos)
 window.loadStopData = loadStopData
 
 ###
@@ -230,9 +184,10 @@ loadJourney = (from, to) -> (position) ->
     @googleMap.setCenter fromMarker.position
     # iterate through trips, adding journey row for each one
     if result["trips"].length == 0
-      list.append()
-    for trip in result["trips"]
-      list.append journeyDisplay(trip).fadeIn()
+      list.append journeyDisplayError "No connecting buses found."
+    else
+      for trip in result["trips"]
+        list.append journeyDisplay(trip).fadeIn()
 window.loadJourney = loadJourney
 
 # calls the dataFunction if it is set

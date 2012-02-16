@@ -53,15 +53,21 @@ class StopController < ApplicationController
 	end
   
 	def schedule
-		filter = params[:r].split(',') 
+		filter = []
+		if params.has_key?("r")
+			filter = params[:r].split(',') 
+		end
+		puts "filter: #{filter}"
 		@stop = Stop.new(params[:id])
     
 		@arrivals = []
 		@stop.routes_and_arrivals.each do |r|
 			# allow the user to filter certain routes!
 			if filter.empty? or filter.include? r.id or filter.include? r.shortName
-				r.arrivals.each{|arr| arr.description = r.description.empty? ? r.agency.name : r.description }
-				@arrivals += r.arrivals
+				r.arrivals.each do |arr| 
+					arr.description = r.description.empty? ? r.agency.name : r.description
+					@arrivals << arr
+				end
 			end
 		end
 		
@@ -70,7 +76,7 @@ class StopController < ApplicationController
 		
 		respond_to do |format|
 			format.html { render :partial => "arrival_list" }
-			format.json { render :json => @arrivals }
+			format.json { render :json => { :stop => @stop, :arrivals => @arrivals } }
 			format.xml  { render :xml => @arrivals }
 		end
 	end

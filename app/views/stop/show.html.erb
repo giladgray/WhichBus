@@ -26,7 +26,7 @@ ID: <%= @stop.id %> <br/>
 <hr/>
 
 <ul>
-<% @stop.routes.each do |r| %>
+<% @stop.routes_and_arrivals.each do |r| %>
 	<li>
 		<%= link_to "#{r.shortName} #{r.direction}", route_path(r.id) %>&nbsp;
 		<% r.arrivals.each do |arr| %>

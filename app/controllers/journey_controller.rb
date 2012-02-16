@@ -23,10 +23,10 @@ class JourneyController < ApplicationController
     OneBusRecord.reset_json_count
 
     @from = self.class.geocode(params[:from])
-    @from_stops = Stop.by_location(@from.latitude, @from.longitude).first(15)
+    @from_stops = Stop.by_location(@from.latitude, @from.longitude).first(20)
 
     @to = self.class.geocode(params[:to])
-    @to_stops = Stop.by_location(@to.latitude, @to.longitude).first(15)
+    @to_stops = Stop.by_location(@to.latitude, @to.longitude).first(20)
 
     @time = Time.now
     #TODO validation: null parameters, geocode fail
@@ -105,9 +105,10 @@ class JourneyController < ApplicationController
         journey = result.find { |r| r[2].tripId == arr.tripId }
         # and add them to the list if this trip hasn't already been added
         if journey.nil?
-          puts "  #{arr.routeId} in #{arr.time_to_arrival_in_words(current_time)}"
+          #dest = valid_to.find { |stop| stop.routeIds.include? arr.routeId }
           result << [stop, nil, arr, stop] # TODO: find destination stop
                                            # if the trip has been added then update it if this stop is closer
+          puts "  #{arr.routeId} in #{arr.time_to_arrival_in_words(current_time)}"#" to #{dest.name}"
         elsif stop.distance < journey[0].distance
           puts "  #{arr.routeId} to #{stop.name} in #{arr.time_to_arrival_in_words(current_time)} **"
           journey[2] = arr

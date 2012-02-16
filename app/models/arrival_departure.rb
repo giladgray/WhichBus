@@ -157,6 +157,7 @@ class ArrivalDeparture < OneBusRecord
     result[:wait_minutes] = time_to_arrival(time) / 60
     result[:wait_time] = time_to_arrival_in_words(time)
     result[:status] = prediction_difference
+    result[:description] = description
     result
   end
 end
