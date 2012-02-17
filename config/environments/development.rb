@@ -27,5 +27,9 @@ Whichbus::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  # Enable caching
+  config.cache_store = :memory_store
+  config.action_controller.perform_caching = true
 end
 

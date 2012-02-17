@@ -8,9 +8,9 @@
 
 <% content_for :model_list do %>
 	<% @route.stops.each do |stop| %>
-	<div class="row display well">
+	<div class="row display journey">
 		<span class="journey description">
-			<%= stop.name %>
+			<%= link_to stop.name, stop_path(stop.id), :class => "journey description" %>
 		</span>
 	</div>
 	<% end %>

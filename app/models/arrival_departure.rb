@@ -67,11 +67,11 @@ class ArrivalDeparture < OneBusRecord
   end
 
   def time_to_arrival_in_words(from_time = Time.now)
-    ArrivalDeparture.time_to_words_short(time_to_arrival(from_time) / 60)
+    self.class.time_to_words_short(time_to_arrival(from_time) / 60)
   end
 
   def time_to_departure_in_words(from_time = Time.now)
-    ArrivalDeparture.time_to_words_short(time_to_departure(from_time) / 60)
+    self.class.time_to_words_short(time_to_departure(from_time) / 60)
   end
 
   def css_class_for_arrival_time(from_time = Time.now)

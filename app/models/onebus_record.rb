@@ -6,6 +6,9 @@ require 'ostruct'
 class OneBusRecord
   include ActionView::Helpers::DateHelper
   @@json_count = 0;
+  # a little regex to extract a part of the url to use as the cachekey:
+  @@cachekey_regex = /where\/(?<cachekey>[a-z0-9_\-\/]*).[a-z]*\?.*key=(?<apikey>TEST)/
+  # example: http://api.onebusaway.org/api/where/[route/1_44].json?key=TEST || [stop/1_75403] || ...
 
   attr_reader :data
   attr_accessor :distance
@@ -14,10 +17,18 @@ class OneBusRecord
     if url_or_hash.is_a? Hash
       @data = OpenStruct.new(url_or_hash)
   	else
-		# here is where we search the cache for this
-		# unless it's an A/D, those always need updating
-	    result = self.class.get_json(url_or_hash)
-	    @data = OpenStruct.new(result["data"])
+  		# here is where we search the cache for this url
+      # the cachekey is the unique part of the url that contains the API method and ID parameter (see regex above)
+      matches = @@cachekey_regex.match(url_or_hash)
+      cachekey = matches["cachekey"]
+      puts "cache fetch #{cachekey} [#{Rails.cache.exist? cachekey}]"
+      @data = Rails.cache.fetch(cachekey) do
+        puts "  * new cache entry created *"
+  	    result = self.class.get_json(url_or_hash)
+        # store the OpenStruct object in the cache. Ruby will serialize it thanks. BOOM!
+  	    OpenStruct.new(result["data"])
+      end
+      # NOTE: Arrival/Departures are created using get_json directly in Stop.rb so they'll never cache
   	end
   end
   
