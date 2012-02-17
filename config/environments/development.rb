@@ -30,6 +30,6 @@ Whichbus::Application.configure do
 
   # Enable caching
   config.cache_store = :memory_store
-  config.action_controller.perform_caching = true
+  config.action_controller.perform_caching = false
 end
 
