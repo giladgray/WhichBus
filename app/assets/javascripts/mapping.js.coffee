@@ -1,4 +1,5 @@
 allMarkers = new Array
+namedMarkers = {}
 nearbyMarkers = new Array
 
 detectBrowser = () ->
@@ -153,41 +154,64 @@ window.showJourney = (from, to, userPosition) ->
 
 # returns a geolocation callback that takes the user's position
 loadJourney = (from, to) -> (position) ->
-  #@dataFunction = -> loadJourney(from, to)(position) # TODO: set the dataFunction so we can refresh
-  userPosition = "#{position.coords.latitude},#{position.coords.longitude}"
-
   title = $("#page-title-header")
   title.html("Loading directions from #{from} to #{to}...").fadeIn()
-  # update the query strings if the user asks for current location
-  from = userPosition if from.toLowerCase() in hereStrings
-  to = userPosition if to.toLowerCase() in hereStrings
+  # @dataFunction = -> loadJourney(from, to)(position) # TODO: set the dataFunction so we can refresh
+
+  if position?
+    userPosition = "#{position.coords.latitude},#{position.coords.longitude}"
+    # update the query strings if the user asks for current location
+    from = userPosition if from.toLowerCase() in hereStrings
+    to = userPosition if to.toLowerCase() in hereStrings
   #alert "#{from} to #{to}"
   list = $("#model-list")
   list.fadeOut -> list.html("<p id=\"loading_spinner\"></p>").fadeIn()
   loadingSpinner()
   # call the options.json API to calculate the possible routes
-  $.get "/options.json", {from: from, to: to}, (result) =>
-    list.html("").show()
-    #returns three things: from, to, and trips
-    from = result["from"]
-    to = result["to"]
-    # build title from the first two items
-    title.fadeOut 'medium', ->
-      title.html("<em>From:</em> ").append(from.name).append("<br>")
-      title.append("<em>To:</em> ").append(to.name).fadeIn()
-    # create markers for origin and destination
-    fromMarker = marker from.name, latlng(from.latitude, from.longitude)
-    toMarker = marker to.name, latlng(to.latitude, to.longitude)
-    polyline
-      path: [fromMarker.position, toMarker.position]
-      strokeColor: "#4e4d4d"
-    @googleMap.setCenter fromMarker.position
-    # iterate through trips, adding journey row for each one
-    if result["trips"].length == 0
-      list.append journeyDisplayError "No connecting buses found."
-    else
-      for trip in result["trips"]
-        list.append journeyDisplay(trip).fadeIn()
+  $.get "/options.json", {from: from, to: to}, processJourneyResult
+
+processJourneyResult = (result) =>
+  title = $("#page-title-header")
+  list = $("#model-list")
+  list.html("").show()
+  #returns three things: from, to, and trips
+  from = result["from"]
+  to = result["to"]
+  # build title from the first two items
+  title.fadeOut 'medium', ->
+    title.html("<em>From:</em> ").append(from.name).append("<br>")
+    title.append("<em>To:</em> ").append(to.name).fadeIn()
+  # create markers for origin and destination, clear previous markers if they exist
+  @fromMarker.setMap null if @fromMarker?
+  @fromMarker = markerOptions
+    title: from.name
+    position: latlng(from.latitude, from.longitude)
+    icon: "http://thydzik.com/thydzikGoogleMap/markerlink.php?text=A&color=FC6355"
+    draggable: true # allow user to drag endpoints to recalculate journey
+  @toMarker.setMap null if @toMarker?
+  @toMarker = markerOptions
+    title: to.name
+    position: latlng(to.latitude, to.longitude)
+    icon: "http://thydzik.com/thydzikGoogleMap/markerlink.php?text=B&color=FC6355"
+    draggable: true
+  line = polyline
+    path: [fromMarker.position, toMarker.position]
+    strokeColor: "#4e4d4d"
+  # add event listeners for dragging start and end markers
+  google.maps.event.addListener fromMarker, 'dragend', (mouse) ->
+    line.setMap null
+    $.get "/options.json", {from: mouse.latLng.toString(), to: toMarker.position.toString()}, processJourneyResult
+  google.maps.event.addListener toMarker, 'dragend', (mouse) ->
+    line.setMap null
+    $.get "/options.json", {from: fromMarker.position.toString(), to: mouse.latLng.toString()}, processJourneyResult
+
+  @googleMap.setCenter fromMarker.position
+  # iterate through trips, adding journey row for each one
+  if result["trips"].length == 0
+    list.append journeyDisplayError "No connecting buses found."
+  else
+    for trip in result["trips"]
+      list.append journeyDisplay(trip).fadeIn()
 window.loadJourney = loadJourney
 
 # calls the dataFunction if it is set
