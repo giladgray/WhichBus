@@ -164,18 +164,27 @@ span.journey {
   font-size: 2.75rem;
   padding: 0.25rem 0 0.5rem 10px;
 }
-.route a.button {
-  min-height: 45px;
-  min-width: 45px;
-  display: inline;
+.route .button {
+  min-height: 40px;
+  min-width: 40px;
+  line-height: 40px;
+  /*display: inline;*/
   padding: 5px !important;
+}
+.route div.button {
+  line-height: 1em;
+}
+.route .button small {
+  font-size: .9rem; /* EXPRESS label */
+  display: block;
+  line-height: 1em;
 }
 
 .journey.description {
   font-size: 1.5rem;
   display: inline-block;
   max-width: 270px;
-  max-height: 45px;
+  /*max-height: 45px;*/
   overflow: hidden;
   padding-left: 10px;
 }
