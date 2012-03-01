@@ -51,6 +51,13 @@
     -webkit-border-radius: 1000px;
     border-radius: 1000px;
 }
+#page-title-header {
+font-variant:small-caps;
+font-family: "Helvetica Neue", "Helvetica", sans-serif;
+text-align:center;
+text-transform:capitalize;
+font-size:.8em;
+}
 /*.topbarimage {
   width: 100%;
   max-width: 100%;
@@ -67,7 +74,7 @@ text-align:center;
 text-transform:capitalize;
 	
 }
-#page_title_header {
+#page-title-header {
 font-variant:small-caps;
 font-family: "Helvetica Neue", "Helvetica", sans-serif;
 text-align:center;
@@ -208,7 +215,7 @@ img.logo {
   padding: 4px 5px !important;
   margin-bottom: 15px !important;
   display: inline !important;
-  width: auto !important;
+  width: 92% !important;
 }
 
 .well {
@@ -269,9 +276,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d3d3d3', end
 
 .phone-home-submit {
   border: none;
-  height: 65px;
-  padding: 0;
+  /*height: 65px;*/
+  padding: 14px 22px !important;
   margin: auto;
+  width: auto !important;
 }
 
 .topbarimage {
@@ -634,3 +642,5 @@ table .headerSortUp.purple, table .headerSortDown.purple {
 
 .flyout_input { width:186px;} 
 
+
+#from,#to { width:92%; margin-left:auto; margin-right:auto;} 

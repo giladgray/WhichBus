@@ -3,38 +3,63 @@
     <form accept-charset="UTF-8" action="journey" method="get">
       <div class="row display">
         <div class="eight columns centered">
-          <div class="row display">
+          <div class="row display" style="text-align:center">
             <%= image_tag "whichbuslogo.png", :class => "logo" %>
           </div>
 
-          <div class="row display" style="margin:4px 0px 0px 0px;">
+          <div class="row display hide-on-phones" style="margin:4px 0px 0px 0px;">
             <div class="six columns">
               <span class="textbox-container">
-                <%= text_field_tag "from", flash[:from], :class => "giant input-text ", :placeholder => "Where from, yo?" %>
+                <%= text_field_tag "from", flash[:from], :class => "input-text giant", :placeholder => "Where from, yo?" %>
                 <span class="clear-input button round whichbus-green">x</span>
               </span>
               <% if flash[:from_err] %>
                 <small class="error"><%= flash[:from_err] %></small>
               <% end %>
             </div>
-
+          
             <div class="six columns">
               <span class="textbox-container">
-                <%= text_field_tag "to", flash[:to], :class => "giant input-text", :placeholder => "And where to?" %>
+                <%= text_field_tag "to", flash[:to], :class => "input-text giant", :placeholder => "And where to?" %>
                 <span class="clear-input button round whichbus-green">x</span>
               </span>
               <% if flash[:to_err] %>
                 <small class="error"><%= flash[:to_err] %></small>
               <% end %>
             </div>
+          </div> <!-- End of inputs for desktop -->
+
+          <div class="row display hide-on-desktops" style="margin:4px 0px 0px 0px;">
+            <div class="phone-four centered six columns">
+              <span class="textbox-container">
+                <%= text_field_tag "from", flash[:from], :class => "input-text ", :placeholder => "Where from, yo?" %>
+                <span class="clear-input button round whichbus-green">x</span>
+              </span>
+              <% if flash[:from_err] %>
+                <small class="error"><%= flash[:from_err] %></small>
+              <% end %>
+            </div>
           </div>
+          <div class="row display hide-on-desktops">
+            <div class="phone-four centered six columns">
+              <span class="textbox-container">
+                <%= text_field_tag "to", flash[:to], :class => "input-text", :placeholder => "And where to?" %>
+                <span class="clear-input button round whichbus-green">x</span>
+              </span>
+              <% if flash[:to_err] %>
+                <small class="error"><%= flash[:to_err] %></small>
+              <% end %>
+            </div>
+          </div><!--end of show on phones --> 
+
         </div>
       </div>
 
+
       <div class="row display">
-        <div class="four columns centered">
-          <%= button_tag :type => 'submit', :name => nil, :class => "phone-home-submit giant radius pacifico whichbus-green button", :style=>"text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
-            <%= image_tag("mapthatbus.png", :size => "200x0") %>
+        <div class="four columns centered" style="text-align:center;">
+          <%= button_tag :type => 'submit', :name => nil, :class => "phone-home-submit radius pacifico whichbus-green button", :style=>"text-shadow:0px 0px 1px dimgrey; font-weight:normal; margin:0 auto;" do %>
+            <p class="pacifico" style="line-height:1.5em; font-size:2em; ">Map that bus!</p>
           <% end %>
         </div>
       </div>
