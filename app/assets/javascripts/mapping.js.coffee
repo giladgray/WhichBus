@@ -105,11 +105,11 @@ window.loadNearbyStops = (position) =>
 # returns an anonymous function to call when the stop is clicked on
 clickStopMarker = (stop) -> () ->
   $("#page-title-header").text(stop.title)
-  loadStopData stop.id
+  loadStopSchedule stop.id
 
 # TODO: implement this filter parameter! it needs to come from somewhere, only Ruby knows about it
 # load arrivals for the given stop and display in list
-loadStopData = (stopId, filter="") ->
+loadStopSchedule = (stopId, filter="") ->
   url = "/stop/#{stopId}/schedule.json"
   list = $("#model-list")
   list.fadeOut()
@@ -131,7 +131,7 @@ loadStopData = (stopId, filter="") ->
         list.append arrivalDisplay(trip).fadeIn()
     
     # loadNearbyStops(pos)
-window.loadStopData = loadStopData
+window.loadStopSchedule = loadStopSchedule
 
 ###
 # JOURNEY METHODS
