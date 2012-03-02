@@ -42,7 +42,7 @@ class Stop < OneBusRecord
   end
 
   def routeIds
-    data.routes.map { |r| r[:id] }
+    data.routes.map { |r| r["id"] }
   end
 
   # list of routes with arrivals folded in to the routes
