@@ -32,6 +32,7 @@ window.colorizeStatus = (status) ->
 
 abbrevs = 0;
 window.abbreviate = (text, length) ->
+  return unless text? # gracefully handle null case
   if text.length > length
     # put the truncated text in a span with a tooltip containing the full text
     span("has-tip bottom", "#{text[0..length]}...").attr("title", text).attr("id", "abbrev#{abbrevs++}")
@@ -41,9 +42,9 @@ window.milesOrFeet = (distance) ->
   if distance < 0.19 then "#{(distance * 5280).toFixed(0)}ft" else "#{distance.toFixed(2)}mi"
 
 window.stopDisplay = (stop) ->
-  display = $("<div>").addClass "row display journey"
+  display = div "row display journey"
   display.append link("/stop/#{stop.id}", "journey description", abbreviate(stop.name, 30))
-  display.append span("journey time", milesOrFeet(stop.distance)) #.toFixed(2) + "mi")
+  display.append span("journey time", milesOrFeet(stop.distance))
 
 window.arrivalDisplay = (arrival) ->
   journeyDisplayOptions

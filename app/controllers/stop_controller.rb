@@ -4,11 +4,11 @@ class StopController < ApplicationController
   
 	def index
 		@user_location = request.location
-
+		predictions = params.has_key?("predictions") ? params["predictions"] : false
         if params.has_key?("lat") and params.has_key?("lon")
-            @stops = Stop.by_location(params[:lat], params[:lon])
+            @stops = Stop.by_location(params[:lat], params[:lon], predictions)
         else
-            @stops = Stop.by_location(@user_location.latitude, @user_location.longitude)
+            @stops = Stop.by_location(@user_location.latitude, @user_location.longitude, predictions)
         end
 			
 		respond_to do |format|
