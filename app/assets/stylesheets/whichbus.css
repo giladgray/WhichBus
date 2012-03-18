@@ -101,7 +101,7 @@ text-transform:capitalize;
 }
 .nav-bar li { border:  none; color:white }
 
-.nav-bar li a {color:white;text-shadow:1px 1px 1px dimgrey;}
+.nav-bar li a {color:white;text-shadow:-.5px 1px 1px #999;}
 
 .social-icon {
   padding: 0 5px 0 !important;
@@ -620,9 +620,15 @@ table .headerSortUp.purple, table .headerSortDown.purple {
 }
 
 .pacifico {
-  font-family: 'PacificoRegular', Arial, sans-serif;
+  font-family: 'PacificoRegular', Helvetica, sans-serif;
   line-height: 2rem;
   letter-spacing: 0;
+}
+
+.helvetica {
+  font-family:Helvetica, sans-serif;
+  line-height:2rem;
+  letter-spacing:0;
 }
 
 .header-title {
