@@ -11,7 +11,7 @@
             <div class="six columns">
               <span class="textbox-container">
                 <%= text_field_tag "from", flash[:from], :class => "giant input-text ", :placeholder => "Where from, yo?" %>
-                <span class="clear-input button round whichbus-green">x</span>
+                <span class="clear-input button round">x</span>
               </span>
               <% if flash[:from_err] %>
                 <small class="error"><%= flash[:from_err] %></small>
@@ -21,7 +21,7 @@
             <div class="six columns">
               <span class="textbox-container">
                 <%= text_field_tag "to", flash[:to], :class => "giant input-text", :placeholder => "And where to?" %>
-                <span class="clear-input button round whichbus-green">x</span>
+                <span class="clear-input button round">x</span>
               </span>
               <% if flash[:to_err] %>
                 <small class="error"><%= flash[:to_err] %></small>

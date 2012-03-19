@@ -2,26 +2,23 @@
   <%= render "layouts/header"%>
   
   <!-- the first real thing on the page is the page title -->
-  <div class="row display title">
-    <div id="page-title" class="twelve phone-four columns">
-      <span id="page-title-header"><%= yield(:page_title) %></span>
-      <a href="#" onclick="refreshData()" class="right button route radius whichbus-green" title="Refresh">R</a>
+  <div class="nav-bar title">
+    <div class="row">
+      <div id="page-title" class="twelve phone-four columns">
+        <span id="page-title-header"><%= yield(:page_title) %></span>
+        <a href="#" onclick="refreshData()" class="right button route radius whichbus-green" title="Refresh">R</a>
+      </div>
     </div>
   </div>
-  <!-- the following div contains the real page content -->
-  <div class="row display" id="container">
-    <!-- a 50% width column that becomes full-screen on phones -->
-	<div id="map-container" class="seven push-five phone-four columns">
-      <div class="row display">
-        <!-- the map is the first element in the list on phones -->
-		<!-- but on desktops and tablets it is pushed to the right side of the screen -->
-        <div id="map_canvas">
-          [map placeholder]
-        </div>
-      </div>
-	</div>
+</div>
 
-    <div id="model-list" class="five pull-seven phone-four columns model-list">
+<div id="container">
+  <!-- but on desktops and tablets it is pushed to the right side of the screen -->
+  <div id="map_canvas" class="right">
+    [map placeholder]
+  </div>
+  <div class="left-sidebar">
+    <div id="model-list" class="model-list">
       <!-- individual views print a list of items here -->
       <!-- we need to refine the CSS classes for these items -->
       <%= yield(:model_list) %>
