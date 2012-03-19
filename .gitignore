@@ -8,3 +8,4 @@ index.html
 *.html.erb~
 ._redcar
 .idea
+*.DS_Store
