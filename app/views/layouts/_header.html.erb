@@ -24,12 +24,10 @@
   </div>
   <!-- the desktop/tablet header with buttons and searching -->
   <div class="six columns hide-on-phones" style="height:50px;">
-    <ul class="nav-bar full-size pacifico">
-      <li style="float:right;"><%= link_to "Login", "/" %></li>
-      <li style="float:right;" class="has-flyout">
-      
-      
-    		<a href="#" >?</a>
+    <ul style="float:right" class="nav-bar full-size pacifico">
+      <li><%= link_to "Login", "/" %></li>
+      <li class="has-flyout">
+      	<a href="#" >?</a>
     		<a href="#" class="flyout-toggle"><span></span></a>
     		<div class="flyout small right">
           <%= form_tag "journey", :method => :get do %>
@@ -41,6 +39,7 @@
           <% end  %>
 		    </div>
       </li>
+      <li><%= link_to "Here", "#", id: "hereButton" %></li>
     </ul>
   </div>
 </div>

@@ -9,3 +9,5 @@ $(document).ready ->
     $(this).next().fadeIn('fast') if $(this).val() == ""
   clearButtons.prev("input.input-text").focusout ->
     $(this).next().fadeOut('slow') if $(this).val() == ""
+  $("#hereButton").click ->
+  	loadNearestStop(latlng(47.65, -122.32))
