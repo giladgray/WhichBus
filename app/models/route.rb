@@ -7,18 +7,14 @@ require 'onebus_record'
 class Route < OneBusRecord
 
   def initialize(route, hash=nil)
-	# check the cache for something with ID=route
-	Rails.cache.fetch("route:#{route}") {
-	}
-	# if cache miss then...
     url = "http://api.onebusaway.org/api/where/route/#{route}.json?key=TEST"
     hash ? super(hash) : super(url)
   end
   
   def stops
   	url = "http://api.onebusaway.org/api/where/stops-for-route/#{data.id}.json?key=TEST&version=2"
-	@stops ||= self.class.get_json(url)["data"]["entry"]["stopIds"]
-	@stops.map{|stop| Stop.new(stop)}
+  	@stops ||= self.class.get_json(url)["data"]["entry"]["stopIds"]
+  	@stops.map{|stop| Stop.new(stop)}
   end
   
   def button
