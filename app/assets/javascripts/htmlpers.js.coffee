@@ -30,12 +30,12 @@ window.colorizeStatus = (status) ->
   else ""
 
 abbrevs = 0 # counter for abbreviation ID
-window.abbreviate = (text, length) ->
+window.abbreviate = (text, length, classes) ->
   return unless text? # gracefully handle null case
   if text.length > length
     # put the truncated text in a span with a tooltip containing the full text
-    span("has-tip bottom", "#{text[0..length]}...").attr("title", text).attr("id", "abbrev#{abbrevs++}")
-  else text
+    span("has-tip bottom #{classes}", "#{text[0..length]}...").attr("title", text).attr("id", "abbrev#{abbrevs++}")
+  else span classes, text
 
 window.milesOrFeet = (distance) ->
   if distance < 0.19 then "#{(distance * 5280).toFixed(0)}ft" else "#{distance.toFixed(2)}mi"
@@ -80,10 +80,10 @@ window.journeyDisplay = (journey) ->
 
   journeyDisplayOptions
       route: routeLink(journey[2].routeShortName, journey[2].routeId)
-      description: link ["stop/#{journey[0].id}", "", abbreviate(journey[0].name, 24),
+      description: link ["stop/#{journey[0].id}", "", abbreviate(journey[0].name, 24, "from"),
         tag("<small>", "", " (#{milesOrFeet(journey[0].distance)})"), "<br/>"
         tag("<small>", "headsign border round", journey[2].tripHeadsign), "<br/>"
-        abbreviate(journey[3].name, 24), tag("<small>", "", " (#{milesOrFeet(journey[3].distance)})")]...
+        abbreviate(journey[3].name, 24, "to"), tag("<small>", "", " (#{milesOrFeet(journey[3].distance)})")]...
       time: [
         div("row small", journey[2].arrival)
         div("row #{colorizeTime(journey[2].wait_minutes)}", journey[2].wait_time)

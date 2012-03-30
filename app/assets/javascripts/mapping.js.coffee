@@ -64,7 +64,7 @@ window.markerOptions = markerOptions
 polyline = (options) ->
   options.map = @googleMap
   line = new google.maps.Polyline(options)
-window.polyline = polyline
+window.polylineOptions = polyline
 
 # given an array of markers, removes all of them from the map and empties the array.
 clearMarkerGroup = (group) ->
