@@ -35,6 +35,9 @@ body {
 .list {
 	overflow-y: auto;
 	overflow-x: hidden;
+	position: absolute;
+	bottom: 0;
+	top: 130px;
 }
 
 /* div that contains the map canvas*/
@@ -83,6 +86,18 @@ div#map_canvas { width: 100%; height: 100%; }
 	.left-sidebar {
 		top: 250px;
 		width: 100%;
+	}
+	.list {
+		width: 100%;
+		top: 70px;
+	}
+	.title {
+		height: 70px;
+		font-size: 16px !important;
+		font-weight: bold;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 }
 
@@ -250,11 +265,6 @@ span.journey {
 	line-height: 1.5rem;
 }
 
-img.logo {
-	width: 90%;
-	padding: 15px 0;
-}
-
 .giant {
 	font-size: 24px !important;
 	line-height: 36px !important;
@@ -281,7 +291,7 @@ img.logo {
 
 .title {
 	border-bottom: 3px solid #7D8073;
-
+	height: 130px;
 	color: white;
 	font-size: 1.5em;
 	line-height: 1.5em;
