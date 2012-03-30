@@ -72,13 +72,13 @@ div#map_canvas { width: 100%; height: 100%; }
 /* MOBILE CSS */
 @media only screen and (max-width: 767px) {
 	/* make the map canvas smaller on mobile screens */
-	#map_canvas {
+	div#map_canvas {
 		height: 200px;
 		border-bottom: 3px solid #4e4d4d;
 		border-top: 2px solid #4e4d4d;
 	}
 	/* move the map canvas to left edge of screen*/
-	.map-container { left: 0; }
+	div.map-container { left: 0; }
 	/* move the left sidebar to below the map and fill the screen */
 	.left-sidebar {
 		top: 250px;
