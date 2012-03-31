@@ -170,7 +170,7 @@ window.locationFound = (position) ->
   alert "geocode success"
 window.showJourney = (from, to, userPosition) ->
   # initialize the map using loadJourney and no click functionality
-  dataFunction = -> loadJourney(from, to)
+  @dataFunction = -> loadJourney(from, to)
   initializeMap(dataFunction, nothing)
   initializeMapOptions
     clickHandler: nothing
@@ -194,8 +194,13 @@ loadJourney = (from, to) -> (position) ->
   list = $("#model-list")
   list.fadeOut -> list.html("<p id=\"loading_spinner\"></p>").fadeIn()
   loadingSpinner()
-  # call the options.json API to calculate the possible routes
-  $.get "/options.json", {from: from, to: to}, processJourneyResult
+  getJourney(from, to)
+
+# call the options.json API to calculate the possible routes
+window.getJourney = (from, to) ->
+  $.get "/options.json", {
+    from: if typeof(from) == "object" then from = from.toString() else from
+    to:   if typeof(to) == "object" then to = to.toString() else to}, processJourneyResult
 
 processJourneyResult = (result) =>
   title = $("#page-title-header")
@@ -221,17 +226,15 @@ processJourneyResult = (result) =>
     position: latlng(to.latitude, to.longitude)
     icon: "http://thydzik.com/thydzikGoogleMap/markerlink.php?text=B&color=FC6355"
     draggable: true
-  line = polyline
-    path: [fromMarker.position, toMarker.position]
-    strokeColor: "#4e4d4d"
   # add event listeners for dragging start and end markers
   google.maps.event.addListener fromMarker, 'dragend', (mouse) ->
     line.setMap null
-    $.get "/options.json", {from: mouse.latLng.toString(), to: toMarker.position.toString()}, processJourneyResult
+    getJourney(mouse.latLng, toMarker.position)
   google.maps.event.addListener toMarker, 'dragend', (mouse) ->
     line.setMap null
-    $.get "/options.json", {from: fromMarker.position.toString(), to: mouse.latLng.toString()}, processJourneyResult
-
+    getJourney(fromMarker.position, mouse.latLng)
+  # construct a function to refresh the journeys (mostly to update times)
+  @dataFunction = -> getJourney(fromMarker.position, toMarker.position)
   @googleMap.setCenter fromMarker.position
   # iterate through trips, adding journey row for each one
   if result["trips"].length == 0
@@ -272,7 +275,6 @@ initializeMapOptions = (options) ->
     disableDefaultUI: true
 
   @googleMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions)
-  #@googleMap.setCenter defaultPosition
   # a marker showing where the user last clicked (generally the query point)
   @clickMarker = markerOptions({title:"Seattle", position:defaultPosition})
   # register click handler, wrapping it in a function to extract the latLng object

@@ -20,7 +20,7 @@ body {
 }
 
 /* the sidebar on the left! scrolls automatically, never makes the page scroll */
-.left-sidebar {
+div.left-sidebar {
 	width: 320px;
 	background-color: #006666;
 	z-index: 10;
