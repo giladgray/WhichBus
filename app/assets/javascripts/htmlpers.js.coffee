@@ -12,6 +12,8 @@ window.div = (classes, body...) ->
   tag "<div>", classes, body...
 window.span = (classes, body...) ->
   tag "<span>", classes, body...
+window.li = (classes, body...) ->
+  tag "<li>", classes, body...
 window.link = (href, classes, body...) ->
   @a = tag "<a>", classes, body...
   @a.attr("href", href)
@@ -41,9 +43,7 @@ window.milesOrFeet = (distance) ->
   if distance < 0.19 then "#{(distance * 5280).toFixed(0)}ft" else "#{distance.toFixed(2)}mi"
 
 window.stopDisplay = (stop) ->
-  display = div "row display journey"
-  display.append link("/stop/#{stop.id}", "journey description", abbreviate(stop.name, 30))
-  display.append span("journey time", milesOrFeet(stop.distance))
+  display = li "row display journey", link("/stop/#{stop.id}", "journey description", abbreviate(stop.name, 30)), span("journey time", milesOrFeet(stop.distance))
 
 window.arrivalDisplay = (arrival) ->
   journeyDisplayOptions
@@ -61,9 +61,9 @@ window.arrivalDisplay = (arrival) ->
 
 window.routeLink = (routeName, routeId) ->
   if routeName.endsWith("E")
-    link("route/#{routeId}", "", tag("<div>", "button radius whichbus-green", routeName.substr(0, routeName.length - 1), "<br/>", tag "<small>", "", "EXPRESS"))
+    link "route/#{routeId}", "", tag("<div>", "button radius whichbus-green", routeName.substr(0, routeName.length - 1), "<br/>", tag "<small>", "", "EXPRESS")
   else
-    link("route/#{routeId}", "button radius whichbus-green", routeName)
+    link "route/#{routeId}", "button radius whichbus-green", routeName
 
 window.journeyDisplay = (journey) ->
   @from_stop = markerOptions
@@ -103,4 +103,4 @@ window.journeyDisplayOptions = (options) ->
   route = span "journey route", options.route...
   description = span "journey description", options.description...
   time = span "journey time", options.time...
-  div "row display journey", route, description, time
+  li "", div "row journey", route, description, time

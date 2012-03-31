@@ -32,12 +32,15 @@ body {
 }
 
 /* the list within the sidebar */
-.list {
+ul.list {
 	overflow-y: auto;
 	overflow-x: hidden;
 	position: absolute;
 	bottom: 0;
 	top: 130px;
+}
+ul.list li {
+  margin: 0;
 }
 
 /* div that contains the map canvas*/
@@ -87,7 +90,7 @@ div#map_canvas { width: 100%; height: 100%; }
 		top: 250px;
 		width: 100%;
 	}
-	.list {
+	ul.list {
 		width: 100%;
 		top: 70px;
 	}
