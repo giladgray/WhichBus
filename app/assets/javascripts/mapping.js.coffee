@@ -64,6 +64,7 @@ window.markerOptions = markerOptions
 polyline = (options) ->
   options.map = @googleMap
   line = new google.maps.Polyline(options)
+window.polylineOptions = polyline
 
 # given an array of markers, removes all of them from the map and empties the array.
 clearMarkerGroup = (group) ->
@@ -102,15 +103,41 @@ window.loadNearbyStops = (position) =>
         group: nearbyMarkers
         handler: clickStopMarker(stop)
 
+# load nearby stops with predictions and display the first one (closest to the user)
+window.loadNearestStop = (position) ->
+  url = "/stop.json"
+  list = $("#model-list")
+  title = $("#page-title-header")
+  title.html("Finding Nearest Stop...")
+  list.fadeOut 'fast'
+  # create a marker at the query location
+  markerOptions
+    title: "Your Location"
+    position: position
+  $.get url, {lat: position.lat(), lon: position.lng(), predictions: true}, (result) ->
+    list.html("").show()
+    stop = result[0]  # the nearest stop (results sorted by distance)
+    # set the page title
+    title.fadeOut 'fast', -> title.html(stop.name).fadeIn()
+    # create a marker for the nearest stop
+    markerOptions
+      title: stop.name
+      position: latlng(stop.lat, stop.lon)
+      icon: "/assets/busstop.png"
+    # display all the upcoming arrivals
+    for route in stop.routes when route.arrivals.length > 0
+      for trip in route.arrivals
+        list.append arrivalDisplay(trip).fadeIn()
+
 # event handler for clicking on a stop marker
 # returns an anonymous function to call when the stop is clicked on
 clickStopMarker = (stop) -> () ->
   $("#page-title-header").text(stop.title)
-  loadStopData stop.id
+  loadStopSchedule stop.id
 
 # TODO: implement this filter parameter! it needs to come from somewhere, only Ruby knows about it
 # load arrivals for the given stop and display in list
-loadStopData = (stopId, filter="") ->
+loadStopSchedule = (stopId, filter="") ->
   url = "/stop/#{stopId}/schedule.json"
   list = $("#model-list")
   list.fadeOut()
@@ -132,7 +159,7 @@ loadStopData = (stopId, filter="") ->
         list.append arrivalDisplay(trip).fadeIn()
     
     # loadNearbyStops(pos)
-window.loadStopData = loadStopData
+window.loadStopSchedule = loadStopSchedule
 
 ###
 # JOURNEY METHODS
