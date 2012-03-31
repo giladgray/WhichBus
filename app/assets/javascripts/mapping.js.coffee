@@ -107,7 +107,8 @@ window.loadNearbyStops = (position) =>
 window.loadNearestStop = (position) ->
   url = "/stop.json"
   list = $("#model-list")
-  title = $("#page-title-header")
+  $("#page-title").text("Right Here, Right Now")
+  title = $("#page-header")
   title.html("Finding Nearest Stop...")
   list.fadeOut 'fast'
   # create a marker at the query location
@@ -132,7 +133,7 @@ window.loadNearestStop = (position) ->
 # event handler for clicking on a stop marker
 # returns an anonymous function to call when the stop is clicked on
 clickStopMarker = (stop) -> () ->
-  $("#page-title-header").text(stop.title)
+  $("#page-header").text(stop.title)
   loadStopSchedule stop.id
 
 # TODO: implement this filter parameter! it needs to come from somewhere, only Ruby knows about it
@@ -181,7 +182,8 @@ window.showJourney = (from, to, userPosition) ->
 
 # returns a geolocation callback that takes the user's position
 loadJourney = (from, to) -> (position) ->
-  title = $("#page-title-header")
+  $("#page-title").text("Directions");
+  title = $("#page-header")
   title.html("Loading directions from #{from} to #{to}...").fadeIn()
   # @dataFunction = -> loadJourney(from, to)(position) # TODO: set the dataFunction so we can refresh
 
@@ -203,7 +205,8 @@ window.getJourney = (from, to) ->
     to:   if typeof(to) == "object" then to = to.toString() else to}, processJourneyResult
 
 processJourneyResult = (result) =>
-  title = $("#page-title-header")
+  $("#page-title").text("Directions");
+  title = $("#page-header")
   list = $("#model-list")
   list.html("").show()
   #returns three things: from, to, and trips
@@ -228,10 +231,8 @@ processJourneyResult = (result) =>
     draggable: true
   # add event listeners for dragging start and end markers
   google.maps.event.addListener fromMarker, 'dragend', (mouse) ->
-    line.setMap null
     getJourney(mouse.latLng, toMarker.position)
   google.maps.event.addListener toMarker, 'dragend', (mouse) ->
-    line.setMap null
     getJourney(fromMarker.position, mouse.latLng)
   # construct a function to refresh the journeys (mostly to update times)
   @dataFunction = -> getJourney(fromMarker.position, toMarker.position)

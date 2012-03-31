@@ -37,12 +37,12 @@ class JourneyController < ApplicationController
     puts "FINISHED! with a time of #{runtime * 1000}ms"
     # @journeys = self.class.calc_journeys(@from_stops, @to_stops)
     #display them
-
+    
 
     respond_to do |format|
       format.html
-      format.json { render :json => {"from" => {"name" => @from.address, "latitude" => @from.latitude, "longitude" => @from.longitude},
-                                     "to" => {"name" => @to.address, "latitude" => @to.latitude, "longitude" => @to.longitude},
+      format.json { render :json => {"from" => {"name" => address_helper(@from), "latitude" => @from.latitude, "longitude" => @from.longitude, "geocode" => @from.address_components},
+                                     "to" => {"name" => address_helper(@to), "latitude" => @to.latitude, "longitude" => @to.longitude, "geocode" => @to.address_components},
                                      "trips" => @journeys} }
       format.xml { render :xml => @journeys }
     end
@@ -173,6 +173,25 @@ class JourneyController < ApplicationController
 
     result.sort_by! { |r| r[2].arrival_time }
     result
+  end
+
+
+  def address_helper(location)
+    address = "#{address_component(location, :street_number)} #{address_component(location, :route)}"
+    neighborhood = address_component(location, :neighborhood)
+    city = address_component(location, :locality)
+    puts "address = #{address}, hood = #{neighborhood}, city = #{city}"
+    "#{address.length == 1 ? neighborhood : address}, #{city}"
+  end
+
+  def address_component(location, type)
+    components = location.address_components_of_type(type)
+    puts "#{type} => #{components}"
+    if components.empty?
+      ""
+    else
+      components[0]["short_name"]
+    end
   end
 
 end
