@@ -99,6 +99,16 @@ div#map_canvas { width: 100%; height: 100%; }
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
+	
+	.nav-bar li a {
+		padding: 0 10px;
+	}
+	.nav-bar li input {
+		margin: 0;
+	}
+	.nav-bar .brand img {
+		width: 130px;
+	}
 }
 
 /* DESKTOP CSS */
@@ -173,14 +183,14 @@ div#map_canvas { width: 100%; height: 100%; }
 }
 
 .clear-input {
-	text-size: 10px;
-	padding: 0px;
-	width: 18px;
-	height: 18px;
 	display: inline-block;
 	position: absolute;
 	right: 12px;
-	top: 0px;
+	top: 0;
+	width: 18px;
+	height: 18px;
+	padding: 0;
+	text-size: 10px;
 	text-align: center;
 	vertical-align: middle;
 	cursor: pointer;
@@ -196,9 +206,11 @@ div#map_canvas { width: 100%; height: 100%; }
 	line-height: 1.3rem;
 	background-color: white;
 	color: black;
-	max-width: 245px;
+	max-width: 220px;
 	max-height: 12px;
 	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .row.journey {
@@ -435,16 +447,16 @@ select,
 	letter-spacing: 0;
 }
 
-.header-title {
+.brand {
 	color: #fff;
 	font-size: 30px;
 	vertical-align: middle;
 	text-shadow: 0px 0px 1px dimgrey;
 }
 
-.header-title img {
+.brand img {
 	vertical-align: middle;
-	padding: 7px 15px;
+	margin: 7px 15px;
 	width: 145px;
 }
 
@@ -454,7 +466,33 @@ select,
 .flyout_input {
 	width: 186px;
 }
-.search-input {
+li .search-input {
 	width: 120px;
 }
+input.search-box {
+	font-size: 16px;
+	padding: 10px 5px;
+	display: inline;
+}
 
+button.search {
+	padding: 10px 30px 5px 30px;
+	margin-top: 10px;
+}
+img.mapthatbus {
+
+}
+img.logo {
+	padding-top: 45px;
+}
+
+h1.pacifico { margin: 15px 0 45px; font-weight: normal; }
+h2.pacifico { margin: 10px 0 30px; font-weight: normal; }
+
+form.directions {
+	margin-top: -7px;
+	border: 1px solid gray;
+	border-top: none;
+	border-radius: 10px;
+	padding: 30px 0;
+}
