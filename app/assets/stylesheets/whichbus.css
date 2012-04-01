@@ -39,7 +39,7 @@ ul.list {
 	bottom: 0;
 	top: 128px;
 }
-ul.list.two-up {
+ul.list.two-up, ul.list.three-up {
 	width: 104%;
 }
 
@@ -82,53 +82,6 @@ div#map_canvas {
 .nav-bar li a {
 	color: white;
 	text-shadow: 1px 1px 1px dimgrey;
-}
-
-/* MOBILE CSS */
-@media only screen and (max-width: 767px) {
-	/* make the map canvas smaller on mobile screens */
-	div#map_canvas {
-		height: 200px;
-		border-bottom: 3px solid #4e4d4d;
-		border-top: 2px solid #4e4d4d;
-	}
-
-	/* move the map canvas to left edge of screen*/
-	div.map-container {
-		left: 0;
-	}
-
-	/* move the left sidebar to below the map and fill the screen */
-	div.left-sidebar {
-		top: 250px;
-		width: 100%;
-	}
-
-	div.header {
-		/*font-size: 16px !important;*/
-		font-weight: bold;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-	}
-	div.header input {
-		font-size: 12px;
-		padding: 4px 3px 2px;
-		/*display: inline;*/
-		/*width: 45%;*/
-	}
-
-	.nav-bar li a {
-		padding: 0 10px;
-	}
-
-	.nav-bar li input {
-		margin: 0;
-	}
-
-	.nav-bar .brand img {
-		width: 130px;
-	}
 }
 
 /* DESKTOP CSS */
@@ -233,12 +186,13 @@ div.header .subtitle {
 .headsign {
 	display: inline-block;
 	border: 1px solid gray;
-	padding: 3px 5px;
-	margin-bottom: 5px;
-	line-height: 1.3rem;
+	padding: 3px 4px;
+	margin: 3px 0 5px;
+	font-size: 75%;
+	line-height: 100%;
 	background-color: white;
 	color: black;
-	max-width: 220px;
+	max-width: 180px;
 	max-height: 12px;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -246,7 +200,7 @@ div.header .subtitle {
 }
 
 .row.journey {
-	padding: 8px 0;
+	padding: 5px;
 	margin: 0;
 	border: 1px solid #4e4d4d;
 	border-top: 1px solid white;
@@ -260,41 +214,45 @@ span.journey {
 	vertical-align: middle;
 }
 
-.route {
-	font-size: 2.75rem;
-	padding: 0.25rem 0 0.5rem 10px;
-}
+/*.route {*/
+	/*font-size: 2.75rem;*/
+	/*padding: 0.25rem 0 0.5rem 10px;*/
+/*}*/
 
-.route .button {
-	min-height: 40px;
-	min-width: 40px;
-	line-height: 40px;
-	/*display: inline;*/
+.route.button {
+	min-height: 36px;
+	min-width: 36px;
+	line-height: 36px;
 	padding: 5px !important;
+	font-size: 30px
 }
 
 .route div.button {
 	line-height: 1em;
 }
 
-.route .button small {
+.route.button small {
 	font-size: .9rem; /* EXPRESS label */
 	display: block;
 	line-height: 1em;
 }
 
+.journey.route {
+}
+
 .journey.description {
-	font-size: 1.5rem !important;
+	font-size: 12px;
 	display: inline-block;
-	max-width: 270px;
-	/*max-height: 45px;*/
-	overflow: hidden;
+	max-width: 190px;
 	padding-left: 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .journey.time {
-	float: right;
-	padding-right: 10px;
+	/*float: right;*/
+	padding-left: 5px;
 	font-size: 2rem;
 	text-align: center;
 	vertical-align: middle;
@@ -516,6 +474,11 @@ input.directions {
 	display: block;
 }
 
+.button.small {
+	padding: 5px 10px;
+	font-size: 14px;
+}
+
 button.search {
 	padding: 10px 30px 5px 30px;
 	margin-top: 10px;
@@ -559,4 +522,56 @@ form.directions {
 	border-top: none;
 	border-radius: 10px;
 	padding: 30px 0;
+}
+
+
+/* MOBILE CSS */
+@media only screen and (max-width: 767px) {
+	/* make the map canvas smaller on mobile screens */
+	div#map_canvas {
+		height: 200px;
+		border-bottom: 3px solid #4e4d4d;
+		border-top: 2px solid #4e4d4d;
+	}
+
+	/* move the map canvas to left edge of screen*/
+	div.map-container {
+		left: 0;
+	}
+
+	/* move the left sidebar to below the map and fill the screen */
+	div.left-sidebar {
+		top: 250px;
+		width: 100%;
+	}
+
+	div.header {
+		/*font-size: 16px !important;*/
+		font-weight: bold;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	div.header input {
+		font-size: 12px;
+		padding: 4px 3px 2px;
+		/*display: inline;*/
+		/*width: 45%;*/
+	}
+
+	.nav-bar li a {
+		padding: 0 10px;
+	}
+
+	.nav-bar li input {
+		margin: 0;
+	}
+
+	.nav-bar .brand img {
+		width: 130px;
+	}
+
+	.journey.description {
+		max-width: 100%;
+	}
 }

@@ -65,9 +65,9 @@ window.arrivalDisplay = (arrival) ->
 # makes a button link for a route. automatically adds EXPRESS as needed.
 window.routeLink = (routeName, routeId) ->
   if routeName.endsWith("E")
-    link "route/#{routeId}", "", tag("<div>", "button radius whichbus-green", routeName.substr(0, routeName.length - 1), "<br/>", tag "<small>", "", "EXPRESS")
+    link "route/#{routeId}", "", tag("<div>", "route button radius whichbus-green", routeName.substr(0, routeName.length - 1), "<br/>", tag "<small>", "", "EXPRESS")
   else
-    link "route/#{routeId}", "button radius whichbus-green", routeName
+    link "route/#{routeId}", "route button radius whichbus-green", routeName
 
 # displays an entire journey. creates markers and polyline for the stops and returns journey display HTML
 window.journeyDisplay = (journey) ->
@@ -87,10 +87,11 @@ window.journeyDisplay = (journey) ->
   # build the journey display itself. lots of messy HTML generation
   journeyDisplayOptions
       route: routeLink(journey[2].routeShortName, journey[2].routeId)
-      description: link ["stop/#{journey[0].id}", "", abbreviate(journey[0].name, 24, "from"),
-        tag("<small>", "", " (#{milesOrFeet(journey[0].distance)})"), "<br/>"
-        tag("<small>", "headsign border round", journey[2].tripHeadsign), "<br/>"
-        abbreviate(journey[3].name, 24, "to"), tag("<small>", "", " (#{milesOrFeet(journey[3].distance)})")]...
+      description: link ["stop/#{journey[0].id}", "", abbreviate(journey[0].name, 100, "from")
+        #tag("<small>", "", " (#{milesOrFeet(journey[0].distance)})"), "<br/>"
+        "<br/>", tag("<small>", "headsign border round", journey[2].tripHeadsign), "<br/>"
+        abbreviate(journey[3].name, 100, "to")]...
+        # tag("<small>", "", " (#{milesOrFeet(journey[3].distance)})")]...
       time: [
         div("row small", journey[2].arrival)
         div("row #{colorizeTime(journey[2].wait_minutes)}", journey[2].wait_time)

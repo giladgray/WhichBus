@@ -297,11 +297,11 @@ initializeMapOptions = (options) ->
 # return the map object
 window.initializeMapOptions = initializeMapOptions
 
-window.setLayout = (type) ->
+window.setLayout = (type, option) ->
+	$("#model-list").removeClass("two-up").removeClass("three-up")
 	switch type
 		when 'grid'
-			$("#model-list").addClass("two-up")
-			$("#model-list li span.journey.description").hide()
+			$("#model-list li span.journey.description").fadeOut ->
+				$("#model-list").addClass("#{option}-up")
 		when 'list'
-			$("#model-list").removeClass("two-up")
-			$("#model-list li span.journey.description").show()
+			$("#model-list li span.journey.description").fadeIn()

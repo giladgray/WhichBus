@@ -1,25 +1,25 @@
 <div class="container">
-  <div class="nav-bar">
-    <%= render "layouts/header"%>
-  </div>
+	<div class="nav-bar">
+		<%= render "layouts/header" %>
+	</div>
 
-  <div class="map-container">
-      <div id="map_canvas">
-      </div>
-  </div>
-  <div class="left-sidebar" id="search_result" >
-    <div class="header ">
-		<span class="right">
-		<a href="#" onclick="refreshData()" class="button route radius whichbus-green" title="Refresh">R</a>
-		<a href="#" onclick="setLayout('grid')" class="button route radius whichbus-green" title="Grid">Grid</a>
-		<a href="#" onclick="setLayout('list')" class="button route radius whichbus-green" title="List">List</a>
-		</span>
-      <h3 id="page-title" class="title pacifico"><%= yield(:title) %></h3>
-      <div id="page-header" class="subtitle"><%= yield(:page_title) %></div>
-      
-    </div>
-    <ul id="model-list" class="list block-grid">
-      <%= yield(:model_list) %>
-    </ul>
-  </div>
+	<div class="map-container">
+		<div id="map_canvas">
+		</div>
+	</div>
+	<div class="left-sidebar" id="search_result">
+		<div class="header ">
+			<span class="right">
+				<a href="#" onclick="setLayout('grid', 'two')" class="button small radius whichbus-green" title="View as two-up grid">Gr2</a>
+				<a href="#" onclick="setLayout('grid', 'three')" class="button small radius whichbus-green" title="View as three-up grid">Gr3</a>
+				<a href="#" onclick="setLayout('list')" class="button small radius whichbus-green" title="View as list">List</a>
+				<a href="#" onclick="refreshData()" class="button small radius whichbus-green" title="Refresh">R</a>
+			</span>
+			<h3 id="page-title" class="title pacifico"><%= yield(:title) %></h3>
+			<div id="page-header" class="subtitle"><%= yield(:page_title) %></div>
+		</div>
+		<ul id="model-list" class="list block-grid">
+			<%= yield(:model_list) %>
+		</ul>
+	</div>
 </div>
