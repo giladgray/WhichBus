@@ -10,26 +10,14 @@
             <li>
                 <%=  text_field_tag "query", nil, class: "search-input", placeholder: "search for stuff" %>
             </li>
-            <li><%= link_to "Here", "#", id: "hereButton", title: "Find the nearest stop" %></li>
-            <!--<li class="has-flyout">
-                <a href="#">?</a>
-                <a href="#" class="flyout-toggle"><span></span></a>
-
-                <div class="flyout small right">
-                    <%= form_tag "journey", :method => :get do %>
-                        <%= text_field_tag "from", flash[:from], :class => "flyout_input", :placeholder => "Where from, yo?" %>
-                        <%= text_field_tag "to", flash[:to], :class => "flyout_input", :placeholder => "And where to?" %>
-                        <%= button_tag :type => "submit", :class => "radius pacifico whichbus-green button", :style => "text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
-                            <%= image_tag "mapthatbus.png", :size => "130x0" %>
-                        <% end %>
-                    <% end %>
-                </div>
-            </li>-->
+            <li class="hide-on-phones"><%= link_to "Here", "#", id: "hereButton", title: "Find the nearest stop" %></li>
             <li class="hide-on-phones"><%= link_to "Login", "/" %></li>
             <li class="has-flyout show-on-phones">
                 <%= image_tag("icons/settingsgear.png", :size => "30x0", :style => "float: right; padding: 4px 12px") %>
                 <div class="flyout small right">
                     <ul>
+						<li><%= link_to "Here", "#", title: "Find the nearest stop" %></li>
+						<li><%= link_to "Login", "/" %></li>
                         <li><%= link_to "#" do %>
                                 <%= image_tag "icons/aboutwhichbus.png" %> About WhichBus
                             <% end %>
