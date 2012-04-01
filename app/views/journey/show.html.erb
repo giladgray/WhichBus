@@ -1,7 +1,23 @@
 <!-- Journey show -->
 
 <% content_for :onload do %>
-	showJourney('<%=params[:from] %>','<%=params[:to]%>','<%=params[:currentPosition]%>');
-<%end %>
-<% content_for :title do "" end %>
+	showJourney('<%= params[:from] %>','<%= params[:to] %>','<%= params[:currentPosition] %>');
+<% end %>
+<% content_for :title do
+	"Directions"
+end %>
+
+<% content_for :page_title do %>
+	<form accept-charset="UTF-8" action="journey" method="get" class="row display">
+		<div class="ten phone-three columns">
+			<%= text_field_tag "from", flash[:from], class: "input-text directions", placeholder: "Where from, yo?", id: "fromAddress" %>
+			<%= text_field_tag "to", flash[:to], class: "input-text directions", placeholder: "And where to?", id: "toAddress" %>
+		</div>
+		<div class="two phone-one columns">
+			<%= button_tag type: 'submit', name: nil, class: "radius pacifico whichbus-green go button", style: "text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
+				GO
+			<% end %>
+		</div>
+	</form>
+<% end %>
 

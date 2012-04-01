@@ -37,10 +37,15 @@ ul.list {
 	overflow-x: hidden;
 	position: absolute;
 	bottom: 0;
-	top: 130px;
+	top: 128px;
 }
-ul.list li {
-  margin: 0;
+ul.list.two-up {
+	width: 104%;
+}
+
+ul.list, ul.list li {
+	margin: 0;
+	width: 100%;
 }
 
 /* div that contains the map canvas*/
@@ -54,8 +59,12 @@ div.map-container {
 	left: 320px;
 	overflow-x: hidden;
 }
+
 /* styling for map canvas itself*/
-div#map_canvas { width: 100%; height: 100%; }
+div#map_canvas {
+	width: 100%;
+	height: 100%;
+}
 
 /* make sure the navbar is always 45px tall */
 
@@ -83,32 +92,40 @@ div#map_canvas { width: 100%; height: 100%; }
 		border-bottom: 3px solid #4e4d4d;
 		border-top: 2px solid #4e4d4d;
 	}
+
 	/* move the map canvas to left edge of screen*/
-	div.map-container { left: 0; }
+	div.map-container {
+		left: 0;
+	}
+
 	/* move the left sidebar to below the map and fill the screen */
-	.left-sidebar {
+	div.left-sidebar {
 		top: 250px;
 		width: 100%;
 	}
-	ul.list {
-		width: 100%;
-		top: 70px;
-	}
-	.title {
-		height: 70px;
-		font-size: 16px !important;
+
+	div.header {
+		/*font-size: 16px !important;*/
 		font-weight: bold;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
-	
+	div.header input {
+		font-size: 12px;
+		padding: 4px 3px 2px;
+		/*display: inline;*/
+		/*width: 45%;*/
+	}
+
 	.nav-bar li a {
 		padding: 0 10px;
 	}
+
 	.nav-bar li input {
 		margin: 0;
 	}
+
 	.nav-bar .brand img {
 		width: 130px;
 	}
@@ -201,14 +218,15 @@ div#map_canvas { width: 100%; height: 100%; }
 }
 
 div.header .title {
-  margin-bottom: 0;
-  color: #7D8073; 
+	margin-bottom: 0;
+	color: #7D8073;
 }
+
 div.header .subtitle {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  padding: 5px;
+	/*overflow: hidden;*/
+	/*white-space: nowrap;*/
+	/*text-overflow: ellipsis;*/
+	padding: 5px;
 }
 
 /* journey formatting */
@@ -317,11 +335,11 @@ span.journey {
 
 .header {
 	border-bottom: 3px solid #7D8073;
-	height: 130px;
+	height: 115px;
 	color: white;
 	font-size: 1.5em;
 	line-height: 1.5em;
-  padding: 5px;
+	padding: 5px;
 
 	background: rgb(211, 211, 211); /* Old browsers */
 	background: -moz-linear-gradient(top, rgba(211, 211, 211, 1) 0%, rgba(165, 165, 165, 1) 100%); /* FF3.6+ */
@@ -482,29 +500,58 @@ select,
 .flyout_input {
 	width: 186px;
 }
+
 li .search-input {
 	width: 120px;
 }
+
 input.search-box {
 	font-size: 16px;
 	padding: 10px 5px;
 	display: inline;
 }
 
+input.directions {
+	width: 100%;
+	display: block;
+}
+
 button.search {
 	padding: 10px 30px 5px 30px;
 	margin-top: 10px;
 }
+
+button.go {
+	width: 100%;
+	height: 60px;
+	padding: 5px;
+	margin: 2px;
+	font-size: 16px;
+}
+
 img.mapthatbus {
 
 }
+
 img.logo {
 	padding-top: 45px;
 }
 
-h1.pacifico { margin: 15px 0 45px; font-weight: normal; }
-h2.pacifico { margin: 10px 0 30px; font-weight: normal; }
-h3.pacifico { margin: 5px 0 10px; line-height: 36px; font-weight: normal; }
+h1.pacifico {
+	margin: 15px 0 45px;
+	font-weight: normal;
+}
+
+h2.pacifico {
+	margin: 10px 0 30px;
+	font-weight: normal;
+}
+
+h3.pacifico {
+	margin: 5px 0 10px;
+	line-height: 36px;
+	font-weight: normal;
+}
 
 form.directions {
 	margin-top: -7px;
