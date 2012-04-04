@@ -22,10 +22,10 @@ class JourneyController < ApplicationController
 		OneBusRecord.reset_json_count
 
 		@from = self.class.geocode(params[:from])
-		@from_stops = @from.nil? ? Stop.by_location(@from.latitude, @from.longitude).first(20) : []
+		@from_stops = @from.nil? ? [] : Stop.by_location(@from.latitude, @from.longitude).first(20)
 
 		@to = self.class.geocode(params[:to])
-		@to_stops = @to.nil? ? Stop.by_location(@to.latitude, @to.longitude).first(20) : []
+		@to_stops = @to.nil? ? [] : Stop.by_location(@to.latitude, @to.longitude).first(20)
 
 		@time = Time.now
 		#TODO validation: null parameters, geocode fail

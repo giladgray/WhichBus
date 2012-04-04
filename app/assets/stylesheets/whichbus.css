@@ -214,11 +214,6 @@ span.journey {
 	vertical-align: middle;
 }
 
-/*.route {*/
-	/*font-size: 2.75rem;*/
-	/*padding: 0.25rem 0 0.5rem 10px;*/
-/*}*/
-
 .route.button {
 	min-height: 36px;
 	min-width: 36px;
@@ -251,12 +246,17 @@ span.journey {
 }
 
 .journey.time {
-	/*float: right;*/
-	padding-left: 5px;
+	float: right;
+	padding-right: 10px;
+	padding-top: 5px;
 	font-size: 2rem;
 	text-align: center;
 	vertical-align: middle;
 	line-height: 1.9rem;
+}
+ul.three-up .journey.time {
+	padding-right: 5px;
+	padding-top: 0;
 }
 
 .journey.time .row {
@@ -265,15 +265,6 @@ span.journey {
 .journey.time .row.small {
 	font-size: 1rem;
 	line-height: 1.5rem;
-}
-
-.giant {
-	font-size: 24px !important;
-	line-height: 36px !important;
-	padding: 4px 5px !important;
-	margin-bottom: 15px !important;
-	display: inline !important;
-	width: auto !important;
 }
 
 .well {
