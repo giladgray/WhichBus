@@ -11,10 +11,10 @@ $(document).ready(function() {
 
 <!-- TODO: get a marker for the stop in there. -->
 <% content_for :onload do %>
-initializeMap(function(){loadStopData('<%=@stop.id%>', '<%=params[:r]%>')}, showStopMarker,false);
+initializeMap(function(){loadStopSchedule('<%=@stop.id%>', '<%=params[:r]%>')}, showStopMarker,false);
 <% end %>
 
-<% content_for :title do @stop.name end %>
+<% content_for :title do "Stop Details" end %>
 <% content_for :page_title do @stop.name end %>
 
 

@@ -97,7 +97,7 @@ class ArrivalDeparture < OneBusRecord
     change = prediction_difference_minutes
     case
       when change == 0
-        prediction? ? "on time" : "scheduled"
+        prediction? ? "on time" : "schedule"
       when change < 0
         "#{-change}m early"
       else

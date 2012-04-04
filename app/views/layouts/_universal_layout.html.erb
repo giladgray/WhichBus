@@ -1,23 +1,26 @@
 
 <div class="container">
-  <div class="nav-bar">
-    <%= render "layouts/header"%>
-  </div>
+	<div class="nav-bar">
+		<%= render "layouts/header" %>
+	</div>
 
-
-  <div class="map-container">
-      <div id="map_canvas">
-      </div>
-  </div>
-  <div class="left-sidebar" id="search_result" >
-    <div class="header title">
-      <div id="page-title">
-        <span id="page-title-header"><%= yield(:page_title) %></span>
-        <!--<a href="#" onclick="refreshData()" class="right button route radius whichbus-green" title="Refresh">R</a>-->
-      </div>
-    </div>
-    <div id="model-list" class="list">
-      <%= yield(:model_list) %>
-    </div>
-  </div>
+	<div class="map-container">
+		<div id="map_canvas">
+		</div>
+	</div>
+	<div class="left-sidebar" id="search_result">
+		<div class="header ">
+			<span class="right">
+				<a href="#" onclick="setLayout('grid', 'two')" class="button small radius whichbus-green" title="View as two-up grid">Gr2</a>
+				<a href="#" onclick="setLayout('grid', 'three')" class="button small radius whichbus-green" title="View as three-up grid">Gr3</a>
+				<a href="#" onclick="setLayout('list')" class="button small radius whichbus-green" title="View as list">List</a>
+				<a href="#" onclick="refreshData()" class="button small radius whichbus-green" title="Refresh">R</a>
+			</span>
+			<h3 id="page-title" class="title pacifico"><%= yield(:title) %></h3>
+			<div id="page-header" class="subtitle"><%= yield(:page_title) %></div>
+		</div>
+		<ul id="model-list" class="list block-grid">
+			<%= yield(:model_list) %>
+		</ul>
+	</div>
 </div>
