@@ -244,7 +244,8 @@ processJourneyResult = (result) =>
 		getJourney(fromMarker.position, mouse.latLng)
 	# construct a function to refresh the journeys (mostly to update times)
 	@dataFunction = -> getJourney(fromMarker.position, toMarker.position)
-	@googleMap.setCenter fromMarker.position
+	bounds = new google.maps.LatLngBounds(fromMarker.position, fromMarker.position).extend(toMarker.position)
+	@googleMap.fitBounds bounds
 	# iterate through trips, adding journey row for each one
 	if result["trips"].length == 0
 		list.append journeyDisplayError "No connecting buses found."

@@ -1,11 +1,10 @@
 require 'stop'
 
 class JourneyController < ApplicationController
-	@@lat_lon_regex = /(?<lat>-?\d+(\.\d+)?),(?<lon>-?\d+(\.\d+)?)/
 
-	def self.geocode(query, limit=10)
-		if (coord = @@lat_lon_regex.match(query))
-			limit = 1
+	def self.geocode(query, limit=1)
+		lat_lon_regex = /(?<lat>-?\d+(\.\d+)?),(?<lon>-?\d+(\.\d+)?)/
+		if (coord = lat_lon_regex.match(query))
 			query = [coord[:lat], coord[:lon]]
 		end
 
@@ -23,10 +22,10 @@ class JourneyController < ApplicationController
 		OneBusRecord.reset_json_count
 
 		@from = self.class.geocode(params[:from])
-		@from_stops = Stop.by_location(@from.latitude, @from.longitude).first(20)
+		@from_stops = @from.nil? ? Stop.by_location(@from.latitude, @from.longitude).first(20) : []
 
 		@to = self.class.geocode(params[:to])
-		@to_stops = Stop.by_location(@to.latitude, @to.longitude).first(20)
+		@to_stops = @to.nil? ? Stop.by_location(@to.latitude, @to.longitude).first(20) : []
 
 		@time = Time.now
 		#TODO validation: null parameters, geocode fail
@@ -42,8 +41,8 @@ class JourneyController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.json { render :json => {from: {name: address_helper(@from), latitude: @from.latitude, longitude: @from.longitude, geocode: @from.address_components},
-																		 to: {name: address_helper(@to), latitude: @to.latitude, longitude: @to.longitude, geocode: @to.address_components},
-																		 trips: @journeys} }
+										   to: {name: address_helper(@to), latitude: @to.latitude, longitude: @to.longitude, geocode: @to.address_components},
+										   trips: @journeys} }
 			format.xml { render :xml => @journeys }
 		end
 	end
@@ -70,8 +69,8 @@ class JourneyController < ApplicationController
 		end
 	end
 
-# Journey Algorithm Version 2.0
-# load prediction data as late as possible, prune irrelevant stops first
+	# Journey Algorithm Version 2.0
+	# load prediction data as late as possible, prune irrelevant stops first
 	def self.find_journeys(from_stops, to_stops)
 		# find the routes that serve FROM stops
 		from_routes = self.routes_from_stops(from_stops)
