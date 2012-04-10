@@ -1,37 +1,3 @@
-l<!-- <h2>From: <%= @from.address %> </h2>
-<ul>
-<% @from_stops.each do |fs| %>
-	<li>
-		<strong><%= fs.name %></strong>
-		<% fs.routes.each do |r| %>
-			&nbsp;<%= r.shortName %>
-		<% end %>
-	</li>
-<% end %>
-</ul>
-
-<h2>To: <%= @to.address %>  </h2>
-<ul>
-<% @to_stops.each do |ts| %>
-	<li>
-		<strong><%= ts.name %></strong>
-		<% ts.routes.each do |r| %>
-			&nbsp;<%= r.shortName %>
-		<% end %>
-	</li>
-<% end %>
-</ul>
-<br/>
-
-<h2>How to Get There</h2>
-<ul>
-<% @journeys.each do |journey| %>
-	<li>
-		Route <%= journey[1].shortName %> (<%= journey[2].time_to_arrival_in_words(@time) %> <%= journey[2].time_to_arrival(@time) %>) from <%= journey[0].name %> to <%= journey[3].name %>!!
-	</li>
-<% end %>
-</ul> -->
-
 <% content_for :head do %>
 <style type="text/css">
 

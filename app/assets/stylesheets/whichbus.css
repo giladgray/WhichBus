@@ -226,8 +226,9 @@ span.journey {
 	line-height: 1em;
 }
 
+ /* EXPRESS label */
 .route.button small {
-	font-size: .9rem; /* EXPRESS label */
+	font-size: 8px;
 	display: block;
 	line-height: 1em;
 }
