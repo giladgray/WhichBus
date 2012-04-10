@@ -36,7 +36,7 @@ ul.list {
 	overflow-y: auto;
 	overflow-x: hidden;
 	position: absolute;
-	bottom: 0;
+	bottom: 30px;
 	top: 128px;
 }
 ul.list.two-up, ul.list.three-up {
@@ -58,6 +58,8 @@ div.map-container {
 	right: 0;
 	left: 320px;
 	overflow-x: hidden;
+	border-left: 1px solid #7D8073;
+	border-top: 1px solid #7D8073;
 }
 
 /* styling for map canvas itself*/
@@ -180,6 +182,16 @@ div.header .subtitle {
 	/*white-space: nowrap;*/
 	/*text-overflow: ellipsis;*/
 	padding: 5px;
+}
+
+div.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 26px;
+}
+.toolbar.right {
+	margin-right: 5px;
 }
 
 /* journey formatting */
@@ -529,6 +541,7 @@ form.directions {
 	/* move the map canvas to left edge of screen*/
 	div.map-container {
 		left: 0;
+		border: none;
 	}
 
 	/* move the left sidebar to below the map and fill the screen */
