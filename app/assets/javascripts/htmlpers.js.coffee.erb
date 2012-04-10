@@ -75,11 +75,11 @@ window.journeyDisplay = (journey) ->
   @from_stop = markerOptions
       title: journey[0].name
       position: latlng(journey[0].lat, journey[0].lon)
-      icon: "assets/busstop.png"
+      icon: "<%= asset_path 'busstop.png' %>"
   to_stop = markerOptions
       title: journey[3].name
       position: latlng(journey[3].lat, journey[3].lon)
-      icon: "assets/busstop.png"
+      icon: "<%= asset_path 'busstop.png' %>"
   polylineOptions
     path: [from_stop.position, to_stop.position]
     strokeColor: "#7e8073"

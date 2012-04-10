@@ -102,7 +102,7 @@ window.loadNearbyStops = (position) =>
 			markerOptions
 					title: stop.name
 					position: latlng(stop.lat, stop.lon)
-					icon: "/assets/busstop.png"
+					icon: "<%= asset_path 'busstop.png' %>"
 					group: nearbyMarkers
 					handler: clickStopMarker(stop)
 
@@ -128,7 +128,7 @@ window.loadNearestStop = (position) ->
 		markerOptions
 				title: stop.name
 				position: latlng(stop.lat, stop.lon)
-				icon: "/assets/busstop.png"
+				icon: "<%= asset_path 'busstop.png' %>"
 		# display all the upcoming arrivals
 		for route in stop.routes when route.arrivals.length > 0
 			for trip in route.arrivals
@@ -155,7 +155,7 @@ loadStopSchedule = (stopId, filter = "") ->
 		markerOptions
 				title: stop.name
 				position: pos
-				icon: "/assets/busstop.png"
+				icon: "<%= asset_path 'busstop.png' %>"
 		# display each of the arrivals
 		if result["arrivals"].length == 0
 			list.append journeyDisplayError "No upcoming arrivals."
