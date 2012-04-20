@@ -17,6 +17,14 @@ class Route < OneBusRecord
 		hash ? super(OneBusRecord.make_cachekey(url), hash) : super(OneBusRecord.make_cachekey(url), url)
 	end
 
+	def self.by_location(lat=47.653435, lon=-122.305641, query=nil)
+		puts "getting routes near (#{lat},#{lon})"
+		url = "http://api.onebusaway.org/api/where/routes-for-location.json?key=TEST&lat=#{lat}&lon=#{lon}"
+		url += "&query=#{query}" unless query.nil?
+		routes = get_json(url)["data"]["routes"]
+		routes.map { |r| Route.new(r['id'], r) }
+	end
+
 	def stops
 		puts "Loading stops..."
 		url = "http://api.onebusaway.org/api/where/stops-for-route/#{data.id}.json?key=TEST&version=2"

@@ -165,10 +165,27 @@ window.loadStopSchedule = loadStopSchedule
 ###
 # ROUTE METHODS
 ###
+window.showNearbyRoutes = (query) ->
+	initializeMapOptions
+			clickHandler: nothing
+			geolocate:
+				enable: true
+				onSuccess: loadNearbyRoutes(query)
+				onFail: noLocation
+loadNearbyRoutes = window.loadNearbyRoutes = (query) -> (position) ->
+	url = "/route.json"
+	params =
+		lat: position.coords.latitude
+		lon: position.coords.longitude
+	if query?
+		params["query"] = query
+	get url, params, (result, list) =>
+		for route in result
+			list.append li "row display route", routeLink(route.shortName, route.id), span "route description", route.description
+
 loadRoute = window.loadRoute = (routeId) ->
-	clearMarkerGroup nearbyMarkers
 	url = "/route/#{routeId}.json"
-	get url, (result, list) =>
+	get url, {}, (result, list) =>
 		for group in result.stopGroups
 			# make list items for group names and stop names
 			list.append li "row display group", tag "<h4>", "", group.name.name
@@ -185,12 +202,12 @@ loadRoute = window.loadRoute = (routeId) ->
 
 loadRouteTrips = window.loadRouteTrips = (routeId) ->
 	url = "/route/#{routeId}/trips.json"
-	get url, (result, list) =>
+	get url, {}, (result, list) =>
 		clearMarkerGroup nearbyMarkers
 		for trip in result.trips
 			status = trip.status
 			# put a list item and a marker for every trip
-			list.append li "row display trip", "#{status.vehicleId} arriving to #{status.nextStop} in #{status.nextStopTimeOffset / 60}m#{status.nextStopTimeOffset % 60}s"
+			list.append li "row display trip", "#{status.vehicleId} arriving to #{status.nextStop} in #{Math.round(status.nextStopTimeOffset / 60)}m#{status.nextStopTimeOffset % 60}s"
 			markerOptions
 				title: status.vehicleId
 				position: latlng(status.position.lat, status.position.lon)
@@ -198,10 +215,10 @@ loadRouteTrips = window.loadRouteTrips = (routeId) ->
 				group: nearbyMarkers
 
 
-window.get = (url, callback) ->
+window.get = (url, params, callback) ->
 	list = $("#model-list")
 	list.fadeOut()
-	$.get url, (result) =>
+	$.get url, params, (result) =>
 		list.text("")
 		window.data = result
 		# wrap a bunch of jQuery around the callback to hide and show the list

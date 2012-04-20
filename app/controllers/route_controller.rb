@@ -1,5 +1,20 @@
 class RouteController < ApplicationController
 	def index
+        if params.has_key?("lat") and params.has_key?("lon")
+            @routes = Route.by_location(params[:lat], params[:lon], params[:query])
+        end
+			
+		respond_to do |format|
+			format.html { 
+				if params.has_key?("api")
+					render :partial => "stop_list"
+				else
+					render
+				end
+			}  
+			format.json { render :json => @routes }
+			format.xml  { render :xml => @routes }
+		end
 	end
 	
 	def show
