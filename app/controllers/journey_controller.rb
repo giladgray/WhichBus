@@ -51,9 +51,9 @@ class JourneyController < ApplicationController
 	def self.routes_from_stops(stop_list)
 		routes = []
 		stop_list.each do |stop|
-			stop.routes.each do |route|
-				unless routes.include? route.id
-					routes << route.id
+			stop.routeIds.each do |route|
+				unless routes.include? route
+					routes << route
 				end
 			end
 		end

@@ -16,23 +16,3 @@ initializeMap(function(){loadStopSchedule('<%=@stop.id%>', '<%=params[:r]%>')}, 
 
 <% content_for :title do "Stop Details" end %>
 <% content_for :page_title do @stop.name end %>
-
-
-<!-- stop debug display
-<h2><%= @stop.name %> (<%= @stop.direction %>)</h2> <br/>
-ID: <%= @stop.id %> <br/>
-(<%= @stop.lat %>, <%= @stop.lon %>)
-
-<hr/>
-
-<ul>
-<% @stop.routes_and_arrivals.each do |r| %>
-	<li>
-		<%= link_to "#{r.shortName} #{r.direction}", route_path(r.id) %>&nbsp;
-		<% r.arrivals.each do |arr| %>
-			<%= arr.time_to_arrival_in_words(@time) %>
-			&nbsp;
-		<% end %>
-	</li>
-<% end %>
-</ul> -->

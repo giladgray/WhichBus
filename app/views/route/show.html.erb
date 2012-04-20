@@ -1,17 +1,23 @@
-<!-- Route Show -->
-<% content_for :title do "Route #{@route.shortName}" end %>
+<% content_for :head do %>
+<script type="text/javascript">
+	function showRoute(route) {
+		initializeMap(function() {loadRouteTrips(route)}, null, true);
+		loadRoute(route);
+	}
+</script>
+<% end %>
 
-<% content_for :page_title do  %>
+<!-- Route Show -->
+<% content_for :title do
+  "Route #{@route.shortName}"
+end %>
+
+<% content_for :page_title do %>
 	<span class="route button radius"><%= @route.shortName %></span>
 	<%= @route.description %>
 <% end %>
 
-<% content_for :model_list do %>
-	<% @route.stops.each do |stop| %>
-	<div class="row display journey">
-		<span class="journey description">
-			<%= link_to stop.name, stop_path(stop.id), :class => "journey description" %>
-		</span>
-	</div>
-	<% end %>
-<% end %>
+<% content_for :onload do
+  "showRoute('#{params[:id]}')"
+  #"initializeMap(function() {loadRoute('#{params[:id]}')}, null, true);"
+end %>

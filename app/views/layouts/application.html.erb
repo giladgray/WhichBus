@@ -15,6 +15,7 @@
 
     <title>WhichBus<%= content_for?(:title) ? " | " + yield(:title) : "" %></title>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjJxK5PWs_HUYDfkLxHPZumnjV6ORDIDs&sensor=true"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=true"></script>
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
@@ -33,24 +34,24 @@
 
 
 <style type="text/css">
-#title {font-size:6rem} 
+#title {font-size:6rem}
 
 body {
 background:#e7e6e6;
-background-repeat:repeat-xy; 
+background-repeat:repeat-xy;
 }
 
 h1,h2,h4,h5 {color: #7D8073; font-family:Pacifico,'Tahoma',serif; }
 
 
 </style>
-
+	<%= yield(:head) if content_for?(:onload) %>
 </head>
 
 <body onload="<%=yield(:onload) if content_for?(:onload)%>">
 
   <%= render("layouts/universal_layout") %>
-  
+
 	<div class="show-on-desktops show-on-tablets container" style="padding:0; width=100%; margin:auto; text-align:center;">
 		<div class="row" style="text-align:center;">
 			<% flash.each do |name, msg| %>
@@ -61,6 +62,6 @@ h1,h2,h4,h5 {color: #7D8073; font-family:Pacifico,'Tahoma',serif; }
 		<%= yield(:desktop) %>
     <%= yield %>
 	</div>
-  
+
   </body>
 </html>

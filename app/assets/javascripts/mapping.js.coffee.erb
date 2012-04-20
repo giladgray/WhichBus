@@ -62,6 +62,14 @@ markerOptions = (options) ->
 	mrkr
 window.markerOptions = markerOptions
 
+window.stopMarker = (stop, group = null, handler = null) ->
+	markerOptions
+			title: stop.name
+			position: latlng(stop.lat, stop.lon)
+			icon: "<%= asset_path 'busstop.png' %>"
+			group: group
+			handler: handler
+
 # creates a polyline! takes standard polyline options
 polyline = (options) ->
 	options.map = @googleMap
@@ -99,12 +107,7 @@ window.loadNearbyStops = (position) =>
 		# iterate through the array and display each one in the list column and create a marker for it
 		for stop in result
 			list.append(stopDisplay(stop)).fadeIn()
-			markerOptions
-					title: stop.name
-					position: latlng(stop.lat, stop.lon)
-					icon: "<%= asset_path 'busstop.png' %>"
-					group: nearbyMarkers
-					handler: clickStopMarker(stop)
+			stopMarker stop, nearbyMarkers, clickStopMarker(stop)
 
 # load nearby stops with predictions and display the first one (closest to the user)
 window.loadNearestStop = (position) ->
@@ -125,10 +128,7 @@ window.loadNearestStop = (position) ->
 		# set the page title
 		title.fadeOut 'fast', -> title.html(stop.name).fadeIn()
 		# create a marker for the nearest stop
-		markerOptions
-				title: stop.name
-				position: latlng(stop.lat, stop.lon)
-				icon: "<%= asset_path 'busstop.png' %>"
+		stopMarker stop
 		# display all the upcoming arrivals
 		for route in stop.routes when route.arrivals.length > 0
 			for trip in route.arrivals
@@ -149,13 +149,9 @@ loadStopSchedule = (stopId, filter = "") ->
 	$.get url, {api: yes, r: filter}, (result) =>
 		list.html("").show()
 		stop = result["stop"]
-		pos = latlng(stop.lat, stop.lon)
 		# center the map and add a marker for the stop
-		@googleMap.setCenter(pos)
-		markerOptions
-				title: stop.name
-				position: pos
-				icon: "<%= asset_path 'busstop.png' %>"
+		mrkr = stopMarker(stop)
+		@googleMap.setCenter(mrkr.position)
 		# display each of the arrivals
 		if result["arrivals"].length == 0
 			list.append journeyDisplayError "No upcoming arrivals."
@@ -167,9 +163,55 @@ loadStopSchedule = (stopId, filter = "") ->
 window.loadStopSchedule = loadStopSchedule
 
 ###
+# ROUTE METHODS
+###
+loadRoute = window.loadRoute = (routeId) ->
+	clearMarkerGroup nearbyMarkers
+	url = "/route/#{routeId}.json"
+	get url, (result, list) =>
+		for group in result.stopGroups
+			# make list items for group names and stop names
+			list.append li "row display group", tag "<h4>", "", group.name.name
+			for stop in group.stops
+				list.append li "row display stop", link "/stop/#{stop.id}", "stop name", stop.name
+				stopMarker stop
+			# draw the group's polylines
+			for line in group.polylines
+				polyline
+						strokeColor: '#090',
+						strokeOpacity: 1,
+						strokeWeight: 4,
+						path: google.maps.geometry.encoding.decodePath(line.points)
+
+loadRouteTrips = window.loadRouteTrips = (routeId) ->
+	url = "/route/#{routeId}/trips.json"
+	get url, (result, list) =>
+		clearMarkerGroup nearbyMarkers
+		for trip in result.trips
+			status = trip.status
+			# put a list item and a marker for every trip
+			list.append li "row display trip", "#{status.vehicleId} arriving to #{status.nextStop} in #{status.nextStopTimeOffset / 60}m#{status.nextStopTimeOffset % 60}s"
+			markerOptions
+				title: status.vehicleId
+				position: latlng(status.position.lat, status.position.lon)
+				zIndex: 10000
+				group: nearbyMarkers
+
+
+window.get = (url, callback) ->
+	list = $("#model-list")
+	list.fadeOut()
+	$.get url, (result) =>
+		list.text("")
+		window.data = result
+		# wrap a bunch of jQuery around the callback to hide and show the list
+		callback(result, list)
+		list.fadeIn()
+
+###
 # JOURNEY METHODS
 ###
-hereStrings = ["current location", "here", ""]
+hereStrings = [" current location", "here", ""]
 # whitelist of search terms that return user's current location
 window.locationFound = (position) ->
 	$("input#currentPosition").val("#{position.coords.latitude},#{position.coords.longitude}")
@@ -188,8 +230,8 @@ window.showJourney = (from, to, userPosition) ->
 # returns a geolocation callback that takes the user's position
 loadJourney = (from, to) -> (position) ->
 	$("#page-title").text("Directions")
-#	title = $("#page-header")
-#	title.html("Loading directions from #{from} to #{to}...").fadeIn()
+	#	title = $("#page-header")
+	#	title.html("Loading directions from #{from} to #{to}...").fadeIn()
 	# @dataFunction = -> loadJourney(from, to)(position) # TODO: set the dataFunction so we can refresh
 
 	if position?
@@ -210,7 +252,6 @@ window.getJourney = (from, to) ->
 
 processJourneyResult = (result) =>
 	$("#page-title").text("Directions")
-	;
 	title = $("#page-header")
 	list = $("#model-list")
 	list.html("").show()
