@@ -16,13 +16,13 @@ body {
 /* clears any width constraints */
 .display {
 	min-width: 0;
-	max-width: 99999px;
+	max-width: none;
 }
 
 /* the sidebar on the left! scrolls automatically, never makes the page scroll */
 div.left-sidebar {
 	width: 320px;
-	background-color: #006666;
+	background-color: #E7E6E6;
 	z-index: 10;
 	position: absolute;
 	top: 45px;

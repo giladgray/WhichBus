@@ -27,10 +27,10 @@ class OneBusRecord
 			puts "cache fetch \"#{cachekey}\" [#{Rails.cache.exist? cachekey}]"
 			@data = Rails.cache.fetch(cachekey) do
 				if url_or_hash.is_a? Hash
-					puts "  * new cache entry created from hash *"
+					puts "  * new cache entry #{cachekey} created from hash *"
 					item = OpenStruct.new(url_or_hash)
 				else
-					puts "  * new cache entry created from url *"
+					puts "  * new cache entry #{cachekey} created from url: *"
 					result = self.class.get_json(url_or_hash)
 					# NOTE: Arrival/Departures are created using get_json directly in Stop.rb so they'll never cache
 					item = OpenStruct.new(result["data"])
@@ -68,14 +68,14 @@ class OneBusRecord
 
 	def self.get_ostruct(url, cache=true)
 		if cache
-			#cachekey =
+			cachekey = OneBusRecord.make_cachekey(url)
 			#puts "cache fetch \"#{cachekey}\" [#{Rails.cache.exist? cachekey}]"
-			Rails.cache.fetch(OneBusRecord.make_cachekey(url)) do
-				puts "  * new cache entry created from url *"
+			Rails.cache.fetch(cachekey) do
+				puts "  * new cache entry #{cachekey} created from url: *"
 				OpenStruct.new get_json(url)['data']
 			end
 		else
-			puts "  * new object created from url - NOT CACHED *"
+			puts "  * new UNCACHED object created from url: *"
 			OpenStruct.new get_json(url)['data']
 		end
 	end
