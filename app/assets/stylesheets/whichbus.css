@@ -47,10 +47,16 @@ ul.list, ul.list li {
 	margin: 0;
 	width: 100%;
 }
+ul.list li {
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid white;
+}
+ul.list li:first-child { border-top: none; }
+/*ul.list li:last-child  { border-bottom: none; }*/
 
 /* div that contains the map canvas*/
 div.map-container {
-	background-color: #FFCC00;
+	background-color: white;
 	overflow: none;
 	position: absolute;
 	top: 45px;
@@ -66,6 +72,7 @@ div.map-container {
 div#map_canvas {
 	width: 100%;
 	height: 100%;
+
 }
 
 /* make sure the navbar is always 45px tall */
@@ -84,6 +91,12 @@ div#map_canvas {
 .nav-bar li a {
 	color: white;
 	text-shadow: 1px 1px 1px dimgrey;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.nav-bar li a:hover{
+  text-shadow: none;
 }
 
 /* DESKTOP CSS */
@@ -173,8 +186,12 @@ div#map_canvas {
 }
 
 div.header .title {
-	margin-bottom: 0;
 	color: #7D8073;
+  margin: 7px;
+  font-weight: normal;
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-shadow: -1px 1px 1px whiteSmoke;
 }
 
 div.header .subtitle {
@@ -211,6 +228,8 @@ div.footer {
 	white-space: nowrap;
 }
 
+/*    JOURNEY STYLING
+ * ===================== */
 .row.journey {
 	padding: 5px;
 	margin: 0;
@@ -231,6 +250,7 @@ span.journey {
 	min-width: 36px;
 	line-height: 36px;
 	padding: 5px !important;
+  margin: 7px;
 	font-size: 30px
 }
 
@@ -280,6 +300,28 @@ ul.three-up .journey.time {
 	line-height: 1.5rem;
 }
 
+/*     ROUTE STYLING
+ * ===================== */
+
+.row.display.route {
+  background: whitesmoke;
+}
+.route.description {
+  font-size: 1.6rem;
+  margin-left: 14px;
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
+
+/*     STOP STYLING
+ * ===================== */
+ .row.display.stop {
+   
+ }
+ .stop.description {
+   
+ }
+
 .well {
 	background-color: #f5f5f5;
 	margin-bottom: 5px;
@@ -296,21 +338,31 @@ ul.three-up .journey.time {
 }
 
 .header {
-	border-bottom: 3px solid #7D8073;
+	/*border-bottom: 3px solid #7D8073;*/
 	height: 115px;
 	color: white;
-	font-size: 1.5em;
 	line-height: 1.5em;
 	padding: 5px;
 
-	background: rgb(211, 211, 211); /* Old browsers */
-	background: -moz-linear-gradient(top, rgba(211, 211, 211, 1) 0%, rgba(165, 165, 165, 1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(211, 211, 211, 1)), color-stop(100%, rgba(165, 165, 165, 1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(211, 211, 211, 1) 0%, rgba(165, 165, 165, 1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(211, 211, 211, 1) 0%, rgba(165, 165, 165, 1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(211, 211, 211, 1) 0%, rgba(165, 165, 165, 1) 100%); /* IE10+ */
-	background: linear-gradient(top, rgba(211, 211, 211, 1) 0%, rgba(165, 165, 165, 1) 100%); /* W3C */
+	background: rgb(234, 234, 234); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(234, 234, 234, 1) 0%, rgba(200, 200, 200, 1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(234, 234, 234, 1)), color-stop(100%, rgba(200, 200, 200, 1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(234, 234, 234, 1) 0%, rgba(200, 200, 200, 1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(234, 234, 234, 1) 0%, rgba(200, 200, 200, 1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(234, 234, 234, 1) 0%, rgba(200, 200, 200, 1) 100%); /* IE10+ */
+	background: linear-gradient(top, rgba(234, 234, 234, 1) 0%, rgba(200, 200, 200, 1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#d3d3d3', endColorstr = '#a5a5a5', GradientType = 0); /* IE6-9 */
+}
+
+.shadow-bottom {
+  box-shadow: 0px 1px 7px 2px #a3a3a3;
+  -moz-box-shadow: 0px 0px 7px 2px #a3a3a3;
+  -webkit-box-shadow: 0px 0px 7px 2px #a3a3a3;
+}
+.shadow-sides {
+  box-shadow: 1px 7px 7px 2px #a3a3a3;
+  -moz-box-shadow: 1px 7px 7px 2px #a3a3a3;
+  -webkit-box-shadow: 1px 7px 7px 2px #a3a3a3;
 }
 
 .title h1, .title h2, .title h3, .title h4, .title h5, .title h6 {
@@ -328,6 +380,7 @@ ul.three-up .journey.time {
 	text-align: center;
 	font-size: 12px;
 	vertical-align: middle;
+  line-height: inherit;
 }
 
 .phone-home-input {
@@ -472,6 +525,11 @@ input.search-box {
 	padding: 10px 5px;
 	display: inline;
 }
+input.search-route {
+  font-size: 30px;
+  line-height: 34px;
+  width: 100%;
+}
 
 input.directions {
 	width: 100%;
@@ -482,18 +540,27 @@ input.directions {
 	padding: 5px 10px;
 	font-size: 14px;
 }
+.button.refresh {
+  padding: 5px;
+}
+.button.refresh img {
+  width: 25px;
+}
 
 button.search {
 	padding: 10px 30px 5px 30px;
 	margin-top: 10px;
 }
 
-button.go {
+button.button.go {
 	width: 100%;
 	height: 60px;
 	padding: 5px;
 	margin: 2px;
 	font-size: 16px;
+}
+button.go.route {
+  height: 44px;
 }
 
 img.mapthatbus {

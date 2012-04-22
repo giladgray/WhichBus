@@ -7,10 +7,10 @@ end %>
 <% content_for :page_title do %>
 	<form accept-charset="UTF-8" action="route" method="get" class="row display">
 		<div class="ten phone-three columns">
-			<%= text_field_tag "query", params[:query], class: "input-text", placeholder: "search for a route name", id: "route" %>
+			<%= text_field_tag "query", params[:query], class: "input-text search-route", placeholder: "search for a route number", id: "route" %>
 		</div>
 		<div class="two phone-one columns">
-			<%= button_tag type: 'submit', name: nil, class: "radius pacifico whichbus-green go button", style: "text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
+			<%= button_tag type: 'submit', name: nil, class: "radius whichbus-green go route button" do %>
 				GO
 			<% end %>
 		</div>
