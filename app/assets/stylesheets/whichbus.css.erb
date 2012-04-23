@@ -2,6 +2,7 @@
 
 body {
 	position: static;
+	background: #E9F2F5;
 }
 
 /* contains the entire page, makes it fill the entire screen*/
@@ -17,6 +18,13 @@ body {
 .display {
 	min-width: 0;
 	max-width: none;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
 }
 
 /* the sidebar on the left! scrolls automatically, never makes the page scroll */
@@ -37,7 +45,8 @@ ul.list {
 	overflow-x: hidden;
 	position: absolute;
 	bottom: 30px;
-	top: 128px;
+	top: 125px;
+  	background: url("<%= image_path 'grayfabricbg.jpg' %>") repeat;
 }
 ul.list.two-up, ul.list.three-up {
 	width: 104%;
@@ -170,7 +179,7 @@ div#map_canvas {
 	width: auto;
 }
 
-.clear-input {
+.button.clear-input {
 	display: inline-block;
 	position: absolute;
 	right: 12px;
@@ -178,11 +187,13 @@ div#map_canvas {
 	width: 18px;
 	height: 18px;
 	padding: 0;
-	text-size: 10px;
 	text-align: center;
 	vertical-align: middle;
 	cursor: pointer;
-	box-shadow: 0 0 3px 3px #d3d3d3
+	background: #ddd;
+}
+.button.clear-input:hover{
+	background: #ccc;
 }
 
 div.header .title {
@@ -308,9 +319,9 @@ ul.three-up .journey.time {
 }
 .route.description {
   font-size: 1.6rem;
-  margin-left: 14px;
-  text-transform: lowercase;
-  font-variant: small-caps;
+  margin-left: 7px;
+  text-transform: uppercase;
+  width: 240px;
 }
 
 /*     STOP STYLING
@@ -365,6 +376,9 @@ ul.three-up .journey.time {
   -webkit-box-shadow: 1px 7px 7px 2px #a3a3a3;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	color: #7D8073;
+}
 .title h1, .title h2, .title h3, .title h4, .title h5, .title h6 {
 	padding-top: 8px;
 	padding-left: 10px;
@@ -400,12 +414,12 @@ ul.three-up .journey.time {
 
 .topbarimage {
 	background: #bbf1cf; /* Old browsers */
-	background: -moz-linear-gradient(top, #bbf1cf 0%, #a3d0b3 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #bbf1cf), color-stop(100%, #a3d0b3)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #bbf1cf 0%, #a3d0b3 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #bbf1cf 0%, #a3d0b3 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #bbf1cf 0%, #a3d0b3 100%); /* IE10+ */
-	background: linear-gradient(top, #bbf1cf 0%, #a3d0b3 100%); /* W3C */
+	background: -moz-linear-gradient(top, #bbf1cf 0%, #ADDEBF 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #bbf1cf), color-stop(100%, #ADDEBF)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #bbf1cf 0%, #ADDEBF 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #bbf1cf 0%, #ADDEBF 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #bbf1cf 0%, #ADDEBF 100%); /* IE10+ */
+	background: linear-gradient(top, #bbf1cf 0%, #ADDEBF 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#bbf1cf', endColorstr = '#a3d0b3', GradientType = 0); /* IE6-9 */
 	vertical-align: middle;
 }
@@ -569,6 +583,12 @@ img.mapthatbus {
 
 img.logo {
 	padding-top: 45px;
+	padding-bottom: 35px;
+}
+
+img.location {
+	height: 30px;
+	vertical-align: middle;
 }
 
 h1.pacifico {
@@ -589,10 +609,9 @@ h3.pacifico {
 
 form.directions {
 	margin-top: -7px;
-	border: 1px solid gray;
-	border-top: none;
 	border-radius: 10px;
 	padding: 30px 0;
+	box-shadow: 0 0 15px 0px #bebebe;
 }
 
 
