@@ -4,30 +4,30 @@
 		<div class="row display">
 			<div class="eight columns centered">
 				<div class="row">
-					<%= image_tag "whichbus_bus.png", class: "logo twelve columns" %>
+					<%= image_tag "whichbus_bus.png", class: "logo ten columns offset-by-one" %>
 				</div>
 				<form accept-charset="UTF-8" action="journey" method="get" class="directions well">
+					<!-- the directions search box -->
 					<div class="row">
 						<div class="twelve columns">
 							<h1 class="pacifico text-center">Where are you going today?</h1>
 						</div>
 					</div>
 					<div class="row">
+						<!-- from & to search boxes -->
 						<div class="five columns offset-by-one">
 							<span class="textbox-container">
 								<%= text_field_tag "from", flash[:from], class: "input-text search-box", placeholder: "Where from, yo?" %>
-								<span class="clear-input button round whichbus-green">x</span>
+								<span class="clear-input button round">x</span>
 							</span>
 							<% if flash[:from_err] %>
 								<small class="error"><%= flash[:from_err] %></small>
 							<% end %>
 						</div>
-						<!--<div class="two columns pacifico">-->
-						<!--</div>-->
 						<div class="five columns">
 							<span class="textbox-container">
 								<%= text_field_tag "to", flash[:to], class: "input-text search-box", placeholder: "And where to?" %>
-								<span class="clear-input button round whichbus-green">x</span>
+								<span class="clear-input button round">x</span>
 							</span>
 							<% if flash[:to_err] %>
 								<small class="error"><%= flash[:to_err] %></small>
@@ -35,6 +35,7 @@
 						</div>
 					</div>
 					<div class="row">
+						<!-- Map that bus! button-->
 						<div class="five columns centered">
 							<%= button_tag type: 'submit', name: nil, class: "radius pacifico whichbus-green search button", style: "text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
 								<%= image_tag "mapthatbus.png", size: "200x0", class: "mapthatbus" %>

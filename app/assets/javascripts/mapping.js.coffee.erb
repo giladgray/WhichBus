@@ -181,7 +181,7 @@ loadNearbyRoutes = window.loadNearbyRoutes = (query) -> (position) ->
 		params["query"] = query
 	get url, params, (result, list) =>
 		for route in result
-			list.append li "row display route", routeLink(route.shortName, route.id), span "route description", route.description
+			list.append li "row display route", routeLink(route.shortName, route.id), span "route description ellipsis", route.description
 
 loadRoute = window.loadRoute = (routeId) ->
 	url = "/route/#{routeId}.json"

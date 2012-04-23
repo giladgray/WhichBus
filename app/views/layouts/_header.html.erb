@@ -1,4 +1,4 @@
-<div class="row display topbarimage">
+<div class="row display topbarimage shadow-bottom">
 
     <!-- the WhichBus header appears on all pages, in the upper left on desktop and at the top on phone -->
     <div class="left">
@@ -11,7 +11,7 @@
             <!--<li>
                 <%=  text_field_tag "query", nil, class: "search-input", placeholder: "search for stuff" %>
             </li>-->
-            <li class="hide-on-phones"><%= link_to "Here", "#", id: "hereButton", title: "Find the nearest stop" %></li>
+            <li class="hide-on-phones"><%= link_to image_tag("icons/location.png", class: "location"), "#", id: "hereButton", title: "Find the nearest stop" %></li>
             <li class="hide-on-phones"><%= link_to "Login", "/" %></li>
             <li class="has-flyout show-on-phones">
                 <%= image_tag("icons/settingsgear.png", :size => "30x0", :style => "float: right; padding: 4px 12px") %>
