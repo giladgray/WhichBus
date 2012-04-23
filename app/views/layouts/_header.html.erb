@@ -3,7 +3,10 @@
     <!-- the WhichBus header appears on all pages, in the upper left on desktop and at the top on phone -->
     <div class="left">
         <!-- WhichBus logo is a link to the homepage -->
-        <div class="pacifico brand"><%= link_to image_tag("whichbustext.png"), "/" %></div>
+        <div class="">
+            <%= link_to image_tag("whichbustext.png"), "/", class: "brand" %>
+            <%= content_tag(:h2, yield(:title), class: "title", id: "page-title") if content_for?(:title) %>
+        </div>
     </div>
     <!-- the desktop/tablet header with buttons and searching -->
     <div class="right">

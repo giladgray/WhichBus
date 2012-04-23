@@ -46,7 +46,7 @@ ul.list {
 	position: absolute;
 	bottom: 30px;
 	top: 125px;
-  	background: url("<%= image_path 'grayfabricbg.jpg' %>") repeat;
+  	background: #E9F2F5; /*url("<%= image_path 'grayfabricbg.jpg' %>") repeat;*/
 }
 ul.list.two-up, ul.list.three-up {
 	width: 104%;
@@ -196,13 +196,17 @@ div#map_canvas {
 	background: #ccc;
 }
 
-div.header .title {
+h2.title {
 	color: #7D8073;
-  margin: 7px;
-  font-weight: normal;
-  font-size: 2rem;
-  text-transform: uppercase;
-  text-shadow: -1px 1px 1px whiteSmoke;
+	margin: 7px;
+	font-weight: normal;
+	font-size: 2rem;
+	text-transform: uppercase;
+	text-shadow: -1px 1px 1px whiteSmoke;
+	display: inline;
+	vertical-align: middle;
+	border-left: 2px solid #7D8073;
+	padding-left: 10px;
 }
 
 div.header .subtitle {
@@ -523,6 +527,7 @@ select,
 	margin: 7px 15px;
 	width: 145px;
 }
+
 
 .button.radius.whichbus-green {
 }
