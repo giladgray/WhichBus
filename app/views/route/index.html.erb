@@ -6,13 +6,18 @@ end %>
 
 <% content_for :page_title do %>
 	<form accept-charset="UTF-8" action="route" method="get" class="row display">
-		<div class="ten phone-three columns">
+		<div class="eight phone-two columns">
 			<%= text_field_tag "query", params[:query], class: "input-text search-route", placeholder: "search for a route number", id: "route" %>
 		</div>
 		<div class="two phone-one columns">
 			<%= button_tag type: 'submit', name: nil, class: "radius whichbus-green go route button" do %>
 				GO
 			<% end %>
+		</div>
+		<div class="two phone-one columns">
+			<button href="#" onclick="refreshData()" class="button refresh radius route whichbus-green" title="Refresh">
+				<%= image_tag 'refreshicon.png' %>
+			</button>
 		</div>
 	</form>
 <% end %>
