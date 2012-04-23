@@ -360,7 +360,7 @@ window.setLayout = (type, option) ->
 	$("#model-list").removeClass("two-up").removeClass("three-up")
 	switch type
 		when 'grid'
-			$("#model-list li span.journey.description").fadeOut ->
+			$("#model-list li span.description").fadeOut ->
 				$("#model-list").addClass("#{option}-up")
 		when 'list'
-			$("#model-list li span.journey.description").fadeIn()
+			$("#model-list li span.description").fadeIn()
