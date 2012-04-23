@@ -539,6 +539,7 @@ input.search-box {
 	font-size: 16px;
 	padding: 10px 5px;
 	display: inline;
+	width: 100%;
 }
 input.search-route {
   font-size: 30px;
@@ -645,6 +646,9 @@ form.directions {
 
 /* MOBILE CSS */
 @media only screen and (max-width: 767px) {
+	body {
+		font-size: 10px;
+	}
 	/* make the map canvas smaller on mobile screens */
 	div#map_canvas {
 		height: 200px;
@@ -665,7 +669,6 @@ form.directions {
 	}
 
 	div.header {
-		/*font-size: 16px !important;*/
 		font-weight: bold;
 		overflow: hidden;
 		white-space: nowrap;
@@ -674,8 +677,39 @@ form.directions {
 	div.header input {
 		font-size: 12px;
 		padding: 4px 3px 2px;
-		/*display: inline;*/
-		/*width: 45%;*/
+	}
+
+	h1.pacifico {
+		margin: 0 0 25px;
+		font-size: 3.2rem;
+		line-height: 3.6rem;
+	}
+
+	img.logo { 
+		padding: 20px 0;
+		width: 75%;
+		margin: auto;
+		display: block
+	}
+
+	form.directions {
+		padding: 15px 0;
+		width: 90%;
+		margin: auto;
+		margin-bottom: 30px;
+	}
+
+	.input-text.search-box {
+		display: block;
+		width: 80%;
+		margin: auto;
+		margin-bottom: 10px
+	}
+	button.button.search {
+		margin: 5px auto;
+		display: block;
+		width: 180px;
+		padding: 10px 15px 4px;
 	}
 
 	.nav-bar li a {
