@@ -565,12 +565,12 @@ button.go.route {
 
 button.go.route:hover{
 	background-color:#CCC;
-	color:#777;
+	box-shadow: none;
 }
 
 button.go.route, button.refresh.route {
 	background-color:#777;
-	box-shadow:0px 0px 7px white;
+	box-shadow: 2px 2px 1px white, -2px -2px 1px white;
 }
 
 button.refresh.route {
