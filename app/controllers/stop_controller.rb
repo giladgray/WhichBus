@@ -65,7 +65,7 @@ class StopController < ApplicationController
 			# allow the user to filter certain routes!
 			if filter.empty? or filter.include? r.id or filter.include? r.shortName
 				r.arrivals.each do |arr| 
-					arr.description = r.description.empty? ? r.agency.name : r.description
+					arr.description = r.description.empty? ? r.agency['name'] : r.description
 					@arrivals << arr
 				end
 			end

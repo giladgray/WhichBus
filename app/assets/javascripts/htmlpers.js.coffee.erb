@@ -50,7 +50,7 @@ window.stopDisplay = (stop) ->
 # creates an arrival display list item
 window.arrivalDisplay = (arrival) ->
   journeyDisplayOptions
-      route: link("/route/#{arrival.routeId}", "button radius whichbus-green", arrival.routeShortName)
+      route: routeLink(arrival.routeShortName, arrival.routeId)
       description: [
         tag("<small>", "headsign border round", arrival.tripHeadsign)
         "<br/>"
@@ -65,9 +65,13 @@ window.arrivalDisplay = (arrival) ->
 # makes a button link for a route. automatically adds EXPRESS as needed.
 window.routeLink = (routeName, routeId) ->
   if routeName.endsWith("E")
-    link "route/#{routeId}", "", tag("<div>", "route button radius whichbus-green", routeName.substr(0, routeName.length - 1), "<br/>", tag "<small>", "", "EXPRESS")
+    routeName = routeName.substr(0, routeName.length - 1)
+    rte = link "route/#{routeId}", "route button radius whichbus-green express", div("", routeName, "<br/>", tag "<small>", "", "EXPRESS")
   else
-    link "route/#{routeId}", "route button radius whichbus-green", routeName
+    rte = link "route/#{routeId}", "route button radius whichbus-green", routeName
+  if routeName.length >= 3  # express is removed above so we're looking at unqualified name
+    rte.addClass("small")
+  rte
 
 # displays an entire journey. creates markers and polyline for the stops and returns journey display HTML
 window.journeyDisplay = (journey) ->
@@ -104,7 +108,7 @@ window.journeyDisplay = (journey) ->
 # constructs a journey list item with an error message
 window.journeyDisplayError = (message) ->
   journeyDisplayOptions
-      route: link("#", "button radius red", ":(")
+      route: link("#", "route button radius red", ":(")
       description: [
         tag("<small>", "headsign border round", "BAD NEWS ALL UP IN HERE")
         "<br/>#{message} Sorry, friend."

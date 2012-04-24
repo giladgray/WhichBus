@@ -91,18 +91,25 @@ window.showStopMarker = (position) ->
 
 # map click handlers
 window.nothing = nothing = (event) ->
-;
+
+window.showNearestStops = ->
+	# initialize the map using loadJourney and no click functionality
+	# @dataFunction = -> geolocate(loadNearbyStops, noLocation)
+	# initializeMap(dataFunction, nothing)
+	initializeMapOptions
+			clickHandler: nothing
+			geolocate:
+				enable: true
+				onSuccess: loadNearbyStops
+				onFail: noLocation
 
 # load stops near the given position and display markers and list
 window.loadNearbyStops = (position) =>
 	clearMarkerGroup nearbyMarkers
 	@clickMarker.setPosition(position)
 	url = "/stop.json"
-	list = $("#model-list")
-	list.fadeOut 'fast'
 	# perform an AJAX request to stop#index with the user's location
-	$.get url, {lat: position.lat(), lon: position.lng(), api: yes}, (result) ->
-		list.html ""
+	get url, {lat: position.lat(), lon: position.lng(), api: yes}, (result, list) ->
 		# the API returns a JSON array of stops
 		# iterate through the array and display each one in the list column and create a marker for it
 		for stop in result
@@ -121,7 +128,7 @@ window.loadNearestStop = (position) ->
 	markerOptions
 			title: "Your Location"
 			position: position
-	$.get url, {lat: position.lat(), lon: position.lng(), predictions: true}, (result) ->
+	get url, {lat: position.lat(), lon: position.lng(), predictions: true}, (result, list) ->
 		list.html("").show()
 		stop = result[0]
 		# the nearest stop (results sorted by distance)
@@ -144,10 +151,7 @@ clickStopMarker = (stop) -> () ->
 # load arrivals for the given stop and display in list
 loadStopSchedule = (stopId, filter = "") ->
 	url = "/stop/#{stopId}/schedule.json"
-	list = $("#model-list")
-	list.fadeOut()
-	$.get url, {api: yes, r: filter}, (result) =>
-		list.html("").show()
+	get url, {api: yes, r: filter}, (result, list) =>
 		stop = result["stop"]
 		# center the map and add a marker for the stop
 		mrkr = stopMarker(stop)
@@ -212,18 +216,23 @@ loadRouteTrips = window.loadRouteTrips = (routeId) ->
 				title: status.vehicleId
 				position: latlng(status.position.lat, status.position.lon)
 				zIndex: 10000
+				icon: "<%= asset_path 'icons/buslocation.png' %>"
 				group: nearbyMarkers
 
 
 window.get = (url, params, callback) ->
 	list = $("#model-list")
 	list.fadeOut()
-	$.get url, params, (result) =>
+	success = (result) =>
 		list.text("")
 		window.data = result
 		# wrap a bunch of jQuery around the callback to hide and show the list
 		callback(result, list)
 		list.fadeIn()
+	failure = (event, request, settings, exception) ->
+		list.append journeyDisplayError("API request failed.")
+		list.fadeIn()
+	$.get(url, params, success).error(failure)
 
 ###
 # JOURNEY METHODS
