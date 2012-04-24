@@ -13,12 +13,15 @@
 end %>
 
 <% content_for :page_title do %>
-	<%= content_tag :span, @route.shortName, class: "route button radius" %>
-	<%= content_tag :span, @route.description, class: "route description" %>
-	<%= button_tag image_tag('refreshicon.png'), name: nil, class: "button refresh radius whichbus-green", onclick: "refreshData()", title:"Refresh" %>
+	<span class="ten phone-three columns">
+		<%= content_tag :span, @route.shortName, class: "route button radius" %>
+		<%= content_tag :span, @route.description, class: "route description" %>
+	</span>
+	<span class="two phone-one columns">
+		<%= button_tag image_tag('refreshicon.png'), name: nil, class: "button refresh radius", onclick: "refreshData()", title:"Refresh" %>
+	</span>
 <% end %>
 
 <% content_for :onload do
   "showRoute('#{params[:id]}')"
-  #"initializeMap(function() {loadRoute('#{params[:id]}')}, null, true);"
 end %>

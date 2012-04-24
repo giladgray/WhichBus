@@ -230,8 +230,7 @@ window.get = (url, params, callback) ->
 		callback(result, list)
 		list.fadeIn()
 	failure = (event, request, settings, exception) ->
-		list.append journeyDisplayError("API request failed.")
-		list.fadeIn()
+		list.append(journeyDisplayError("API request failed.")).fadeIn()
 	$.get(url, params, success).error(failure)
 
 ###
