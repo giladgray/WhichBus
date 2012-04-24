@@ -14,22 +14,14 @@
             <!--<li>
                 <%=  text_field_tag "query", nil, class: "search-input", placeholder: "search for stuff" %>
             </li>-->
-            <li class="hide-on-phones"><%= link_to image_tag("icons/location.png", class: "location"), "#", id: "hereButton", title: "Find the nearest stop" %></li>
-            <li class="hide-on-phones"><%= link_to "Login", "/" %></li>
+            <li class="hide-on-phones"><%= link_to image_tag("icons/location.png", class: "location")+" Here", "#", id: "hereButton", title: "Find the nearest stop" %></li>
+            <li class="hide-on-phones"><%= link_to "Feedback", "https://docs.google.com/spreadsheet/viewform?formkey=dEZZNWJraEFhNEhRUkhINGNMekVzVXc6MQ#gid=0", title: "Give us a piece of your mind...route!" %></li>
             <li class="has-flyout show-on-phones">
                 <%= image_tag("icons/settingsgear.png", :size => "30x0", :style => "float: right; padding: 4px 12px") %>
                 <div class="flyout small right">
                     <ul>
-						<li><%= link_to "Here", "#", title: "Find the nearest stop" %></li>
-						<li><%= link_to "Login", "/" %></li>
-                        <li><%= link_to "#" do %>
-                                <%= image_tag "icons/aboutwhichbus.png" %> About WhichBus
-                            <% end %>
-                        </li>
-                        <li><%= link_to "#" do %><%= image_tag "icons/knownissues.png" %> Known Issues
-                            <% end %></li>
-                        <li><%= link_to "#" do %><%= image_tag "icons/reportabug.png" %> Report a Bug
-                            <% end %></li>
+						<li><%= link_to image_tag("icons/location.png", class: "location")+"Here", "#", title: "Find the nearest stop" %></li>
+                        <li><%= link_to "Feedback", "https://docs.google.com/spreadsheet/viewform?formkey=dEZZNWJraEFhNEhRUkhINGNMekVzVXc6MQ#gid=0", title: "Give us a piece of your mind...route!" %></li>
                     </ul>
                 </div>
             </li>
