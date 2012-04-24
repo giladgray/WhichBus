@@ -73,7 +73,7 @@ ul.list {
 	overflow-x: hidden;
 	position: absolute;
 	bottom: 30px;
-	top: 125px;
+	top: 76px;
   	background: #E9F2F5; /*url("<%= image_path 'grayfabricbg.jpg' %>") repeat;*/
 }
 ul.list.two-up, ul.list.three-up {
@@ -207,21 +207,21 @@ div#map_canvas {
 	width: auto;
 }
 
-.button.clear-input {
+span.clear-input {
 	display: inline-block;
 	position: absolute;
-	right: 12px;
-	top: 0;
-	width: 18px;
-	height: 18px;
+	right: 10px;
+	top: -4px;
+	width: 21px;
+	height: 21px;
 	padding: 0;
 	text-align: center;
 	vertical-align: middle;
 	cursor: pointer;
-	background: #ddd;
+	background: url('<%= image_path 'icons/clear.png' %>') no-repeat;
 }
-.button.clear-input:hover{
-	background: #ccc;
+span.clear-input:hover{
+	background-position: 0 -21px;
 }
 
 h2.title {
@@ -387,10 +387,11 @@ ul.three-up .journey.time {
 
 .header {
 	/*border-bottom: 3px solid #7D8073;*/
-	height: 115px;
+	height: 66px;
 	color: white;
 	line-height: 1.5em;
 	padding: 5px;
+	vertical-align: middle;
 
 	background: rgb(234, 234, 234); /* Old browsers */
 	background: -moz-linear-gradient(top, rgba(234, 234, 234, 1) 0%, rgba(200, 200, 200, 1) 100%); /* FF3.6+ */
@@ -435,14 +436,14 @@ h1, h2, h3, h4, h5, h6 {
   	line-height: inherit;
   	color:#999;
 }
-input:-moz-placeholder {
+:-moz-placeholder {
 	text-align: center;
 	font-size: 12px;
 	vertical-align: middle;
   	line-height: inherit;
   	color:#999;
 }
-input:-ms-input-placeholder {
+:-ms-input-placeholder {
     text-align: center;
 	font-size: 12px;
 	vertical-align: middle;
@@ -602,18 +603,12 @@ input.search-route {
 
 input.directions {
 	width: 100%;
-	display: block;
+	display: inline;
 }
 
 .button.small {
 	padding: 5px 10px;
 	font-size: 14px;
-}
-.button.refresh {
-  padding: 5px;
-}
-.button.refresh img {
-  width: 25px;
 }
 
 button.search {
@@ -621,12 +616,23 @@ button.search {
 	margin-top: 10px;
 }
 
-button.go.route:hover{
+button.button.go {
+	float:left;
+	height: 44px;
+	padding: 5px;
+	margin: 2px;
+	font-size: 16px;
+}
+button.go.route {
+	height: 44px;
+}
+
+button.go.route:hover, button.refresh:hover {
 	background-color:#CCC;
 	box-shadow: none;
 }
 
-button.go.route, button.refresh.route {
+button.go.route, button.refresh {
 	background-color:#777;
 	box-shadow: 2px 2px 1px white, -2px -2px 1px white;
 	width:40px;
@@ -639,15 +645,16 @@ button.go.route, button.refresh.route {
 }
 }
 
-button.refresh.route {
+button.refresh {
 	height: 44px;
 	padding: 5px;
 	margin: 2px;
 	font-size: 16px;
 	margin-left:5%;
 }
-button.refresh.route img {
+button.refresh img {
 	padding-top:4px;
+	width: 25px;
 }
 
 

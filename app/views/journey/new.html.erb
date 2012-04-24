@@ -20,7 +20,7 @@
 						<div class="five columns offset-by-one">
 							<span class="textbox-container">
 								<%= text_field_tag "from", flash[:from], class: "input-text search-box", placeholder: "Where from, yo?" %>
-								<span class="clear-input button round">x</span>
+								<span class="clear-input"></span>
 							</span>
 							<% if flash[:from_err] %>
 								<small class="error"><%= flash[:from_err] %></small>
@@ -29,7 +29,7 @@
 						<div class="five columns">
 							<span class="textbox-container">
 								<%= text_field_tag "to", flash[:to], class: "input-text search-box", placeholder: "And where to?" %>
-								<span class="clear-input button round">x</span>
+								<span class="clear-input"></span>
 							</span>
 							<% if flash[:to_err] %>
 								<small class="error"><%= flash[:to_err] %></small>

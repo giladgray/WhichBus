@@ -44,12 +44,11 @@ class Stop < OneBusRecord
 
 	# just the routes
 	def routes
-		puts "IN stop.routes for stop #{data.id}"
-		data.routes.map { |r| Route.new(r['id'], r) }
+		@routes ||= data.routes.map { |r| Route.new(r['id'], r) }
 	end
 
 	def routeIds
-		data.routes.map { |r| r['id'] }
+		@routeIds ||= data.routes.map { |r| r['id'] }
 	end
 
 	# list of routes with arrivals folded in to the routes
