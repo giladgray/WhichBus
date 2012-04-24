@@ -71,14 +71,17 @@ window.routeLink = (routeName, routeId) ->
 
 # displays an entire journey. creates markers and polyline for the stops and returns journey display HTML
 window.journeyDisplay = (journey) ->
+  from = journey["from"]
+  to = journey["to"]
+  timing = journey["when"]
   # markers for from and to stops and a polyline connecting them
   @from_stop = markerOptions
-      title: journey[0].name
-      position: latlng(journey[0].lat, journey[0].lon)
+      title: from.name
+      position: latlng(from.lat, from.lon)
       icon: "<%= asset_path 'busstop.png' %>"
   to_stop = markerOptions
-      title: journey[3].name
-      position: latlng(journey[3].lat, journey[3].lon)
+      title: to.name
+      position: latlng(to.lat, to.lon)
       icon: "<%= asset_path 'busstop.png' %>"
   polylineOptions
     path: [from_stop.position, to_stop.position]
@@ -86,16 +89,16 @@ window.journeyDisplay = (journey) ->
     strokeOpacity: 0.5
   # build the journey display itself. lots of messy HTML generation
   journeyDisplayOptions
-      route: routeLink(journey[2].routeShortName, journey[2].routeId)
-      description: link ["stop/#{journey[0].id}", "", abbreviate(journey[0].name, 100, "from")
-        #tag("<small>", "", " (#{milesOrFeet(journey[0].distance)})"), "<br/>"
-        "<br/>", tag("<small>", "headsign border round", journey[2].tripHeadsign), "<br/>"
-        abbreviate(journey[3].name, 100, "to")]...
-        # tag("<small>", "", " (#{milesOrFeet(journey[3].distance)})")]...
+      route: routeLink(timing.routeShortName, timing.routeId)
+      description: link ["stop/#{from.id}", "", abbreviate(from.name, 100, "from")
+        #tag("<small>", "", " (#{milesOrFeet(from.distance)})"), "<br/>"
+        "<br/>", tag("<small>", "headsign border round", timing.tripHeadsign), "<br/>"
+        abbreviate(to.name, 100, "to")]...
+        # tag("<small>", "", " (#{milesOrFeet(to.distance)})")]...
       time: [
-        div("row small", journey[2].arrival)
-        div("row #{colorizeTime(journey[2].wait_minutes)}", journey[2].wait_time)
-        div("row small #{colorizeStatus(journey[2].status)}", journey[2].status)
+        div("row small", timing.arrival)
+        div("row #{colorizeTime(timing.wait_minutes)}", timing.wait_time)
+        div("row small #{colorizeStatus(timing.status)}", timing.status)
       ]
 
 # constructs a journey list item with an error message

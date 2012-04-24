@@ -6,16 +6,15 @@ end %>
 
 <% content_for :page_title do %>
 	<form accept-charset="UTF-8" action="route" method="get" class="row display">
-		<div class="seven phone-two columns">
-			<%= text_field_tag "query", params[:query], class: "input-text search-route", placeholder: "search for a route number", id: "route", autocomplete: "true" %>
+		<div class="eight phone-three columns">
+			<span class="textbox-container">
+				<%= text_field_tag "query", params[:query], class: "input-text search-route", placeholder: "route number", id: "route", autocomplete: "true" %>
+				<span class="clear-input"></span>
+			</span>
 		</div>
-		<div class="five phone-one columns">
-			<%= button_tag type: 'submit', name: nil, class: "radius whichbus-green go route button" do %>
-				GO
-			<% end %>
-			<%= button_tag name: nil, class: "button refresh radius route whichbus-green", onclick: "refreshData()", title:"Refresh" do %>
-				<%= image_tag 'refreshicon.png' %>
-			<% end %>
+		<div class="four phone-one columns">
+			<%= button_tag "GO", type: 'submit', name: nil, class: "radius go route button" %>
+			<%= button_tag image_tag('refreshicon.png'), name: nil, class: "button refresh radius", onclick: "refreshData()", title:"Refresh" %>
 		</div>
 	</form>
 <% end %>

@@ -101,27 +101,27 @@ class JourneyController < ApplicationController
 			puts "Processing stop #{stop.name}: [#{stop.routeIds.join(", ")}]"
 			# go through its arrivals from valid routes...
 			stop.arrivals_and_departures.select { |arr| valid_routes.include? arr.routeId }.each do |arr|
-				journey = result.find { |r| r[2].tripId == arr.tripId }
+				journey = result.find { |r| r[:when].tripId == arr.tripId }
 				# and add them to the list if this trip hasn't already been added
 				if journey.nil?
 					#puts "  Searching for destination: "
 					dest = stop
 					dest = valid_to.find { |to| to.routeIds.include? arr.routeId }
 					unless dest.nil?
-						result << [stop, nil, arr, dest] # TODO: find destination stop
+						result << {:from => stop, :to => dest, :when => arr}# [stop, nil, arr, dest] # TODO: find destination stop
 																						 # if the trip has been added then update it if this stop is closer
 						puts "	#{arr.routeId} in #{arr.time_to_arrival_in_words(current_time)} to #{dest.name}"
 					end
-				elsif stop.distance < journey[0].distance
+				elsif stop.distance < journey[:from].distance
 					puts "	#{arr.routeId} to #{stop.name} in #{arr.time_to_arrival_in_words(current_time)} **"
-					journey[2] = arr
-					journey[0] = stop
+					journey[:when] = arr
+					journey[:from] = stop
 				end
 			end
 		end
 
 		# sort the results by arrival time
-		result.sort_by! { |r| r[2].arrival_time }
+		result.sort_by! { |r| r[:when].arrival_time }
 		result
 	end
 

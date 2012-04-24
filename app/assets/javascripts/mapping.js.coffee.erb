@@ -15,7 +15,7 @@ yesLocation = (position) ->
 	pos = latlng position.coords.latitude, position.coords.longitude
 	@userPosition = markerOptions({title: "Your Location", position: pos})
 	clickMap(pos)
-noLocation = () ->
+noLocation = (error) ->
 	msg = "Geolocation Error: "
 	switch error.code
 		when error.TIMEOUT
@@ -236,7 +236,7 @@ window.locationFound = (position) ->
 window.showJourney = (from, to, userPosition) ->
 	# initialize the map using loadJourney and no click functionality
 	@dataFunction = -> loadJourney(from, to)
-	initializeMap(dataFunction, nothing)
+	# initializeMap(dataFunction, nothing)
 	initializeMapOptions
 			clickHandler: nothing
 			geolocate:

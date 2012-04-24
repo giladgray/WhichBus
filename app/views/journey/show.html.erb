@@ -9,14 +9,21 @@ end %>
 
 <% content_for :page_title do %>
 	<form accept-charset="UTF-8" action="journey" method="get" class="row display">
-		<div class="ten phone-three columns">
-			<%= text_field_tag "from", params[:from], class: "input-text directions", placeholder: "Where from, yo?", id: "fromAddress" %>
-			<%= text_field_tag "to", params[:to], class: "input-text directions", placeholder: "And where to?", id: "toAddress" %>
+		<div class="eight phone-three columns">
+			<span class="textbox-container">
+				<%= text_field_tag "from", params[:from], class: "input-text directions", placeholder: "Where from, yo?", id: "fromAddress" %>
+				<span class="clear-input"></span>
+			</span>
+			<span class="textbox-container">
+				<%= text_field_tag "to", params[:to], class: "input-text directions", placeholder: "And where to?", id: "toAddress" %>
+				<span class="clear-input"></span>
+			</span>
 		</div>
-		<div class="two phone-one columns">
-			<%= button_tag type: 'submit', name: nil, class: "radius whichbus-green go button", style: "text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
+		<div class="four phone-one columns">
+			<%= button_tag type: 'submit', name: nil, class: "radius go route button", style: "text-shadow:0px 0px 1px dimgrey; font-weight:normal;" do %>
 				GO
 			<% end %>
+			<%= button_tag image_tag('refreshicon.png'), name: nil, class: "button refresh radius", onclick: "refreshData()", title:"Refresh" %>
 		</div>
 	</form>
 <% end %>
