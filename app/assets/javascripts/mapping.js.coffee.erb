@@ -26,7 +26,7 @@ noLocation = (error) ->
 			msg += "Permission denied"
 		when error.UNKNOWN_ERROR
 			msg += "Unknown error"
-	alert(msg)
+	alertBox "error", msg
 geolocate = (success = yesLocation, fail = noLocation) ->
 	navigator.geolocation.getCurrentPosition success, fail
 window.geolocate = geolocate

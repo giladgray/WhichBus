@@ -117,3 +117,10 @@ window.journeyDisplayOptions = (options) ->
   description = span "journey description", options.description...
   time = span "journey time", options.time...
   li "", div "row journey", route, description, time
+
+window.alertBox = (type, message) ->
+  $("#map_canvas").append div("alert-box #{type}", message, close = link("", "close", "&times;"))
+  close.click (event) ->
+    event.preventDefault()
+    $(this).closest(".alert-box").fadeOut (event) ->
+      $(this).remove()

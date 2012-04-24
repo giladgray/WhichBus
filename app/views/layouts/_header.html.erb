@@ -4,7 +4,10 @@
     <div class="left">
         <!-- WhichBus logo is a link to the homepage -->
         <div class="">
-            <%= link_to image_tag("whichbustext.png"), "/", class: "brand" %>
+            <%= link_to "/", class: "brand" do %>
+                <%= image_tag("icons/smallbusicon.png", class: "bus show-on-phones") %>&nbsp;
+                <%= image_tag("whichbustext.png", class: "logotext hide-on-phones") %>
+            <% end %>
             <%= content_tag(:h2, yield(:title), class: "title", id: "page-title") if content_for?(:title) %>
         </div>
     </div>
