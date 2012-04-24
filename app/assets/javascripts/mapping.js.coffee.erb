@@ -217,7 +217,10 @@ loadRouteTrips = window.loadRouteTrips = (routeId) ->
 
 window.get = (url, params, callback) ->
 	list = $("#model-list")
-	list.fadeOut()
+	list.fadeOut() # ->
+		# TODO: the loading animation file is simply too large to transfer efficiently
+		# it often takes longer than the async request, ooops.
+		# list.html(li "row display", $("<img>").attr("src", "<%= image_path 'whichbus_loading.gif' %>")).fadeIn()
 	$.get url, params, (result) =>
 		list.text("")
 		window.data = result
