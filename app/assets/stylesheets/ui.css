@@ -91,6 +91,7 @@
 	.whichbus-green.button  { background-color: rgb(170, 237, 187); color: #fff;}
 	.blue.button			{ background-color: #00a6fc;  }
 	.red.button				{ background-color: #e91c21; }
+	.yellow.button				{ background-color: #ffc40d; }
 	.white.button			{ background-color: #e9e9e9; color: #333; }
 	.black.button			{ background-color: #141414; }
 	
@@ -105,6 +106,7 @@
 	.whichbus-green:hover, .button:focus         { background-color: rgb(145, 212, 153); }
 	.blue.button:hover, .blue.button:focus		{ background-color: #0192dd; 	}
 	.red.button:hover, .red.button:focus 		{ background-color: #d01217; 	}
+	.yellow.button:hover, .yellow.button:focus 		{ background-color: #f89406; 	}
 	.white.button:hover, .white.button:focus	{ background-color: #dadada; color: #333; }
 	.black.button:hover, .black.button:focus	{ background-color: #000; }
 	

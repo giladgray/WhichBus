@@ -115,6 +115,14 @@ window.journeyDisplayError = (message) ->
       ]
       time: ""
 
+
+window.journeyDisplayDeal = (deal) =>
+  journeyDisplayOptions
+    route: link("http://bit.ly/JCi5tX", "route button radius yellow small", "taxi")
+    description: [deal.name, "<br/>#{deal.phone}"]
+    time: ""
+
+
 # constructs a journey list item. options: {route, description, time}
 window.journeyDisplayOptions = (options) ->
   route = span "journey route", options.route...
