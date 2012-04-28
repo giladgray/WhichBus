@@ -16,7 +16,7 @@ end %>
 	<div class="row display">
 		<span class="ten phone-three columns">
 			<%= content_tag :span, @route.shortName, class: "route button radius whichbus-green" %>
-			<%= content_tag :span, @route.description, class: "route description ellipsis" %>
+			<%= content_tag :span, @route.description, class: "route description" %>
 		</span>
 		<span class="two phone-one columns">
 			<%= button_tag image_tag('refreshicon.png'), name: nil, class: "button refresh radius", onclick: "refreshData()", title:"Refresh" %>
