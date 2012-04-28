@@ -5,6 +5,7 @@ $(document).ready(function() {
   $("#toggleButton").click(function() {
     $(".row.journey.hidden").slideToggle();
   });
+
 });
 </script>
 <% end %>
@@ -15,4 +16,6 @@ initializeMap(function(){loadStopSchedule('<%=@stop.id%>', '<%=params[:r]%>')}, 
 <% end %>
 
 <% content_for :title do "Stop Details" end %>
-<% content_for :page_title do @stop.name end %>
+<% content_for :page_title do %>
+	<h4 class="route description"><%= @stop.name %></h4>
+<% end %>

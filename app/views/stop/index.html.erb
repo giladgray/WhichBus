@@ -2,20 +2,7 @@
 
 <% content_for :title do "Nearby Stops" end %>
 <% content_for :page_title do %>
-<div class="row display">
-  <div class="two phone-one columns">
-    <span class="route_num"><%= @stops.length %></span>
-  </div>
-  <div class="ten phone-three columns">
-    <span style="text-align:left">Nearby Stops</span>
-  </div>
-</div>
+	<h2>Nearby Stops</h2>
 <% end %>
 
-<% content_for :model_list do %>
-<%= render "stop_list" %>
-<% end %>
-  
-<!-- TODO make this a display row in the javascript -->
-<ul id="stop_list">
-</ul>
+<% content_for :onload do "showNearestStops();" end %>
