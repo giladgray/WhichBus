@@ -54,8 +54,8 @@ class Stop < OneBusRecord
 	# list of routes with arrivals folded in to the routes
 	def routes_and_arrivals
 		arrivals = arrivals_and_departures
-		routes.map do |r|
-			r[:arrivals] = arrivals.find_all { |arr| arr.routeId == r['id'] }
+		data.routes.map do |r|
+			r['arrivals'] = arrivals.find_all { |arr| arr.routeId == r['id'] }
 			Route.new(r['id'], r)
 		end
 	end

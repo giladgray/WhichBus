@@ -117,8 +117,8 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  dalli
   coffee-rails (~> 3.2.1)
+  dalli
   geocoder
   jquery-rails
   json_pure
