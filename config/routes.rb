@@ -10,6 +10,7 @@ Whichbus::Application.routes.draw do
   
   match "journey" => "journey#show"
   match "options" => "journey#options"
+  match "options_sms" => "journey#options_sms"
   match "s/:id" => "stop#show"
   match "search" => "stop#search"
   match "stop/:id/schedule" => "stop#schedule"
