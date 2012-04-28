@@ -1,4 +1,5 @@
 class RouteController < ApplicationController
+
 	def index
         if params.has_key?("lat") and params.has_key?("lon")
             @routes = Route.by_location(params[:lat], params[:lon], params[:query])

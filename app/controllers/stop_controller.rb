@@ -1,6 +1,4 @@
 class StopController < ApplicationController
-	
-  #TODO map markers are broken by the HTML-only API
   
 	def index
 		@user_location = request.location

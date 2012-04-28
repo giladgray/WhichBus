@@ -41,9 +41,6 @@
 
 	<div class="show-on-desktops show-on-tablets container" style="padding:0; width=100%; margin:auto; text-align:center;">
 		<div class="row" style="text-align:center;">
-			<% flash.each do |name, msg| %>
-				<%= content_tag :div, msg, :id => "flash_#{name}" %>
-			<% end %>
 			<%= content_tag :h1, yield(:title) if show_title? %>
 		</div>
 		<%= yield(:desktop) %>

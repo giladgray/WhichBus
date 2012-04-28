@@ -65,6 +65,6 @@ class Stop < OneBusRecord
 	end
 
 	def to_s
-		"Stop #{data.id}: #{data.name}"
+		"Stop #{data.name} (#{data.id})"
 	end
 end
