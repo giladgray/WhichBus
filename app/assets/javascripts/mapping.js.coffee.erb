@@ -228,18 +228,14 @@ loadCrimeStatsByFirstAndLast = window.loadCrimeStatsByFirstAndLast = (stops) ->
     loadCrimeStats([first_url, last_url])
 
 loadCrimeStats = window.loadCrimeStats = (urls) ->
-    clearMarkerGroup crimeMarkers
-    #markers = []
     for url in urls
-        get url, {}, (crimes)=>
+        $.get url, {}, (crimes)=>
+            clearMarkerGroup crimeMarkers
             for crime in crimes
-                crimeMarker crime, crimeMarkers, null
-                #latLng = new google.maps.LatLng(crime.latitude, crime.longitude);
-                #marker = new google.maps.Marker({'position': latLng});
-                #crimeMarkers.push(marker)
-    markerCluster = new MarkerClusterer(@googleMap, crimeMarkers)
-    window.markerCluster = new MarkerClusterer(@googleMap, markers)
-    
+                latLng = new google.maps.LatLng(crime.latitude, crime.longitude);
+                marker = new google.maps.Marker({'position': latLng});
+                crimeMarkers.push(marker)
+            markerCluster = new MarkerClusterer(@googleMap, crimeMarkers)
 
 
 loadRouteTrips = window.loadRouteTrips = (routeId) ->
