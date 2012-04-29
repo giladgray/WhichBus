@@ -2,7 +2,7 @@
 <script type="text/javascript">
 	function showRoute(route) {
 		initializeMap(function() {loadRouteTrips(route)}, null, true);
-		loadRoute(route);
+		loadRoute(route);		
 	}
 </script>
 <% end %>
@@ -13,12 +13,25 @@
 end %>
 
 <% content_for :page_title do %>
-	<%= content_tag :span, @route.shortName, class: "route button radius" %>
-	<%= content_tag :span, @route.description, class: "route description" %>
-	<%= button_tag image_tag('refreshicon.png'), name: nil, class: "button refresh radius whichbus-green", onclick: "refreshData()", title:"Refresh" %>
+	<div class="row display">
+		<span class="ten phone-three columns">
+			<%= content_tag :span, @route.shortName, class: "route button radius whichbus-green" %>
+			<%= content_tag :span, @route.description, class: "route description" %>
+		</span>
+		<span class="two phone-one columns">
+			<%= button_tag image_tag('refreshicon.png'), name: nil, class: "button refresh radius", onclick: "refreshData()", title:"Refresh" %>
+		</span>
+	</div>
+	<div class="tab_row">
+			<button class="whichbus-green nice button small route_switch" style="border:none;">Show Route Info</button>
+	</div>
 <% end %>
 
 <% content_for :onload do
   "showRoute('#{params[:id]}')"
-  #"initializeMap(function() {loadRoute('#{params[:id]}')}, null, true);"
 end %>
+
+<% content_for :model_list do %>
+	<ul id="model-list" class="list block-grid" style="opacity:0.0">
+	</ul>
+<% end %>

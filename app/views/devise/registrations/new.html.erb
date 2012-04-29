@@ -1,0 +1,48 @@
+<% content_for :title do "Sign Up" end %>
+
+<div class="row">
+<div class="auth eight columns centered">
+
+	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+		<!-- the directions search box -->
+		<div class="row">
+			<div class="twelve columns">
+				<h1 class="pacifico text-center">Create an account</h1>
+			</div>
+		</div>
+		<div class="row">
+		<%= devise_error_messages! %>
+		</div>
+
+		<div class="row">
+			<div class="seven columns centered">
+				<%= f.label :email %>
+				<%= f.email_field :email, :class => "input-text oversize user", :placeholder => "email address" %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="seven columns centered">
+				<div class="row">
+					<span class="six columns">
+						<%= f.label :password %>
+						<%= f.password_field :password, :class => "input-text oversize user", :placeholder => "choose a password" %>
+					</span>
+					<div class="six columns">
+						<%= f.label :password_confirmation, "Confirm" %>
+						<%= f.password_field :password_confirmation, :class => "input-text oversize user", :placeholder => "re-enter password" %>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="seven columns centered">
+				<%= f.button "Sign up", :type => :submit, :class => 'button search pacifico radius whichbus-green expand' %>
+			</div>
+		</div>
+
+		<%= render "links" %>
+	<% end %>
+</div>
+</div>

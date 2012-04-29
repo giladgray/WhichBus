@@ -91,6 +91,7 @@
 	.whichbus-green.button  { background-color: rgb(170, 237, 187); color: #fff;}
 	.blue.button			{ background-color: #00a6fc;  }
 	.red.button				{ background-color: #e91c21; }
+	.yellow.button				{ background-color: #ffc40d; }
 	.white.button			{ background-color: #e9e9e9; color: #333; }
 	.black.button			{ background-color: #141414; }
 	
@@ -105,6 +106,7 @@
 	.whichbus-green:hover, .button:focus         { background-color: rgb(145, 212, 153); }
 	.blue.button:hover, .blue.button:focus		{ background-color: #0192dd; 	}
 	.red.button:hover, .red.button:focus 		{ background-color: #d01217; 	}
+	.yellow.button:hover, .yellow.button:focus 		{ background-color: #f89406; 	}
 	.white.button:hover, .white.button:focus	{ background-color: #dadada; color: #333; }
 	.black.button:hover, .black.button:focus	{ background-color: #000; }
 	
@@ -118,6 +120,7 @@
 	-------------------------------------------------- */
 
 	div.alert-box { display: block; padding: 6px 7px; margin: 5px; font-weight: bold; font-size: 13px; background: #eee; border: 1px solid rgba(0,0,0,0.1); margin-bottom: 12px; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; text-shadow: 0 1px rgba(255,255,255,0.9); position: relative; }
+	.alert-box.notice,
 	.alert-box.success { background-color: #7fae00; color: #fff; text-shadow: 0 -1px rgba(0,0,0,0.3); }
 	.alert-box.warning { background-color: #c08c00; color: #fff; text-shadow: 0 -1px rgba(0,0,0,0.3); }
 	.alert-box.error { background-color: #c00000; color: #fff; text-shadow: 0 -1px rgba(0,0,0,0.3); }

@@ -1,4 +1,5 @@
 class RouteController < ApplicationController
+
 	def index
         if params.has_key?("lat") and params.has_key?("lon")
             @routes = Route.by_location(params[:lat], params[:lon], params[:query])
@@ -37,4 +38,20 @@ class RouteController < ApplicationController
 			format.xml  { render :xml => { :route => @route, :trips => @trips } }
 		end
 	end
+
+  def favorite
+    if user_signed_in?
+      # TODO: Only save one favorite for the user.
+      @favorite = Favorite.new({
+        favorable_id: params[:id],
+        favorable_type: 'Route',
+        user: current_user
+      })
+      @favorite.save()
+    end
+    respond_to do |format|
+      format.json { render json: {} }
+      format.xml  { render xml: {} }
+    end
+  end
 end

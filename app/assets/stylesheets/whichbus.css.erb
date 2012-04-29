@@ -32,6 +32,22 @@ body {
 	-webkit-border-radius:0px 0px 0px 10px;
 }
 
+.disqus-thread{
+	margin-top:15px;
+}
+.disqus-thread #dsq-content div.dsq-options{
+	display:none;
+}
+.dsq-options select{
+	height:30px;
+}
+
+div.disqus-thread .dsq-item-trackback{
+	display:none;
+}
+.disqus-thread h1, h2 ,h3{
+	font-size:1.2rem;
+}
 
 /* contains the entire page, makes it fill the entire screen*/
 .container {
@@ -55,6 +71,8 @@ body {
 	display: inline-block;
 }
 
+.expand { width: 100%;}
+
 /* the sidebar on the left! scrolls automatically, never makes the page scroll */
 div.left-sidebar {
 	width: 320px;
@@ -73,7 +91,7 @@ ul.list {
 	overflow-x: hidden;
 	position: absolute;
 	bottom: 30px;
-	top: 76px;
+	top: 100px;
   	background: #E9F2F5; /*url("<%= image_path 'grayfabricbg.jpg' %>") repeat;*/
 }
 ul.list.two-up, ul.list.three-up {
@@ -150,8 +168,8 @@ div#map_canvas {
 .now, .late {
 	/* 0 to 6 */
 	color: red;
-	font-variant: small-caps;
 }
+.now { font-variant: small-caps; }
 
 .soon {
 	/* 7 to 15 */
@@ -171,7 +189,7 @@ div#map_canvas {
 .gone {
 	/* <0 */
 	color: gray;
-	font-variant: small-caps;
+	/*font-variant: small-caps;*/
 }
 
 .border {
@@ -232,7 +250,6 @@ h2.title {
 	text-transform: uppercase;
 	text-shadow: -1px 1px 1px whiteSmoke;
 	display: inline;
-	vertical-align: middle;
 	border-left: 2px solid #7D8073;
 	padding-left: 10px;
 }
@@ -306,6 +323,21 @@ span.journey {
 	font-size: 8px;
 	display: block;
 	line-height: 1em;
+	margin-bottom: 4px;
+}
+.route.button.express {
+	line-height: 30px;
+}
+.route.button.express small {
+	margin-bottom: 0;	
+}
+
+.route.button.small {
+	font-size: 21px;
+	line-height: 36px;
+}
+.route.button.small.express {
+	line-height: 26px;
 }
 
 .journey.route {
@@ -315,7 +347,7 @@ span.journey {
 	font-size: 12px;
 	display: inline-block;
 	max-width: 190px;
-	padding-left: 10px;
+	/*padding-left: 10px;*/
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -350,12 +382,12 @@ ul.three-up .journey.time {
   background: whitesmoke;
 }
 .route.description {
-	color:#666
+	color: #666;
  	font-size: 1.4rem;
  	font-weight:700;
 	margin-left: 7px;
   	text-transform: uppercase;
- 	width:220px;
+ 	width:215px;
   	height:44px;
   	vertical-align:middle;
   	white-space:normal;
@@ -621,7 +653,7 @@ input.directions {
 
 button.search {
 	padding: 10px 30px 5px 30px;
-	margin-top: 10px;
+	margin: 10px auto auto;
 }
 
 button.button.go {
@@ -651,7 +683,6 @@ button.go.route, button.refresh {
 	font-size:16px; 
 	vertical-align:top;
 }
-}
 
 button.refresh {
 	height: 44px;
@@ -673,6 +704,8 @@ img.mapthatbus {
 img.logo {
 	padding-top: 45px;
 	padding-bottom: 35px;
+	display: block;
+	margin: auto;
 }
 
 a.location {
@@ -702,14 +735,36 @@ h3.pacifico {
 	font-weight: normal;
 }
 
-form.directions {
+form.directions, form.new_user {
 	margin-top: -7px;
 	padding: 30px 0;
+	background: #f5f5f5;
 	border-radius: 10px;
 	border: 1px solid #dedede;
 	box-shadow: 1px 1px 15px 0 #d4d4d4;
 }
+.social_buttons+ {
+	margin-top:5px;
+}
+.social_buttons div {
+	display:inline-block;
+}
+.social_button select{
+	height:30px;
+}
 
+.tab_row{
+
+	text-align:center;
+	height:30px;
+}
+.tab_row button{
+	border: none;
+	display:inline-block;
+}
+div.auth {
+	margin-top: 35px !important;
+}
 
 /* MOBILE CSS */
 @media only screen and (max-width: 767px) {
@@ -755,23 +810,26 @@ form.directions {
 	img.logo { 
 		padding: 20px 0;
 		width: 75%;
-		margin: auto;
-		display: block
 	}
 
-	form.directions {
+	form.directions, form.new_user, div.auth {
 		padding: 15px 0;
 		width: 90%;
 		margin: auto;
 		margin-bottom: 30px;
 	}
+	input.directions {
+		display: block;
+	}
 
-	.input-text.search-box {
+	label { margin-bottom: 0 !important;}
+	input.input-text.search-box, input.input-text.user, label {
 		display: block;
 		width: 80%;
 		margin: auto;
 		margin-bottom: 10px
 	}
+
 	button.button.search {
 		margin: 5px auto;
 		display: block;

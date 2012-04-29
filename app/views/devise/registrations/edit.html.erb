@@ -1,0 +1,87 @@
+<% content_for :title do "Your Profile" end %>
+
+<div class="row">
+<div class="auth well eight columns centered">
+	<div class="row">
+		<div class="twelve columns">
+			<h1 class="pacifico text-center">Make yourself at home</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="five columns offset-by-one">
+	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+			<div class="row">
+			<h2>Account Info</h2>
+				<%= devise_error_messages! %>
+			</div>
+
+				<div class="row">
+					<div class="twelve columns">
+						<%= f.label :email %>
+						<%= f.email_field :email, placeholder: "email address", :class => "input-text oversize user" %>
+					</div>
+				</div>
+
+		
+				<div class="row">
+					<div class="twelve columns">
+						<%= f.label :password %>
+						<%= f.password_field :password, :autocomplete => "off", placeholder: "new password", :class => "input-text oversize user" %><br />
+						<i>(leave blank if you don't want to change it)</i>
+					</div>
+				</div>
+
+		
+				<div class="row">
+					<div class="twelve columns">
+						<%= f.label :password_confirmation %>
+						<%= f.password_field :password_confirmation, placeholder: "confirm new password", :class => "input-text oversize user" %>
+					</div>
+				</div>
+
+		
+				<div class="row">
+					<div class="twelve columns">
+						<%= f.label :current_password %>
+						<%= f.password_field :current_password, placeholder: "old password", :class => "input-text oversize user" %><br />
+						<i>(we need your current password to confirm your changes)</i>
+					</div>
+				</div>
+	</div>
+	<div class="five columns">
+		<h3>Preferences</h3>
+		<div class="row">
+			<%= label_tag :default_location, "Starting map location" %>
+			<%= text_field_tag :default_location, nil, placeholder: "default address", :class => "input-text oversize user" %>
+		</div>
+		<div class="row">
+			<%= label_tag :walking_distance, "How far will you walk?" %>
+			<%= text_field_tag :walking_distance, nil, placeholder: "walking distance", :class => "input-text oversize user" %>
+		</div>
+		<div class="row">
+			<%= label_tag :wait_time, "How long will you wait?" %>
+			<%= text_field_tag :wait_time, nil, placeholder: "wait time", :class => "input-text oversize user" %>
+		</div>
+		<div class="row">
+			<i>Preferences don't work yet!</i>
+		</div>
+
+		<h3>Cancel my account</h3>
+
+		<div class="row">
+			<div class="twelve columns">
+				Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.
+			</div>
+		</div>
+	</div>
+	</div>
+
+		
+		<div class="row">
+			<div class="four columns centered"><%= f.button "Update Settings", :type => :submit, :class => "user button radius whichbus-green expand" %>
+			</div>
+		</div>
+	<% end %>
+</div>
+</div>

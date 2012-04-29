@@ -12,17 +12,15 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
-  <link rel="icon" type="image/png" href="<%= image_path('icons/favicon.png') %>">
-  <link rel="apple-touch-icon" href="<%= image_path('icons/mobileicon-retina.jpg') %>" />
-  <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path('icons/mobileicon-ipad.jpg') %>" />
-  <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path('icons/mobileicon-retina.jpg') %>" />
+    <link rel="icon" type="image/png" href="<%= image_path('icons/favicon.png') %>" />
+    <link rel="apple-touch-icon" href="<%= image_path('icons/mobileicon-retina.jpg') %>" />
+    <link rel="apple-touch-icon" sizes="72x72" href="<%= image_path('icons/mobileicon-ipad.jpg') %>" />
+    <link rel="apple-touch-icon" sizes="114x114" href="<%= image_path('icons/mobileicon-retina.jpg') %>" />
 
     <title>WhichBus<%= content_for?(:title) ? " | " + yield(:title) : "" %></title>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjJxK5PWs_HUYDfkLxHPZumnjV6ORDIDs&sensor=true&libraries=geometry"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
-
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBjJxK5PWs_HUYDfkLxHPZumnjV6ORDIDs&libraries=geometry&sensor=true"></script>
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.12/src/markerclusterer_packed.js"></script>
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
@@ -44,14 +42,20 @@
 
 	<div class="show-on-desktops show-on-tablets container" style="padding:0; width=100%; margin:auto; text-align:center;">
 		<div class="row" style="text-align:center;">
-			<% flash.each do |name, msg| %>
-				<%= content_tag :div, msg, :id => "flash_#{name}" %>
-			<% end %>
 			<%= content_tag :h1, yield(:title) if show_title? %>
 		</div>
 		<%= yield(:desktop) %>
     <%= yield %>
 	</div>
 
+
+<!-- G+ Button Script -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
   </body>
 </html>

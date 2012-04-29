@@ -21,30 +21,65 @@ class JourneyController < ApplicationController
 	def options
 		OneBusRecord.reset_json_count
 
-		@from = self.class.geocode(params[:from])
-		@from_stops = @from.nil? ? [] : Stop.by_location(@from.latitude, @from.longitude).first(20)
+		if params[:Body]
+			puts request.format
+			puts request.headers['Accept']
+		else
+			@from = self.class.geocode(params[:from])
+			@from_stops = @from.nil? ? [] : Stop.by_location(@from.latitude, @from.longitude).first(20)
 
-		@to = self.class.geocode(params[:to])
-		@to_stops = @to.nil? ? [] : Stop.by_location(@to.latitude, @to.longitude).first(20)
+			@to = self.class.geocode(params[:to])
+			@to_stops = @to.nil? ? [] : Stop.by_location(@to.latitude, @to.longitude).first(20)
 
-		@time = Time.now
-		#TODO validation: null parameters, geocode fail
-		#call routing helper to discover journeys
-		@journeys = self.class.find_journeys(@from_stops, @to_stops)
+			@time = Time.now
+			#TODO validation: null parameters, geocode fail
+			#call routing helper to discover journeys
+			@journeys = self.class.find_journeys(@from_stops, @to_stops)
 
-		runtime = Time.now - @time # number of seconds find_routes consumed
-		puts "FINISHED! with a time of #{runtime * 1000}ms"
-		# @journeys = self.class.calc_journeys(@from_stops, @to_stops)
-		#display them
-
+			runtime = Time.now - @time # number of seconds find_routes consumed
+			puts "FINISHED! with a time of #{runtime * 1000}ms"
+			# @journeys = self.class.calc_journeys(@from_stops, @to_stops)
+			#display them
+		end
 
 		respond_to do |format|
 			format.html
 			format.json { render :json => {from: {name: address_helper(@from), latitude: @from.latitude, longitude: @from.longitude, geocode: @from.address_components},
 										   to: {name: address_helper(@to), latitude: @to.latitude, longitude: @to.longitude, geocode: @to.address_components},
 										   trips: @journeys} }
-			format.xml { render :xml => @journeys }
+			format.xml { render :text => "<Response><Sms>Hi!</Sms></Response>", :content_type => 'text/xml' }
 		end
+	end
+
+	def options_sms
+		OneBusRecord.reset_json_count
+
+		# parse the SMS message to extract the FROM and TO values
+
+		chunks = params[:Body].split("-")
+        from = chunks[0]
+        to = chunks[1]
+
+		from = self.class.geocode(from)
+		from_stops = from.nil? ? [] : Stop.by_location(from.latitude, from.longitude).first(20)
+
+		to = self.class.geocode(to)
+		to_stops = to.nil? ? [] : Stop.by_location(to.latitude, to.longitude).first(20)
+
+		journeys = self.class.find_journeys(from_stops, to_stops)
+
+		puts journeys.size
+
+        journey = journeys.select{|j| j[:when].time_to_arrival / 60 > 5}.first
+
+        @start = journey[:from].name
+        @stop = journey[:to].name
+        @bus = journey[:when].routeShortName
+        @min = journey[:when].time_to_arrival_in_words
+
+		#render :text => "<Response><Sms>Go to #{start}, take the #{bus} bus to #{stop}. Arrives in #{min}</Sms></Response>", :content_type => 'text/xml'
+		
+		render "sms.xml.builder"
 	end
 
 	# returns a set of route IDs that serve this list of stops

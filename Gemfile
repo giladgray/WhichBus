@@ -1,12 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1'
+gem 'rails', '3.2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :production do
  gem 'pg' 
  gem 'thin'
+ gem 'dalli'
 end
 group :development, :test do
   gem 'sqlite3'
@@ -16,14 +17,20 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   "~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
-  gem 'uglifier'
+  gem 'sass-rails',   "~> 3.2.3"
+  gem 'coffee-rails', "~> 3.2.1"
+  gem 'uglifier', ">= 1.0.3"
 end
 
 gem 'json_pure'
+
 gem 'geocoder'      # complete geocoding solution for rails
 gem 'jquery-rails'  # rails g jquery:install
+gem 'disqus' #For disqus widgets
+
+
+gem 'devise'			# a mature flexible authentication solution
+gem 'omniauth-facebook'	# facebook authentication
 
 # add seamless CoffeeScript support to Rails applications
 #gem 'therubyracer'   # javascript interpreter to run coffeescript compiler

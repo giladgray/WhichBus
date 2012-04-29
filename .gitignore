@@ -9,3 +9,6 @@ index.html
 ._redcar
 .idea
 *.DS_Store
+/db
+db*
+db

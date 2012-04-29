@@ -1,20 +1,29 @@
 Whichbus::Application.routes.draw do
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'signup' }
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  resources :route
+  resources :route do
+    get 'favorite', :on => :member
+  end
   resources :stop
   resources :trip
-  
+
   root :to => "journey#new"
   
   match "journey" => "journey#show"
   match "options" => "journey#options"
+  match "options_sms" => "journey#options_sms"
   match "s/:id" => "stop#show"
   match "search" => "stop#search"
   match "stop/:id/schedule" => "stop#schedule"
-	match "route/:id/trips" => "route#trips"
-  
+  match "route/:id/trips" => "route#trips"
+  match "deals/:city" => "deal#find_by_city"
+  match '/stats/get-by-distance/:latitude/:longitude/:distance/crime' => 'stat#find_crime_by_lat_long' , 
+        :constraints => { :latitude => /[+-]?\d+\.\d+/ , :longitude  => /[+-]?\d+\.\d+/ },
+        :defaults => { :format => 'json' }
+
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
