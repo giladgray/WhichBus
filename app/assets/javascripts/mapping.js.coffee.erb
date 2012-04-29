@@ -372,7 +372,7 @@ initializeMapOptions = (options) ->
 
     @googleMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions)
     # a marker showing where the user last clicked (generally the query point)
-    @clickMarker = markerOptions({title: "Seattle", position: defaultPosition})
+    #@clickMarker = markerOptions({title: "Seattle", position: defaultPosition})
     # register click handler, wrapping it in a function to extract the latLng object
     if options.clickHandler?
         google.maps.event.addListener(@googleMap, 'click', (event) -> options.clickHandler event.latLng)
