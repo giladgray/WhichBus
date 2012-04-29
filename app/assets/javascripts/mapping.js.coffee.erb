@@ -232,10 +232,18 @@ loadCrimeStats = window.loadCrimeStats = (urls) ->
         $.get url, {}, (crimes)=>
             clearMarkerGroup crimeMarkers
             for crime in crimes
-                latLng = new google.maps.LatLng(crime.latitude, crime.longitude);
-                marker = new google.maps.Marker({'position': latLng});
+                latLng = new google.maps.LatLng(crime.latitude, crime.longitude)
+                marker = new google.maps.Marker({'position': latLng, 'title': crime.summarized_offense_description})
                 crimeMarkers.push(marker)
             markerCluster = new MarkerClusterer(@googleMap, crimeMarkers)
+
+            google.maps.event.addListener markerCluster, 'mouseover', (cluster) ->
+                console.log(cluster.getSize(), ' crimes in the area.')
+                stats = {}
+                for marker in cluster.getMarkers()
+                    stats[marker.title] ?= 0
+                    stats[marker.title] += 1
+                console.log stats
 
 
 loadRouteTrips = window.loadRouteTrips = (routeId) ->
