@@ -25,6 +25,7 @@ end
 gem 'json_pure'
 gem 'geocoder'      # complete geocoding solution for rails
 gem 'jquery-rails'  # rails g jquery:install
+gem 'devise'		# a mature flexible authentication solution
 
 # add seamless CoffeeScript support to Rails applications
 #gem 'therubyracer'   # javascript interpreter to run coffeescript compiler

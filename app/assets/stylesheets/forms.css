@@ -24,7 +24,7 @@
 	input.placeholder, textarea.placeholder { color: #888; }
 
 	/* Text input and textarea sizes */
-	input.input-text, textarea { width: 254px; height: auto; }
+	input.input-text, textarea { width: 100%; height: auto; }
 	input.small, textarea.small { width: 134px; }
 	input.medium, textarea.medium { width: 254px; }
 	input.large, textarea.large { width: 434px; }

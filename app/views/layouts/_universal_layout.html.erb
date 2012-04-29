@@ -6,6 +6,9 @@
 
 	<div class="map-container">
 		<div id="map_canvas">
+			<% flash.each do |name, msg| %>
+				<%= content_tag :div, msg, id: "flash_#{name}", :class => "alert-box" %>
+			<% end %>
 		</div>
 	</div>
 	<div class="left-sidebar shadow-sides" id="search_result">

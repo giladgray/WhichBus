@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="directions well eight columns centered">
+		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+			<div class="row">
+				<div class="twelve columns">
+					<h1 class="pacifico text-center">Sign in</h1>
+				</div>
+			</div>
+			<div class="row">
+			<%= devise_error_messages! %>
+			</div>
+			<div class="row">
+				<div class="four columns centered">
+					<%= f.label :email %>
+					<%= f.email_field :email %>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="four columns centered">
+					<%= f.label :password %>
+					<%= f.password_field :password %>
+				</div>
+			</div>
+
+		<% if devise_mapping.rememberable? -%>
+			<div class="row">
+				<div class="four columns centered">
+		    		<%= f.check_box :remember_me %> <%= f.label :remember_me, style: "display: inline" %>
+		    	</div>
+		    </div>
+		<% end -%>
+
+		  
+			<div class="row">
+			  	<div class="four columns centered">
+			  		<%= f.button "Sign in", :type => :submit, :class => "button search radius whichbus-green" %>
+			  	</div>
+			</div>
+
+			<div class="row">
+				<div class="four columns centered">
+					<%= render "links" %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>

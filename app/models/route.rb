@@ -63,4 +63,8 @@ class Route < OneBusRecord
 		result[:polylines] = polylines
 		result
 	end
+
+	def to_s
+		"Route #{data.shortName} (#{data.id})"
+	end
 end
