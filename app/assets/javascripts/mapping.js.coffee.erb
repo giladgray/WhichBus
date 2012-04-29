@@ -200,6 +200,7 @@ loadNearbyRoutes = window.loadNearbyRoutes = (query) -> (position) ->
 		for route in result
 			list.append li "row display route", routeLink(route.shortName, route.id), span "route description ellipsis", route.description
 
+#Loads the route on the map?
 loadRoute = window.loadRoute = (routeId) ->
     url = "/route/#{routeId}.json"
     get url, {}, (result, list) =>
@@ -246,6 +247,8 @@ loadCrimeStats = window.loadCrimeStats = (urls) ->
                 console.log stats
 
 
+
+#Loads the actual buses on the route?
 loadRouteTrips = window.loadRouteTrips = (routeId) ->
 	url = "/route/#{routeId}/trips.json"
 	get url, {}, (result, list) =>

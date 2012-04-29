@@ -23,8 +23,11 @@ group :assets do
 end
 
 gem 'json_pure'
-gem 'geocoder'      	# complete geocoding solution for rails
-gem 'jquery-rails'  	# rails g jquery:install
+
+gem 'geocoder'      # complete geocoding solution for rails
+gem 'jquery-rails'  # rails g jquery:install
+gem 'disqus' #For disqus widgets
+
 
 gem 'devise'			# a mature flexible authentication solution
 gem 'omniauth-facebook'	# facebook authentication
