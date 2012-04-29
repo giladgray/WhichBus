@@ -201,6 +201,7 @@ loadNearbyRoutes = window.loadNearbyRoutes = (query) -> (position) ->
 			list.append li "row display route", routeLink(route.shortName, route.id), span "route description ellipsis", route.description
 
 loadRoute = window.loadRoute = (routeId) ->
+<<<<<<< HEAD
 	url = "/route/#{routeId}.json"
 	get url, {}, (result, list) =>
 		for group in result.stopGroups
@@ -240,6 +241,51 @@ loadCrimeStats = window.loadCrimeStats = (urls) ->
 	markerCluster = new MarkerClusterer(@googleMap, crimeMarkers)
 	window.markerCluster = new MarkerClusterer(@googleMap, markers)
 	
+=======
+    url = "/route/#{routeId}.json"
+    get url, {}, (result, list) =>
+        for group in result.stopGroups
+            # make list items for group names and stop names
+            list.append li "row display group", tag "<h4>", "", group.name.name
+            for stop in group.stops
+                list.append li "row display stop", link "/stop/#{stop.id}", "stop name", stop.name
+                stopMarker stop #, null, clickStopMarker(stop)
+            # draw the group's polylines
+            for line in group.polylines
+                polyline
+                        strokeColor: '#090',
+                        strokeOpacity: 1,
+                        strokeWeight: 4,
+                        path: google.maps.geometry.encoding.decodePath(line.points)
+
+loadCrimeStatsByFirstAndLast = window.loadCrimeStatsByFirstAndLast = (stops) ->
+    console.log "Loading crime..."
+    distance = 500
+    first_stop = stops[0]
+    last_stop  = stops.pop()
+    first_url  = "/stats/get-by-distance/#{first_stop.latitude}/#{first_stop.longitude}/#{distance}/crime.json"
+    last_url   = "/stats/get-by-distance/#{last_stop.latitude}/#{last_stop.longitude}/#{distance}/crime.json"
+    console.log "Found: #{first_stop} and #{last_stop}"
+    loadCrimeStats([first_url, last_url])
+
+loadCrimeStats = window.loadCrimeStats = (urls) ->
+    for url in urls
+        $.get url, {}, (crimes)=>
+            clearMarkerGroup crimeMarkers
+            for crime in crimes
+                latLng = new google.maps.LatLng(crime.latitude, crime.longitude)
+                marker = new google.maps.Marker({'position': latLng, 'title': crime.summarized_offense_description})
+                crimeMarkers.push(marker)
+            markerCluster = new MarkerClusterer(@googleMap, crimeMarkers)
+
+            google.maps.event.addListener markerCluster, 'mouseover', (cluster) ->
+                console.log(cluster.getSize(), ' crimes in the area.')
+                stats = {}
+                for marker in cluster.getMarkers()
+                    stats[marker.title] ?= 0
+                    stats[marker.title] += 1
+                console.log stats
+>>>>>>> f57482c9a60681bdcabc966182c681e782b8417c
 
 
 loadRouteTrips = window.loadRouteTrips = (routeId) ->
@@ -317,6 +363,7 @@ window.getJourney = (from, to) ->
 	to: if typeof(to) == "object" then to = to.toString() else to}, processJourneyResult
 
 processJourneyResult = (result, list) =>
+<<<<<<< HEAD
 	$("#page-title").text("Directions")
 	title = $("#page-header")
 	#returns three things: from, to, and trips
@@ -374,6 +421,68 @@ processJourneyResult = (result, list) =>
 	else
 		for trip in result["trips"]
 			list.append journeyDisplay(trip).fadeIn()
+=======
+    $("#page-title").text("Directions")
+    title = $("#page-header")
+    #returns three things: from, to, and trips
+    from = result["from"]
+    to = result["to"]
+    # build title from the first two items
+    #  title.fadeOut 'medium', ->
+    #    title.html("<em>From:</em> ").append(from.name).append("<br>")
+    #    title.append("<em>To:</em> ").append(to.name).fadeIn()
+    $("#fromAddress").val(from.name)
+    $("#toAddress").val(to.name)
+    # create markers for origin and destination, clear previous markers if they exist
+    @fromMarker.setMap null if @fromMarker?
+    @fromMarker = markerOptions
+            title: from.name
+            position: latlng(from.latitude, from.longitude)
+            icon: "http://thydzik.com/thydzikGoogleMap/markerlink.php?text=A&color=FC6355"
+            draggable: true
+    # allow user to drag endpoints to recalculate journey
+    @toMarker.setMap null if @toMarker?
+    @toMarker = markerOptions
+            title: to.name
+            position: latlng(to.latitude, to.longitude)
+            icon: "http://thydzik.com/thydzikGoogleMap/markerlink.php?text=B&color=FC6355"
+            draggable: true
+    # add event listeners for dragging start and end markers
+    google.maps.event.addListener fromMarker, 'dragend', (mouse) ->
+        getJourney(mouse.latLng, toMarker.position)
+    google.maps.event.addListener toMarker, 'dragend', (mouse) ->
+        getJourney(fromMarker.position, mouse.latLng)
+    # construct a function to refresh the journeys (mostly to update times)
+    @dataFunction = -> getJourney(fromMarker.position, toMarker.position)
+    bounds = new google.maps.LatLngBounds(fromMarker.position, fromMarker.position).extend(toMarker.position)
+    @googleMap.fitBounds bounds
+    # iterate through trips, adding journey row for each one
+    if result["trips"].length == 0
+        list.append journeyDisplayError "No connecting buses found."
+        # TODO: Replace with an API call.
+
+
+
+        get "/deals/"+"Seattle"+".json", {}, (data) ->
+
+            deals = []
+            #deals = ({ name:  listing["name"], phone: listing["phone"],type: 'taxi'} for listing in data)
+            deals = ({  name:  listing["name"], phone: '(206) 622-6500' ,type: 'taxi'} for listing in data)
+            
+            #deals = [
+                #{name:'Yellow Taxi', phone: '(206) 622-6500', type: 'taxi'},
+                #{name: 'Orange Cab', phone: '(206) 522-8800', type: 'taxi'}
+            #]
+
+            for deal in deals
+                list.append journeyDisplayDeal(deal).fadeIn()
+    else
+        for trip in result["trips"]
+            list.append journeyDisplay(trip).fadeIn()
+
+    # place the crime data around the from and to markers
+    loadCrimeStatsByFirstAndLast [from, to]
+>>>>>>> f57482c9a60681bdcabc966182c681e782b8417c
 window.loadJourney = loadJourney
 
 # calls the dataFunction if it is set
