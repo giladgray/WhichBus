@@ -7,6 +7,21 @@
 	"Directions"
 end %>
 
+<% content_for :model_list do %>
+	<ul id="model-list" class="list block-grid" style="opacity:0.0">
+	
+	</ul>
+<% end %>
+
+<% content_for :footer_thing do %>
+	<span class="toolbar right">
+				Display:
+				<a href="#" onclick="setLayout('grid', 'two')" class="button small radius whichbus-green" title="View as two-up grid">::</a>
+				<a href="#" onclick="setLayout('grid', 'three')" class="button small radius whichbus-green" title="View as three-up grid">:::</a>
+				<a href="#" onclick="setLayout('list')" class="button small radius whichbus-green" title="View as list">=</a>
+			</span>
+<% end %>
+
 <% content_for :page_title do %>
 	<form accept-charset="UTF-8" action="journey" method="get" class="row display">
 		<div class="eight phone-three columns">

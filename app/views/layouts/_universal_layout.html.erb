@@ -16,9 +16,9 @@
 			<div id="page-header" class="subtitle"><%= yield(:page_title) %></div>
 		</div>
 			<%= yield(:model_list) %>
-		<div id="comments" class="comments" style="margin-top:30px;">
-			<%= raw(disqus_thread) %>
-		</div>
+		
+			<%= yield(:disqus) %>
+		
 		<div class="footer hide-on-phones">
 			<%= yield(:footer_thing) %> 
 		</div>
