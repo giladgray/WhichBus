@@ -216,14 +216,14 @@ loadRoute = window.loadRoute = (routeId) ->
                         strokeOpacity: 1,
                         strokeWeight: 4,
                         path: google.maps.geometry.encoding.decodePath(line.points)
-            loadCrimeStatsByFirstAndLast group.stops
+
 loadCrimeStatsByFirstAndLast = window.loadCrimeStatsByFirstAndLast = (stops) ->
     console.log "Loading crime..."
     distance = 500
     first_stop = stops[0]
     last_stop  = stops.pop()
-    first_url  = "/stats/get-by-distance/#{first_stop.lat}/#{first_stop.lon}/#{distance}/crime.json"
-    last_url   = "/stats/get-by-distance/#{last_stop.lat}/#{last_stop.lon}/#{distance}/crime.json"
+    first_url  = "/stats/get-by-distance/#{first_stop.latitude}/#{first_stop.longitude}/#{distance}/crime.json"
+    last_url   = "/stats/get-by-distance/#{last_stop.latitude}/#{last_stop.longitude}/#{distance}/crime.json"
     console.log "Found: #{first_stop} and #{last_stop}"
     loadCrimeStats([first_url, last_url])
 
@@ -370,6 +370,9 @@ processJourneyResult = (result, list) =>
     else
         for trip in result["trips"]
             list.append journeyDisplay(trip).fadeIn()
+
+    # place the crime data around the from and to markers
+    loadCrimeStatsByFirstAndLast [from, to]
 window.loadJourney = loadJourney
 
 # calls the dataFunction if it is set
