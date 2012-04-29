@@ -5,6 +5,24 @@ body {
 	background: #E9F2F5;
 }
 
+
+.disqus-thread{
+	margin-top:15px;
+}
+.disqus-thread #dsq-content div.dsq-options{
+	display:none;
+}
+.dsq-options select{
+	height:30px;
+}
+
+div.disqus-thread .dsq-item-trackback{
+	display:none;
+}
+.disqus-thread h1, h2 ,h3{
+	font-size:1.2rem;
+}
+
 /* contains the entire page, makes it fill the entire screen*/
 .container {
 	overflow: hidden;
@@ -45,7 +63,7 @@ ul.list {
 	overflow-x: hidden;
 	position: absolute;
 	bottom: 30px;
-	top: 76px;
+	top: 100px;
   	background: #E9F2F5; /*url("<%= image_path 'grayfabricbg.jpg' %>") repeat;*/
 }
 ul.list.two-up, ul.list.three-up {
@@ -690,6 +708,25 @@ form.directions {
 	border: 1px solid #dedede;
 	box-shadow: 1px 1px 15px 0 #d4d4d4;
 }
+.social_buttons+ {
+	margin-top:5px;
+}
+.social_buttons div {
+	display:inline-block;
+}
+.social_button select{
+	height:30px;
+}
+
+.tab_row{
+
+	text-align:center;
+	height:30px;
+}
+.tab_row button{
+	border: none;
+	display:inline-block;
+}
 
 
 /* MOBILE CSS */
@@ -773,3 +810,4 @@ form.directions {
 		max-width: 100%;
 	}
 }
+
