@@ -1,6 +1,7 @@
 allMarkers = new Array
 namedMarkers = {}
 nearbyMarkers = new Array
+crimeMarkers = new Array
 
 detectBrowser = () ->
     mapdiv = $("#map_canvas")
@@ -70,6 +71,14 @@ window.stopMarker = (stop, group = null, handler = null) ->
             # icon: "<%= asset_path 'busstop.png' %>"
             group: group
             handler: handler
+
+window.crimeMarker = (crime, group = null, handler = null) ->
+    markerOptions
+        title: crime.summarized_offense_description
+        position: latlng(crime.latitude, crime.longitude)
+        # icon: "<%= asset_path 'busstop.png' %>"
+        group: group
+        handler: handler
 
 # creates a polyline! takes standard polyline options
 polyline = (options) ->
@@ -148,6 +157,9 @@ clickStopMarker = (stop) -> () ->
     $("#page-header").text(stop.title)
     loadStopSchedule stop.id
 
+clickCrimeMarker = (crime) -> () ->
+    console.log "Crime marker clicked #{crime}"
+
 # TODO: implement this filter parameter! it needs to come from somewhere, only Ruby knows about it
 # load arrivals for the given stop and display in list
 loadStopSchedule = (stopId, filter = "") ->
@@ -204,6 +216,31 @@ loadRoute = window.loadRoute = (routeId) ->
                         strokeOpacity: 1,
                         strokeWeight: 4,
                         path: google.maps.geometry.encoding.decodePath(line.points)
+            loadCrimeStatsByFirstAndLast group.stops
+loadCrimeStatsByFirstAndLast = window.loadCrimeStatsByFirstAndLast = (stops) ->
+    console.log "Loading crime..."
+    distance = 500
+    first_stop = stops[0]
+    last_stop  = stops.pop()
+    first_url  = "/stats/get-by-distance/#{first_stop.lat}/#{first_stop.lon}/#{distance}/crime.json"
+    last_url   = "/stats/get-by-distance/#{last_stop.lat}/#{last_stop.lon}/#{distance}/crime.json"
+    console.log "Found: #{first_stop} and #{last_stop}"
+    loadCrimeStats([first_url, last_url])
+
+loadCrimeStats = window.loadCrimeStats = (urls) ->
+    clearMarkerGroup crimeMarkers
+    #markers = []
+    for url in urls
+        get url, {}, (crimes)=>
+            for crime in crimes
+                crimeMarker crime, crimeMarkers, null
+                #latLng = new google.maps.LatLng(crime.latitude, crime.longitude);
+                #marker = new google.maps.Marker({'position': latLng});
+                #crimeMarkers.push(marker)
+    markerCluster = new MarkerClusterer(@googleMap, crimeMarkers)
+    window.markerCluster = new MarkerClusterer(@googleMap, markers)
+    
+
 
 loadRouteTrips = window.loadRouteTrips = (routeId) ->
     url = "/route/#{routeId}/trips.json"
@@ -331,8 +368,7 @@ processJourneyResult = (result, list) =>
                 #{name:'Yellow Taxi', phone: '(206) 622-6500', type: 'taxi'},
                 #{name: 'Orange Cab', phone: '(206) 522-8800', type: 'taxi'}
             #]
-            console.log data
-            console.log deals
+
             for deal in deals
                 list.append journeyDisplayDeal(deal).fadeIn()
     else
