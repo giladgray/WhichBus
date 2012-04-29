@@ -276,13 +276,27 @@ loadCrimeStats = window.loadCrimeStats = (urls) ->
                   stop.setIcon('<%= asset_path 'busstop_yellow.png' %>')
 
 
-#            google.maps.event.addListener markerCluster, 'mouseover', (cluster) ->
-#                console.log(cluster.getSize(), ' crimes in the area.')
-#                stats = {}
-#                for marker in cluster.getMarkers()
-#                    stats[marker.title] ?= 0
-#                    stats[marker.title] += 1
-#                console.log stats
+            #google.maps.event.addListener markerCluster, 'mouseover', (cluster) ->
+                #console.log(cluster.getSize(), ' crimes in the area.')
+                #stats = {}
+                #for marker in cluster.getMarkers()
+                #    stats[marker.title] ?= 0
+                #    stats[marker.title] += 1
+                #console.log stats
+                #console.log stats
+                #console.log cluster
+                #content = ''
+
+                # Convert lat/long from cluster object to a usable MVCObject
+                #info = new google.maps.MVCObject
+                #info.set 'position', cluster.center_
+
+                #infowindow = new google.maps.InfoWindow
+                #infowindow.close
+                #infowindow.setContent stats
+                #console.log 'opening infowindow'
+                #infowindow.open @googleMap, info
+                #console.log infowindow
 
 
 
