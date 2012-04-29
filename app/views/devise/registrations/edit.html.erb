@@ -4,7 +4,7 @@
 <div class="auth well eight columns centered">
 	<div class="row">
 		<div class="twelve columns">
-			<h1 class="pacifico text-center">Make WhichBus Yours</h1>
+			<h1 class="pacifico text-center">Make yourself at home</h1>
 		</div>
 	</div>
 
@@ -12,7 +12,7 @@
 		<div class="five columns offset-by-one">
 	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
 			<div class="row">
-			<h2>Account Information</h2>
+			<h2>Account Info</h2>
 				<%= devise_error_messages! %>
 			</div>
 
@@ -51,6 +51,10 @@
 	</div>
 	<div class="five columns">
 		<h3>Preferences</h3>
+		<div class="row">
+			<%= label_tag :default_location, "Starting map location" %>
+			<%= text_field_tag :default_location, nil, placeholder: "default address", :class => "input-text oversize user" %>
+		</div>
 		<div class="row">
 			<%= label_tag :walking_distance, "How far will you walk?" %>
 			<%= text_field_tag :walking_distance, nil, placeholder: "walking distance", :class => "input-text oversize user" %>
