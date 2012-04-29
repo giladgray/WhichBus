@@ -15,7 +15,7 @@ Whichbus::Application.routes.draw do
   match "search" => "stop#search"
   match "stop/:id/schedule" => "stop#schedule"
 	match "route/:id/trips" => "route#trips"
-  match "deals/:city" => "deals#find_by_city"
+  match "deals/:city" => "deal#find_by_city"
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
