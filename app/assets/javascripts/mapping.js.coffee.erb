@@ -258,6 +258,9 @@ loadCrimeStats = window.loadCrimeStats = (urls) ->
 
             # classify stops based on the distance to the cluster center
             google.maps.event.addListener markerCluster, 'clusteringend', (clusterer) ->
+              # reset crime data between cluster generations
+              for stop in allMarkers
+                stop.crimes = 0
               for cluster in clusterer.getClusters()
                 from = cluster.getCenter()
                 for code, to of crimeStops
