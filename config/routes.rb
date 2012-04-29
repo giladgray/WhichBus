@@ -4,7 +4,9 @@ Whichbus::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  resources :route
+  resources :route do
+    get 'favorite', :on => :member
+  end
   resources :stop
   resources :trip
   
@@ -16,9 +18,9 @@ Whichbus::Application.routes.draw do
   match "s/:id" => "stop#show"
   match "search" => "stop#search"
   match "stop/:id/schedule" => "stop#schedule"
-	match "route/:id/trips" => "route#trips"
+  match "route/:id/trips" => "route#trips"
   match "deals/:city" => "deal#find_by_city"
-  
+
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
