@@ -9,7 +9,7 @@ Whichbus::Application.routes.draw do
   end
   resources :stop
   resources :trip
-  
+
   root :to => "journey#new"
   
   match "journey" => "journey#show"
@@ -20,6 +20,9 @@ Whichbus::Application.routes.draw do
   match "stop/:id/schedule" => "stop#schedule"
   match "route/:id/trips" => "route#trips"
   match "deals/:city" => "deal#find_by_city"
+  match '/stats/get-by-distance/:latitude/:longitude/:distance/crime' => 'stat#find_crime_by_lat_long' , 
+        :constraints => { :latitude => /[+-]?\d+\.\d+/ , :longitude  => /[+-]?\d+\.\d+/ },
+        :defaults => { :format => 'json' }
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
