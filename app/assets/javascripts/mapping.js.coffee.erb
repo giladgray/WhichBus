@@ -2,6 +2,7 @@ allMarkers = new Array
 namedMarkers = {}
 nearbyMarkers = new Array
 crimeMarkers = new Array
+crimeStops = {}
 
 detectBrowser = () ->
     mapdiv = $("#map_canvas")
@@ -217,6 +218,22 @@ loadRoute = window.loadRoute = (routeId) ->
                         strokeWeight: 4,
                         path: google.maps.geometry.encoding.decodePath(line.points)
 
+calculate_distance = (from, to) ->
+  to_rad = (num) ->
+    num * Math.PI / 180
+
+  R = 6371
+  dLat = to_rad(to.lat-from.lat)
+  dLon = to_rad(to.lon-from.lon)
+  lat1 = to_rad(from.lat)
+  lat2 = to_rad(to.lat)
+
+  a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2)
+  c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+  return R * c
+
+
 loadCrimeStatsByFirstAndLast = window.loadCrimeStatsByFirstAndLast = (stops) ->
     console.log "Loading crime..."
     distance = 500
@@ -237,13 +254,31 @@ loadCrimeStats = window.loadCrimeStats = (urls) ->
                 crimeMarkers.push(marker)
             markerCluster = new MarkerClusterer(@googleMap, crimeMarkers)
 
-            google.maps.event.addListener markerCluster, 'mouseover', (cluster) ->
-                console.log(cluster.getSize(), ' crimes in the area.')
-                stats = {}
-                for marker in cluster.getMarkers()
-                    stats[marker.title] ?= 0
-                    stats[marker.title] += 1
-                console.log stats
+
+            # classify stops based on the distance to the cluster center
+            google.maps.event.addListener markerCluster, 'clusteringend', (clusterer) ->
+              for cluster in clusterer.getClusters()
+                from = cluster.getCenter()
+                for code, to of crimeStops
+                  distance = calculate_distance({lat: from['$a'], lon: from['ab']}, to)
+                  if distance < 0.200
+                    stop =_.find(allMarkers, (marker) => marker.title == to.name)
+                    stop.crimes ?= 0
+                    stop.crimes += cluster.getSize()
+              for stop in allMarkers
+                if stop.crimes > 1000
+                  stop.setIcon('<%= asset_path 'busstop_red.png' %>')
+                else if stop.crimes > 500
+                  stop.setIcon('<%= asset_path 'busstop_yellow.png' %>')
+
+
+#            google.maps.event.addListener markerCluster, 'mouseover', (cluster) ->
+#                console.log(cluster.getSize(), ' crimes in the area.')
+#                stats = {}
+#                for marker in cluster.getMarkers()
+#                    stats[marker.title] ?= 0
+#                    stats[marker.title] += 1
+#                console.log stats
 
 
 loadRouteTrips = window.loadRouteTrips = (routeId) ->
@@ -376,8 +411,12 @@ processJourneyResult = (result, list) =>
             for deal in deals
                 list.append journeyDisplayDeal(deal).fadeIn()
     else
+        crimeStops = {}
         for trip in result["trips"]
             list.append journeyDisplay(trip).fadeIn()
+            crimeStops[trip.from.code] = trip.from
+            crimeStops[trip.to.code] = trip.to
+            #console.log 'STOP', trip.to
 
     # place the crime data around the from and to markers
     loadCrimeStatsByFirstAndLast [from, to]
