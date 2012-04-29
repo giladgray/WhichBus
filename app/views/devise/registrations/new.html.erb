@@ -1,45 +1,47 @@
-	<div class="directions well eight columns centered">
+<% content_for :title do "Sign Up" end %>
 
-		<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-			<!-- the directions search box -->
-			<div class="row">
-				<div class="twelve columns">
-					<h1 class="pacifico text-center">Create an account</h1>
-				</div>
+<div class="directions well eight columns centered">
+
+	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+		<!-- the directions search box -->
+		<div class="row">
+			<div class="twelve columns">
+				<h1 class="pacifico text-center">Create an account</h1>
 			</div>
-			<div class="row">
-			<%= devise_error_messages! %>
+		</div>
+		<div class="row">
+		<%= devise_error_messages! %>
+		</div>
+
+		<div class="row">
+			<div class="four columns centered">
+				<%= f.label :email %>
+				<%= f.email_field :email, :class => "input-text oversize expand" %>
 			</div>
+		</div>
 
-			<div class="row">
-				<div class="four columns centered">
-					<%= f.label :email %>
-					<%= f.email_field :email, :class => "input-text oversize expand" %>
-				</div>
-			</div>
+		<div class="row">
+			<div class="four columns centered">
+				<div class="row">
+					<div class="six columns">
+						<%= f.label :password %>
+						<%= f.password_field :password, :class => "input-text oversize expand" %>
+					</div>
 
-			<div class="row">
-				<div class="four columns centered">
-					<div class="row">
-						<div class="six columns">
-							<%= f.label :password %>
-							<%= f.password_field :password, :class => "input-text oversize expand" %>
-						</div>
-
-						<div class="six columns">
-							<%= f.label :password_confirmation, "Confirm" %>
-							<%= f.password_field :password_confirmation, :class => "input-text oversize expand" %>
-						</div>
+					<div class="six columns">
+						<%= f.label :password_confirmation, "Confirm" %>
+						<%= f.password_field :password_confirmation, :class => "input-text oversize expand" %>
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<div class="row">
-				<div class="four columns centered">
-					<%= f.button "Sign up", :type => :submit, :class => 'button search pacifico radius whichbus-green expand' %>
-				</div>
+		<div class="row">
+			<div class="four columns centered">
+				<%= f.button "Sign up", :type => :submit, :class => 'button search pacifico radius whichbus-green expand' %>
 			</div>
-		<% end %>
+		</div>
+	<% end %>
 
-		<%= render "links" %>
-	</div>
+	<%= render "links" %>
+</div>
