@@ -35,3 +35,9 @@ end %>
 	<ul id="model-list" class="list block-grid" style="opacity:0.0">
 	</ul>
 <% end %>
+
+<% content_for :disqus do %> 
+	<div id="comments" class="comments" style="margin-top:30px;">
+		<%= raw(disqus_thread) %>
+	</div>
+<% end %>
