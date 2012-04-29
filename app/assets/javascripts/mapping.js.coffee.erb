@@ -313,6 +313,7 @@ loadJourney = (from, to) -> (position) ->
 		from = userPosition if from.toLowerCase() in hereStrings
 		to = userPosition if to.toLowerCase() in hereStrings
 	list = $("#model-list")
+	list.css opacity: '1.0'
 	list.fadeOut -> list.html("<li id=\"loading_spinner\"></li>").fadeIn()
 	loadingSpinner()
 	getJourney(from, to)
