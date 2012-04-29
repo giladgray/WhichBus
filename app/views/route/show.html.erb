@@ -2,7 +2,7 @@
 <script type="text/javascript">
 	function showRoute(route) {
 		initializeMap(function() {loadRouteTrips(route)}, null, true);
-		loadRoute(route);
+		loadRoute(route);		
 	}
 </script>
 <% end %>
@@ -22,8 +22,22 @@ end %>
 			<%= button_tag image_tag('refreshicon.png'), name: nil, class: "button refresh radius", onclick: "refreshData()", title:"Refresh" %>
 		</span>
 	</div>
+	<div class="tab_row">
+			<button class="whichbus-green nice button small route_switch" style="border:none;">Show Route Info</button>
+	</div>
 <% end %>
 
 <% content_for :onload do
   "showRoute('#{params[:id]}')"
 end %>
+
+<% content_for :model_list do %>
+	<ul id="model-list" class="list block-grid" style="opacity:0.0">
+	</ul>
+<% end %>
+
+<% content_for :disqus do %> 
+	<div id="comments" class="comments" style="margin-top:30px;">
+		<%= raw(disqus_thread) %>
+	</div>
+<% end %>

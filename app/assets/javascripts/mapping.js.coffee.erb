@@ -5,177 +5,177 @@ crimeMarkers = new Array
 crimeStops = {}
 
 detectBrowser = () ->
-    mapdiv = $("#map_canvas")
-    mapdiv.css 'width', '100%'
-    if 'iPhone' in navigator.userAgent or 'Android' in navigator.userAgent
-        mapdiv.css 'height', '200px'
-    else
-        mapdiv.css 'height', '600px'
+	mapdiv = $("#map_canvas")
+	mapdiv.css 'width', '100%'
+	if 'iPhone' in navigator.userAgent or 'Android' in navigator.userAgent
+		mapdiv.css 'height', '200px'
+	else
+		mapdiv.css 'height', '600px'
 
 # rock some geolocation
 yesLocation = (position) ->
-    pos = latlng position.coords.latitude, position.coords.longitude
-    @userPosition = markerOptions({title: "Your Location", position: pos})
-    clickMap(pos)
+	pos = latlng position.coords.latitude, position.coords.longitude
+	@userPosition = markerOptions({title: "Your Location", position: pos})
+	clickMap(pos)
 noLocation = (error, callback=null) ->
-    msg = "Geolocation Error: "
-    switch error.code
-        when error.TIMEOUT
-            msg += "Timeout"
-        when error.POSITION_UNAVAILABLE
-            msg += "Position unavailable"
-        when error.PERMISSION_DENIED
-            msg += "Permission denied"
-        when error.UNKNOWN_ERROR
-            msg += "Unknown error"
-    alertBox "error", msg
-    callback(error) if callback?
+	msg = "Geolocation Error: "
+	switch error.code
+		when error.TIMEOUT
+			msg += "Timeout"
+		when error.POSITION_UNAVAILABLE
+			msg += "Position unavailable"
+		when error.PERMISSION_DENIED
+			msg += "Permission denied"
+		when error.UNKNOWN_ERROR
+			msg += "Unknown error"
+	alertBox "error", msg
+	callback(error) if callback?
 geolocate = (success = yesLocation, fail = null) ->
-    navigator.geolocation.getCurrentPosition success, (error) -> noLocation(error, fail)
+	navigator.geolocation.getCurrentPosition success, (error) -> noLocation(error, fail)
 window.geolocate = geolocate
 
 # simplify Google Maps API
 # creates a maps.LatLng with the given coordinates. easy!
 latlng = (lat, lng) ->
-    new google.maps.LatLng(lat, lng)
+	new google.maps.LatLng(lat, lng)
 window.latlng = latlng
 
 # creates a maps.Marker with the given title and position
 # and adds it to the given marker group (an array of markers
 marker = (title, position, group = null, handler = null) ->
-    mrkr = new google.maps.Marker({map: @googleMap, position: position, title: title})
-    google.maps.event.addListener(mrkr, 'click', handler) if handler?
-    group.push(mrkr) if group?
-    allMarkers.push(mrkr)
-    mrkr
+	mrkr = new google.maps.Marker({map: @googleMap, position: position, title: title})
+	google.maps.event.addListener(mrkr, 'click', handler) if handler?
+	group.push(mrkr) if group?
+	allMarkers.push(mrkr)
+	mrkr
 window.marker = marker
 
 # a more versatile marker creator that takes a hash of options
 # takes standard marker options + handler (click event handler), group (array of related markers)
 markerOptions = (options) ->
-    options.map = @googleMap
-    # add marker to the map object
-    mrkr = new google.maps.Marker(options)
-    # create marker from options hash (extra options will be ignored)
-    console.log "new marker #{options.title} at #{mrkr.position.lat()}, #{mrkr.position.lng()}"
-    # register click listener to call the given event handler
-    google.maps.event.addListener(mrkr, 'click', options.handler) if options.handler?
-    options.group.push(mrkr) if options.group?
-    allMarkers.push(mrkr)
-    mrkr
+	options.map = @googleMap
+	# add marker to the map object
+	mrkr = new google.maps.Marker(options)
+	# create marker from options hash (extra options will be ignored)
+	console.log "new marker #{options.title} at #{mrkr.position.lat()}, #{mrkr.position.lng()}"
+	# register click listener to call the given event handler
+	google.maps.event.addListener(mrkr, 'click', options.handler) if options.handler?
+	options.group.push(mrkr) if options.group?
+	allMarkers.push(mrkr)
+	mrkr
 window.markerOptions = markerOptions
 
 window.stopMarker = (stop, group = null, handler = null) ->
-    markerOptions
-            title: stop.name
-            position: latlng(stop.lat, stop.lon)
-            # icon: "<%= asset_path 'busstop.png' %>"
-            group: group
-            handler: handler
+	markerOptions
+			title: stop.name
+			position: latlng(stop.lat, stop.lon)
+			# icon: "<%= asset_path 'busstop.png' %>"
+			group: group
+			handler: handler
 
 window.crimeMarker = (crime, group = null, handler = null) ->
-    markerOptions
-        title: crime.summarized_offense_description
-        position: latlng(crime.latitude, crime.longitude)
-        # icon: "<%= asset_path 'busstop.png' %>"
-        group: group
-        handler: handler
+	markerOptions
+		title: crime.summarized_offense_description
+		position: latlng(crime.latitude, crime.longitude)
+		# icon: "<%= asset_path 'busstop.png' %>"
+		group: group
+		handler: handler
 
 # creates a polyline! takes standard polyline options
 polyline = (options) ->
-    options.map = @googleMap
-    line = new google.maps.Polyline(options)
+	options.map = @googleMap
+	line = new google.maps.Polyline(options)
 window.polylineOptions = polyline
 
 # given an array of markers, removes all of them from the map and empties the array.
 clearMarkerGroup = (group) ->
-    if group?
-        marker.setMap(null) for marker in group
-        group.splice 0, group.length
+	if group?
+		marker.setMap(null) for marker in group
+		group.splice 0, group.length
 
 clickMap = (position) ->
-    google.maps.event.trigger(@googleMap, 'click', {latLng: position})
-    @googleMap.setZoom(14) if @googleMap.zoom < 13
+	google.maps.event.trigger(@googleMap, 'click', {latLng: position})
+	@googleMap.setZoom(14) if @googleMap.zoom < 13
 
 window.showStopMarker = (position) ->
-    @clickMarker.setPosition(position)
+	@clickMarker.setPosition(position)
 
 # map click handlers
 window.nothing = nothing = (event) ->
 
 window.showNearestStops = ->
-    # initialize the map using loadJourney and no click functionality
-    # @dataFunction = -> geolocate(loadNearbyStops, noLocation)
-    # initializeMap(dataFunction, nothing)
-    initializeMapOptions
-            clickHandler: nothing
-            geolocate:
-                enable: true
-                onSuccess: loadNearbyStops
-                onFail: noLocation
+	# initialize the map using loadJourney and no click functionality
+	# @dataFunction = -> geolocate(loadNearbyStops, noLocation)
+	# initializeMap(dataFunction, nothing)
+	initializeMapOptions
+			clickHandler: nothing
+			geolocate:
+				enable: true
+				onSuccess: loadNearbyStops
+				onFail: noLocation
 
 # load stops near the given position and display markers and list
 window.loadNearbyStops = (position) =>
-    clearMarkerGroup nearbyMarkers
-    @clickMarker.setPosition(position)
-    url = "/stop.json"
-    # perform an AJAX request to stop#index with the user's location
-    get url, {lat: position.lat(), lon: position.lng(), api: yes}, (result, list) ->
-        # the API returns a JSON array of stops
-        # iterate through the array and display each one in the list column and create a marker for it
-        for stop in result
-            list.append(stopDisplay(stop)).fadeIn()
-            stopMarker stop, nearbyMarkers, clickStopMarker(stop)
+	clearMarkerGroup nearbyMarkers
+	@clickMarker.setPosition(position)
+	url = "/stop.json"
+	# perform an AJAX request to stop#index with the user's location
+	get url, {lat: position.lat(), lon: position.lng(), api: yes}, (result, list) ->
+		# the API returns a JSON array of stops
+		# iterate through the array and display each one in the list column and create a marker for it
+		for stop in result
+			list.append(stopDisplay(stop)).fadeIn()
+			stopMarker stop, nearbyMarkers, clickStopMarker(stop)
 
 # load nearby stops with predictions and display the first one (closest to the user)
 window.loadNearestStop = (position) ->
-    url = "/stop.json"
-    list = $("#model-list")
-    $("#page-title").text("Right Here, Right Now")
-    title = $("#page-header")
-    title.html("Finding Nearest Stop...")
-    list.fadeOut 'fast'
-    # create a marker at the query location
-    markerOptions
-            title: "Your Location"
-            position: position
-    get url, {lat: position.lat(), lon: position.lng(), predictions: true}, (result, list) ->
-        list.html("").show()
-        stop = result[0]
-        # the nearest stop (results sorted by distance)
-        # set the page title
-        title.fadeOut 'fast', -> title.html(stop.name).fadeIn()
-        # create a marker for the nearest stop
-        stopMarker stop
-        # display all the upcoming arrivals
-        for route in stop.routes when route.arrivals.length > 0
-            for trip in route.arrivals
-                list.append arrivalDisplay(trip).fadeIn()
+	url = "/stop.json"
+	list = $("#model-list")
+	$("#page-title").text("Right Here, Right Now")
+	title = $("#page-header")
+	title.html("Finding Nearest Stop...")
+	list.fadeOut 'fast'
+	# create a marker at the query location
+	markerOptions
+			title: "Your Location"
+			position: position
+	get url, {lat: position.lat(), lon: position.lng(), predictions: true}, (result, list) ->
+		list.html("").show()
+		stop = result[0]
+		# the nearest stop (results sorted by distance)
+		# set the page title
+		title.fadeOut 'fast', -> title.html(stop.name).fadeIn()
+		# create a marker for the nearest stop
+		stopMarker stop
+		# display all the upcoming arrivals
+		for route in stop.routes when route.arrivals.length > 0
+			for trip in route.arrivals
+				list.append arrivalDisplay(trip).fadeIn()
 
 # event handler for clicking on a stop marker
 # returns an anonymous function to call when the stop is clicked on
 clickStopMarker = (stop) -> () ->
-    $("#page-header").text(stop.title)
-    loadStopSchedule stop.id
+	$("#page-header").text(stop.title)
+	loadStopSchedule stop.id
 
 clickCrimeMarker = (crime) -> () ->
-    console.log "Crime marker clicked #{crime}"
+	console.log "Crime marker clicked #{crime}"
 
 # TODO: implement this filter parameter! it needs to come from somewhere, only Ruby knows about it
 # load arrivals for the given stop and display in list
 loadStopSchedule = (stopId, filter = "") ->
-    url = "/stop/#{stopId}/schedule.json"
-    get url, {api: yes, r: filter}, (result, list) =>
-        stop = result["stop"]
-        # center the map and add a marker for the stop
-        mrkr = stopMarker(stop, null, clickStopMarker)
-        @googleMap.setCenter(mrkr.position)
-        # display each of the arrivals
-        if result["arrivals"].length == 0
-            list.append journeyDisplayError "No upcoming arrivals."
-        else
-            for trip in result["arrivals"]
-                list.append arrivalDisplay(trip).fadeIn()
+	url = "/stop/#{stopId}/schedule.json"
+	get url, {api: yes, r: filter}, (result, list) =>
+		stop = result["stop"]
+		# center the map and add a marker for the stop
+		mrkr = stopMarker(stop, null, clickStopMarker)
+		@googleMap.setCenter(mrkr.position)
+		# display each of the arrivals
+		if result["arrivals"].length == 0
+			list.append journeyDisplayError "No upcoming arrivals."
+		else
+			for trip in result["arrivals"]
+				list.append arrivalDisplay(trip).fadeIn()
 
 # loadNearbyStops(pos)
 window.loadStopSchedule = loadStopSchedule
@@ -184,23 +184,24 @@ window.loadStopSchedule = loadStopSchedule
 # ROUTE METHODS
 ###
 window.showNearbyRoutes = (query) ->
-    initializeMapOptions
-            clickHandler: nothing
-            geolocate:
-                enable: true
-                onSuccess: loadNearbyRoutes(query)
-                onFail: noLocation
+	initializeMapOptions
+			clickHandler: nothing
+			geolocate:
+				enable: true
+				onSuccess: loadNearbyRoutes(query)
+				onFail: noLocation
 loadNearbyRoutes = window.loadNearbyRoutes = (query) -> (position) ->
-    url = "/route.json"
-    params =
-        lat: position.coords.latitude
-        lon: position.coords.longitude
-    if query?
-        params["query"] = query
-    get url, params, (result, list) =>
-        for route in result
-            list.append li "row display route", routeLink(route.shortName, route.id), span "route description ellipsis", route.description
+	url = "/route.json"
+	params =
+		lat: position.coords.latitude
+		lon: position.coords.longitude
+	if query?
+		params["query"] = query
+	get url, params, (result, list) =>
+		for route in result
+			list.append li "row display route", routeLink(route.shortName, route.id), span "route description ellipsis", route.description
 
+#Loads the route on the map?
 loadRoute = window.loadRoute = (routeId) ->
     url = "/route/#{routeId}.json"
     get url, {}, (result, list) =>
@@ -281,37 +282,39 @@ loadCrimeStats = window.loadCrimeStats = (urls) ->
 #                console.log stats
 
 
+
+#Loads the actual buses on the route?
 loadRouteTrips = window.loadRouteTrips = (routeId) ->
-    url = "/route/#{routeId}/trips.json"
-    get url, {}, (result, list) =>
-        clearMarkerGroup nearbyMarkers
-        for trip in result.trips
-            status = trip.status
-            # put a list item and a marker for every trip
-            list.append li "row display trip", "#{status.vehicleId} arriving to #{status.nextStop} in #{Math.round(status.nextStopTimeOffset / 60)}m#{status.nextStopTimeOffset % 60}s"
-            markerOptions
-                title: status.vehicleId
-                position: latlng(status.position.lat, status.position.lon)
-                zIndex: 10000
-                icon: "<%= asset_path 'icons/buslocation.png' %>"
-                group: nearbyMarkers
+	url = "/route/#{routeId}/trips.json"
+	get url, {}, (result, list) =>
+		clearMarkerGroup nearbyMarkers
+		for trip in result.trips
+			status = trip.status
+			# put a list item and a marker for every trip
+			list.append li "row display trip", "#{status.vehicleId} arriving to #{status.nextStop} in #{Math.round(status.nextStopTimeOffset / 60)}m#{status.nextStopTimeOffset % 60}s"
+			markerOptions
+				title: status.vehicleId
+				position: latlng(status.position.lat, status.position.lon)
+				zIndex: 10000
+				icon: "<%= asset_path 'icons/buslocation.png' %>"
+				group: nearbyMarkers
 
 
 window.get = (url, params, callback) ->
-    list = $("#model-list")
-    list.fadeOut()
-    # what to do when the request succeeds
-    success = (result) =>
-        list.text("")
-        window.data = result
-        # wrap a bunch of jQuery around the callback to hide and show the list
-        callback(result, list)
-        list.fadeIn()
-    # if the get request fails then display an error message
-    # TODO: make the error message more useful.
-    failure = (event, request, settings, exception) ->
-        list.append(journeyDisplayError("API request failed.")).fadeIn()
-    $.get(url, params, success).error(failure)
+	list = $("#model-list")
+	list.fadeOut()
+	# what to do when the request succeeds
+	success = (result) =>
+		list.text("")
+		window.data = result
+		# wrap a bunch of jQuery around the callback to hide and show the list
+		callback(result, list)
+		list.fadeIn()
+	# if the get request fails then display an error message
+	# TODO: make the error message more useful.
+	failure = (event, request, settings, exception) ->
+		list.append(journeyDisplayError("API request failed.")).fadeIn()
+	$.get(url, params, success).error(failure)
 
 ###
 # JOURNEY METHODS
@@ -319,41 +322,42 @@ window.get = (url, params, callback) ->
 hereStrings = [" current location", "here", ""]
 # whitelist of search terms that return user's current location
 window.locationFound = (position) ->
-    $("input#currentPosition").val("#{position.coords.latitude},#{position.coords.longitude}")
-    alert "geocode success"
+	$("input#currentPosition").val("#{position.coords.latitude},#{position.coords.longitude}")
+	alert "geocode success"
 window.showJourney = (from, to, userPosition) ->
-    # initialize the map using loadJourney and no click functionality
-    @dataFunction = -> loadJourney(from, to)
-    # initializeMap(dataFunction, nothing)
-    initializeMapOptions
-            clickHandler: nothing
-            geolocate:
-                enable: true
-                onSuccess: loadJourney(from, to)
-                onFail: loadJourney(from, to)
+	# initialize the map using loadJourney and no click functionality
+	@dataFunction = -> loadJourney(from, to)
+	# initializeMap(dataFunction, nothing)
+	initializeMapOptions
+			clickHandler: nothing
+			geolocate:
+				enable: true
+				onSuccess: loadJourney(from, to)
+				onFail: loadJourney(from, to)
 
 # returns a geolocation callback that takes the user's position
 loadJourney = (from, to) -> (position) ->
-    $("#page-title").text("Directions")
-    #   title = $("#page-header")
-    #   title.html("Loading directions from #{from} to #{to}...").fadeIn()
-    # @dataFunction = -> loadJourney(from, to)(position) # TODO: set the dataFunction so we can refresh
+	$("#page-title").text("Directions")
+	#   title = $("#page-header")
+	#   title.html("Loading directions from #{from} to #{to}...").fadeIn()
+	# @dataFunction = -> loadJourney(from, to)(position) # TODO: set the dataFunction so we can refresh
 
-    if position?
-        userPosition = "#{position.coords.latitude},#{position.coords.longitude}"
-        # update the query strings if the user asks for current location
-        from = userPosition if from.toLowerCase() in hereStrings
-        to = userPosition if to.toLowerCase() in hereStrings
-    list = $("#model-list")
-    list.fadeOut -> list.html("<li id=\"loading_spinner\"></li>").fadeIn()
-    loadingSpinner()
-    getJourney(from, to)
+	if position?
+		userPosition = "#{position.coords.latitude},#{position.coords.longitude}"
+		# update the query strings if the user asks for current location
+		from = userPosition if from.toLowerCase() in hereStrings
+		to = userPosition if to.toLowerCase() in hereStrings
+	list = $("#model-list")
+	list.css opacity: '1.0'
+	list.fadeOut -> list.html("<li id=\"loading_spinner\"></li>").fadeIn()
+	loadingSpinner()
+	getJourney(from, to)
 
 # call the options.json API to calculate the possible routes
 window.getJourney = (from, to) ->
-    get "/options.json", {
-    from: if typeof(from) == "object" then from = from.toString() else from
-    to: if typeof(to) == "object" then to = to.toString() else to}, processJourneyResult
+	get "/options.json", {
+	from: if typeof(from) == "object" then from = from.toString() else from
+	to: if typeof(to) == "object" then to = to.toString() else to }, processJourneyResult
 
 processJourneyResult = (result, list) =>
     $("#page-title").text("Directions")
@@ -424,7 +428,7 @@ window.loadJourney = loadJourney
 
 # calls the dataFunction if it is set
 window.refreshData = () ->
-    @dataFunction() if @dataFunction?
+	@dataFunction() if @dataFunction?
 
 # THIS IS THE BIG ONE #
 #######################
@@ -434,43 +438,46 @@ window.refreshData = () ->
 # doGeolocate:bool : indicates whether geolocation should be performed after the map is set up
 #######################
 initializeMap = (dataFunction, clickHandler, doGeolocate = true) ->
-    initializeMapOptions
-            clickHandler: clickHandler
-            dataFunction: dataFunction
-            geolocate:
-                enable: doGeolocate
-                onSuccess: yesLocation
-                onFail: null
+	initializeMapOptions
+			clickHandler: clickHandler
+			dataFunction: dataFunction
+			geolocate:
+				enable: doGeolocate
+				onSuccess: yesLocation
+				onFail: null
 window.initializeMap = initializeMap
 # but really, it takes an options hash that lets you set all sorts of things!
 # { zoom:, mapType:, defaultPosition:, clickHandler:, dataFunction:, geolocate: { enable:, onSuccess:, onFail: } }
 initializeMapOptions = (options) ->
-    defaultPosition = defaultValue(options.defaultPosition, latlng(47.652709, -122.32149))
-    mapOptions =
-    zoom: defaultValue(options.zoom, 13)
-    center: defaultPosition
-    mapTypeId: defaultValue(options.mapType, google.maps.MapTypeId.ROADMAP)
-    disableDefaultUI: true
+	defaultPosition = defaultValue(options.defaultPosition, latlng(47.652709, -122.32149))
+	mapOptions =
+		zoom: defaultValue(options.zoom, 13)
+		center: defaultPosition
+		mapTypeId: defaultValue(options.mapType, google.maps.MapTypeId.ROADMAP)
+		disableDefaultUI: true
+		zoomControl: true
+		zoomControlOptions:
+			position: google.maps.ControlPosition.RIGHT_BOTTOM
 
-    @googleMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions)
-    # a marker showing where the user last clicked (generally the query point)
-    @clickMarker = markerOptions({title: "Seattle", position: defaultPosition})
-    # register click handler, wrapping it in a function to extract the latLng object
-    if options.clickHandler?
-        google.maps.event.addListener(@googleMap, 'click', (event) -> options.clickHandler event.latLng)
-    # final stuff: perform geolocation, load initial data
-    geolocate(options.geolocate.onSuccess, options.geolocate.onFail) if options.geolocate.enable
-    @dataFunction = options.dataFunction
-    refreshData()
-    @googleMap
+	@googleMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions)
+	# a marker showing where the user last clicked (generally the query point)
+	#@clickMarker = markerOptions({title: "Seattle", position: defaultPosition})
+	# register click handler, wrapping it in a function to extract the latLng object
+	if options.clickHandler?
+		google.maps.event.addListener(@googleMap, 'click', (event) -> options.clickHandler event.latLng)
+	# final stuff: perform geolocation, load initial data
+	geolocate(options.geolocate.onSuccess, options.geolocate.onFail) if options.geolocate.enable
+	@dataFunction = options.dataFunction
+	refreshData()
+	@googleMap
 # return the map object
 window.initializeMapOptions = initializeMapOptions
 
 window.setLayout = (type, option) ->
-    $("#model-list").removeClass("two-up").removeClass("three-up")
-    switch type
-        when 'grid'
-            $("#model-list li span.description").fadeOut ->
-                $("#model-list").addClass("#{option}-up")
-        when 'list'
-            $("#model-list li span.description").fadeIn()
+	$("#model-list").removeClass("two-up").removeClass("three-up")
+	switch type
+		when 'grid'
+			$("#model-list li span.description").fadeOut ->
+				$("#model-list").addClass("#{option}-up")
+		when 'list'
+			$("#model-list li span.description").fadeIn()

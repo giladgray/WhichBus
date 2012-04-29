@@ -42,6 +42,20 @@
 							<% end %>
 						</div>
 					</div>
+					<br/>
+					<% if user_signed_in? %>
+					<div class="row">
+						<!-- Take me home! button-->
+						<div class="eight columns centered">
+							<fieldset>
+								<h4 class="pacifico">Take me to:</h4>
+								<% ["home", "work", "airport", "lunch", "parties"].each do |fav| %>
+									<%= link_to fav, "/journey?from=here&to=seatac+airport", name: nil, class: "radius whichbus-green favorites button", style: "text-shadow:0px 0px 1px dimgrey; font-weight:normal;" %>
+								<% end %>
+							</fieldset>
+						</div>
+					</div>
+					<% end %>
 				</form>
 			</div>
 		</div>

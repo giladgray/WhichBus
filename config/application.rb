@@ -12,7 +12,21 @@ if defined?(Bundler)
 end
 
 module Whichbus
+
   class Application < Rails::Application
+    Disqus::defaults[:account] = 'whichbus'
+    Disqus::defaults[:developer] = true # if you want to test it on the localhost   
+    Disqus::defaults[:api_key] = "Z5nfJpCK8Cpj0vZSrfOXSTjFSlRxykUERl06691z5Cq8uh403th90yVM8GjbMBdi"
+    Disqus::defaults[:color] = 'green'
+    Disqus::defaults[:container_id] = "disqus_thread" 
+    Disqus::defaults[:show_powered_by] = false 
+    #Disqus::defaults[:avatar_size] =  48, # squared pixel size of avatars
+    #Disqus::defaults[:default_tab] = "popular", # default widget tab
+    Disqus::defaults[:hide_avatars] = true, # hide or show avatars
+    Disqus::defaults[:hide_mods] = true, # hide or show moderation   
+    Disqus::defaults[:orientation] = "vertical"
+
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -58,3 +72,4 @@ module Whichbus
     config.filter_parameters += [:password]
   end
 end
+
