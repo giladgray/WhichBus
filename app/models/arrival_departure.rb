@@ -150,12 +150,10 @@ class ArrivalDeparture < OneBusRecord
   end
 
   def as_json(options={})
-    time = Time.now
-
     result = super(options)
     result[:arrival] = display_arrival_time
-    result[:wait_minutes] = time_to_arrival(time) / 60
-    result[:wait_time] = time_to_arrival_in_words(time)
+    result[:wait_minutes] = time_to_arrival / 60
+    result[:wait_time] = time_to_arrival_in_words
     result[:status] = prediction_difference
     result[:description] = description
     result

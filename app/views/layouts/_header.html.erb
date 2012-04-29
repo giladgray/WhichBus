@@ -20,16 +20,18 @@
                 <g:plusone size="standard" data-annotation="inline" data-href="http://whichb.us"></g:plusone>
             </li>
             <li class="hide-on-phones">
-                <%= link_to "", "#", id: "hereButton", title: "Find the nearest stop", class: "location" %>
+                <%= link_to "", "#", :id=> "hereButton", :title=> "Find the nearest stop", class: "location" %>
             </li>
             <li class="hide-on-phones"><%= link_to "Feedback", "https://docs.google.com/spreadsheet/viewform?formkey=dEZZNWJraEFhNEhRUkhINGNMekVzVXc6MQ#gid=0", target: "_blank", title: "Give us a piece of your mind...route!" %></li>
-            <li class="hide-on-phones"><%= link_to "Sign up", "http://signup.whichb.us", target: "_blank", title: "Stay in touch!" %></li>
+            <li class="hide-on-phones"><%= link_to "Launchrock", "http://signup.whichb.us", target: "_blank", title: "Stay in touch!" %></li>
+            <li class="hide-on-phones"><%= render 'devise/menu/registration_items' %></li>
+            <li class="hide-on-phones"><%= render 'devise/menu/login_items' %></li>
             <li class="has-flyout show-on-phones">
                 <%= image_tag("icons/settingsgear.png", :size => "30x0", :style => "float: right; padding: 4px 12px") %>
                 <div class="flyout small right">
                     <ul>
-						<li><%= link_to "Here", "#", title: "Find the nearest stop" %></li>
-						<li><%= link_to "Sign up", "http://signup.whichb.us", target: "_blank" %></li>
+						<li><%= link_to "Here", "#", :title=> "Find the nearest stop" %></li>
+						<li><%= link_to "Sign up", "http://signup.whichb.us", :target=> "_blank" %></li>
                         <li><%= link_to "#" do %>
                                 <%= image_tag "icons/aboutwhichbus.png" %> About WhichBus
                             <% end %>

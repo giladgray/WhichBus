@@ -45,6 +45,8 @@ div.disqus-thread .dsq-item-trackback{
 	display: inline-block;
 }
 
+.expand { width: 100%;}
+
 /* the sidebar on the left! scrolls automatically, never makes the page scroll */
 div.left-sidebar {
 	width: 320px;
@@ -305,7 +307,7 @@ span.journey {
 }
 
 .route.button.small {
-	font-size: 22px;
+	font-size: 21px;
 	line-height: 36px;
 }
 .route.button.small.express {
@@ -625,7 +627,7 @@ input.directions {
 
 button.search {
 	padding: 10px 30px 5px 30px;
-	margin-top: 10px;
+	margin: 10px auto auto;
 }
 
 button.button.go {
@@ -701,13 +703,15 @@ h3.pacifico {
 	font-weight: normal;
 }
 
-form.directions {
+form.directions, form.new_user {
 	margin-top: -7px;
 	padding: 30px 0;
+	background: #f5f5f5;
 	border-radius: 10px;
 	border: 1px solid #dedede;
 	box-shadow: 1px 1px 15px 0 #d4d4d4;
 }
+<<<<<<< HEAD
 .social_buttons+ {
 	margin-top:5px;
 }
@@ -728,6 +732,11 @@ form.directions {
 	display:inline-block;
 }
 
+=======
+div.auth {
+	margin-top: 35px !important;
+}
+>>>>>>> f57482c9a60681bdcabc966182c681e782b8417c
 
 /* MOBILE CSS */
 @media only screen and (max-width: 767px) {
@@ -775,7 +784,7 @@ form.directions {
 		width: 75%;
 	}
 
-	form.directions {
+	form.directions, form.new_user, div.auth {
 		padding: 15px 0;
 		width: 90%;
 		margin: auto;
@@ -785,12 +794,14 @@ form.directions {
 		display: block;
 	}
 
-	.input-text.search-box {
+	label { margin-bottom: 0 !important;}
+	input.input-text.search-box, input.input-text.user, label {
 		display: block;
 		width: 80%;
 		margin: auto;
 		margin-bottom: 10px
 	}
+
 	button.button.search {
 		margin: 5px auto;
 		display: block;
@@ -810,4 +821,7 @@ form.directions {
 		max-width: 100%;
 	}
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> f57482c9a60681bdcabc966182c681e782b8417c
