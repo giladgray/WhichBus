@@ -45,8 +45,7 @@ Whichbus::Application.configure do
   # config.logger = SyslogLogger.new
 
   # Use a different cache store in production
-  #require 'active_support/cache/dalli_store23'
-  config.cache_store = :dalli_store
+  config.cache_store = :null_store # :dalli_store
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
