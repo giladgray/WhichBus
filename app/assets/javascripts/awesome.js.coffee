@@ -18,9 +18,9 @@ $(document).ready ->
 		if $(this).html().indexOf('Route') != -1
 			$(this).html 'Show Comments'
 			$('#model-list').animate opacity: '1.0', 200 
-			$('.disqus_thread').animate opacity: '0.0', 200
+			$('#comments').animate opacity: '0.0', 200
 		else 
 			$(this).html('Show Route Info')
 			$('#model-list').animate opacity: '0.0', 200
-			$('.disqus_thread').animate opacity: '1.0', 200
+			$('#comments').animate opacity: '1.0', 200
 
