@@ -317,6 +317,13 @@ processJourneyResult = (result, list) =>
 	# iterate through trips, adding journey row for each one
 	if result["trips"].length == 0
 		list.append journeyDisplayError "No connecting buses found."
+		# TODO: Replace with an API call.
+		deals = [
+			{name:'Yellow Taxi', phone: '(206) 622-6500', type: 'taxi'},
+			{name: 'Orange Cab', phone: '(206) 522-8800', type: 'taxi'}
+		]
+		for deal in deals
+			list.append journeyDisplayDeal(deal).fadeIn()
 	else
 		for trip in result["trips"]
 			list.append journeyDisplay(trip).fadeIn()
