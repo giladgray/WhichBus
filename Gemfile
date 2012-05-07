@@ -8,6 +8,7 @@ group :production do
  gem 'pg' 
  gem 'thin'
  gem 'dalli'
+ gem 'newrelic_rpm'
 end
 group :development, :test do
   gem 'sqlite3'
